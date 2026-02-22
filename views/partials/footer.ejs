@@ -1,0 +1,80 @@
+  <!-- ══ FOOTER ══ -->
+  <footer class="ll-footer">
+    <div class="ll-footer-inner">
+
+      <div class="ll-footer-brand">
+        <div class="ll-footer-logo">Lizzyland</div>
+        <div class="ll-footer-tagline">Where Pipe-dreams Come True.</div>
+      </div>
+
+      <nav class="ll-footer-nav">
+        <div class="ll-footer-nav-col">
+          <div class="ll-footer-nav-heading">Explore</div>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop">Shop</a></li>
+            <li><a href="/space">Your Internet Space</a></li>
+          </ul>
+        </div>
+        <div class="ll-footer-nav-col">
+          <div class="ll-footer-nav-heading">Shop</div>
+          <ul>
+            <li><a href="/shop?cat=shirts">Shirts</a></li>
+            <li><a href="/shop?cat=hoodies">Hoodies</a></li>
+            <li><a href="/shop?cat=towels">Towels</a></li>
+            <li><a href="/shop?cat=accessories">Accessories</a></li>
+          </ul>
+        </div>
+        <div class="ll-footer-nav-col">
+          <div class="ll-footer-nav-heading">Legal</div>
+          <ul>
+            <li><a href="/legal/terms">Terms of Service</a></li>
+            <li><a href="/legal/privacy">Privacy Policy</a></li>
+            <li><a href="/legal/shipping">Shipping & Returns</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="ll-footer-socials">
+        <a href="#" title="Instagram" aria-label="Instagram">
+          <img src="/images/socials/instagram-icon.png" alt="Instagram">
+        </a>
+        <a href="#" title="TikTok" aria-label="TikTok">
+          <img src="/images/socials/tiktok-icon.png" alt="TikTok">
+        </a>
+        <a href="#" title="Facebook" aria-label="Facebook">
+          <img src="/images/socials/facebook-icon.png" alt="Facebook">
+        </a>
+        <a href="#" title="YouTube" aria-label="YouTube">
+          <img src="/images/socials/youtube-icon.png" alt="YouTube">
+        </a>
+        <a href="#" title="X / Twitter" aria-label="X">
+          <img src="/images/socials/x-icon.png" alt="X">
+        </a>
+      </div>
+
+    </div>
+
+    <div class="ll-footer-copy">
+      <span>© 2026 Lizzyland</span>
+      <span class="ll-footer-dot">·</span>
+      <a href="mailto:hello@lizzyland.xyz">hello@lizzyland.xyz</a>
+      <span class="ll-footer-dot">·</span>
+      <span>Made with ☀️ from South Africa</span>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    var toggle = document.getElementById('navToggle');
+    var nav    = document.getElementById('navWrap');
+    if (toggle && nav) {
+      toggle.addEventListener('click', function() {
+        nav.classList.toggle('open');
+        toggle.textContent = nav.classList.contains('open') ? '✕' : '☰';
+      });
+    }
+  </script>
+
+</body>
+</html>

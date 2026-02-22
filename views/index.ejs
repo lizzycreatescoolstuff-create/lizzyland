@@ -1,0 +1,92 @@
+<%
+  var pageTitle   = 'Lizzyland — Where Pipe-dreams Come True';
+  var pageDesc    = 'Lizzyland — your instant internet space, tropical lifestyle store, and pipe-dream launcher.';
+  var currentPage = 'home';
+%>
+<%- include('partials/header') %>
+
+  <!-- ══ HERO — Beach Banner ══ -->
+  <section class="ll-hero">
+    <img
+      src="/images/beach-banner.jpg"
+      alt="Lizzyland tropical beach"
+      class="ll-hero-img"
+      onerror="this.style.display='none'"
+    >
+    <div class="ll-hero-overlay"></div>
+    <div class="ll-hero-content">
+      <div class="ll-hero-eyebrow">✦ Welcome to ✦</div>
+      <h1 class="ll-hero-title">Lizzyland</h1>
+      <p class="ll-hero-tagline">Where Pipe-dreams Come True.</p>
+    </div>
+  </section>
+
+  <!-- ══ TWO PATHS — The Doors ══ -->
+  <section class="ll-paths">
+
+    <!-- Door 1: Your Internet Space -->
+    <a href="/space" class="ll-path-card path-space">
+      <div class="ll-path-door-img">
+        <img src="/images/door-space.jpg" alt="Your Internet Space" onerror="this.style.display='none'">
+      </div>
+      <div class="ll-path-content">
+        <div class="ll-path-label">Done-for-you digital</div>
+        <h2 class="ll-path-title">Your Internet Space</h2>
+        <p class="ll-path-desc">
+          <!-- LIZZY — your tagline here -->
+          [Your words go here — tell them what you do and why it's different]
+        </p>
+        <span class="ll-path-cta">Get Started →</span>
+      </div>
+    </a>
+
+    <!-- Door 2: The Shop -->
+    <a href="/shop" class="ll-path-card path-shop">
+      <div class="ll-path-door-img">
+        <img src="/images/door-shop.jpg" alt="The Shop" onerror="this.style.display='none'">
+      </div>
+      <div class="ll-path-content">
+        <div class="ll-path-label">Tropical lifestyle store</div>
+        <h2 class="ll-path-title">The Shop</h2>
+        <p class="ll-path-desc">
+          <!-- LIZZY — your tagline here -->
+          [Your words go here — sell the vibe of the shop]
+        </p>
+        <span class="ll-path-cta">Shop Now →</span>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ══ ABOUT LIZZY ══ -->
+  <section class="ll-about">
+    <div class="ll-about-inner">
+
+      <div class="ll-about-portrait">
+        <img src="/images/lizzy-profile-lizzyland.jpg" alt="Lizzy Sims">
+      </div>
+
+      <div class="ll-about-text">
+        <span class="ll-about-eyebrow">Hey, I'm Lizzy 👋</span>
+        <h2 class="ll-about-title">Multi-faceted human, pipe-dream enabler.</h2>
+        <p class="ll-about-body">
+          <!-- LIZZY — write your bio here -->
+          [Tell your story here — who you are, what you believe in, why Lizzyland exists]
+        </p>
+
+        <div class="ll-about-tags">
+          <span class="ll-about-tag">🌊 Beach Life</span>
+          <span class="ll-about-tag">💻 Web Wizardry</span>
+          <span class="ll-about-tag">🐰 Bunny Mum</span>
+          <span class="ll-about-tag">🎨 Fine Art</span>
+          <span class="ll-about-tag">✨ Pipe-dream Enabler</span>
+          <span class="ll-about-tag">🌴 Made in South Africa</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ll-divider">✦ · ✦ · ✦</div>
+
+<%- include('partials/footer') %>
