@@ -1,0 +1,336 @@
+<%
+  var pageTitle   = 'Your Internet Space — Lizzyland';
+  var pageDesc    = 'Done-for-you website setup. I install it, set it up, host it — you control it in a way that actually makes sense.';
+  var currentPage = 'space';
+%>
+<%- include('partials/header') %>
+
+  <!-- ══ HERO ══ -->
+  <section class="ll-hero">
+    <img
+      src="/images/space-banner.jpg"
+      alt="Your Internet Space — Lizzyland"
+      class="ll-hero-img"
+      onerror="this.style.display='none'"
+    >
+    <div class="ll-space-hero-overlay"></div>
+    <div class="ll-hero-content">
+      <div class="ll-hero-eyebrow">✦ Done-for-you digital ✦</div>
+      <h1 class="ll-hero-title">Your Internet Space</h1>
+      <p class="ll-hero-tagline">I've done the hard bit so you don't have to.</p>
+    </div>
+  </section>
+
+  <!-- ══ INTRO ══ -->
+  <section class="ll-space-intro">
+    <div class="ll-space-intro-inner">
+      <span class="ll-about-eyebrow">What is this, exactly? 🌐</span>
+      <h2 class="ll-about-title">Your corner of the internet. Ready today.</h2>
+      <p class="ll-space-lead">
+        <!-- ✏️ LIZZY — write your pitch here. Something like:
+             "No tech headaches. No confusing dashboards. No figuring out hosting.
+              I install it, set it up, and host it on my infrastructure —
+              you get a beautiful site you can actually control." -->
+        [Your words here — explain what you do and why it's magical]
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <section class="ll-steps">
+    <div class="ll-steps-inner">
+      <h2 class="ll-section-heading">How it works</h2>
+      <p class="ll-section-sub">Three steps. That's it.</p>
+
+      <div class="ll-steps-grid">
+
+        <div class="ll-step-card">
+          <div class="ll-step-number">01</div>
+          <div class="ll-step-icon">💬</div>
+          <h3 class="ll-step-title">Tell me what you need</h3>
+          <p class="ll-step-desc">
+            <!-- ✏️ LIZZY — fill in -->
+            [Short description of step 1]
+          </p>
+        </div>
+
+        <div class="ll-step-card">
+          <div class="ll-step-number">02</div>
+          <div class="ll-step-icon">⚡</div>
+          <h3 class="ll-step-title">I build and launch it</h3>
+          <p class="ll-step-desc">
+            <!-- ✏️ LIZZY — fill in -->
+            [Short description of step 2]
+          </p>
+        </div>
+
+        <div class="ll-step-card">
+          <div class="ll-step-number">03</div>
+          <div class="ll-step-icon">🌴</div>
+          <h3 class="ll-step-title">You take the wheel</h3>
+          <p class="ll-step-desc">
+            <!-- ✏️ LIZZY — fill in -->
+            [Short description of step 3]
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PRICING ══ -->
+  <section class="ll-pricing">
+    <div class="ll-pricing-inner">
+      <h2 class="ll-section-heading">Simple pricing</h2>
+      <p class="ll-section-sub">No surprises. No fine print.</p>
+
+      <div class="ll-pricing-grid">
+
+        <div class="ll-pricing-card ll-pricing-featured">
+          <div class="ll-pricing-badge">Most Popular</div>
+          <div class="ll-pricing-icon">🚀</div>
+          <h3 class="ll-pricing-name">Get Started</h3>
+          <div class="ll-pricing-price">
+            <span class="ll-price-amount">$149</span>
+            <span class="ll-price-note">one-time setup</span>
+          </div>
+          <ul class="ll-pricing-features">
+            <li>✅ Full site setup &amp; install</li>
+            <li>✅ 12 months free hosting included</li>
+            <li>✅ Your own domain connected</li>
+            <li>✅ You control your content</li>
+            <li>✅ No tech knowledge required</li>
+          </ul>
+          <a href="#contact" class="ll-pricing-cta">Let's do this →</a>
+        </div>
+
+        <div class="ll-pricing-card">
+          <div class="ll-pricing-icon">🌊</div>
+          <h3 class="ll-pricing-name">Keep it running</h3>
+          <div class="ll-pricing-price">
+            <span class="ll-price-amount">$9</span>
+            <span class="ll-price-note">/ month from month 13</span>
+          </div>
+          <ul class="ll-pricing-features">
+            <li>✅ Continued hosting</li>
+            <li>✅ Updates &amp; maintenance</li>
+            <li>✅ Cancel any time</li>
+            <li>☕ Less than a coffee a week</li>
+          </ul>
+          <a href="#contact" class="ll-pricing-cta">Get started first →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT / GET STARTED ══ -->
+  <section class="ll-contact" id="contact">
+    <div class="ll-contact-inner">
+      <h2 class="ll-section-heading">Ready to get your space?</h2>
+      <p class="ll-section-sub">
+        <!-- ✏️ LIZZY — add your preferred contact method / form / booking link -->
+        [Add your contact method here — email, form, booking link, WhatsApp, whatever works for you]
+      </p>
+      <a href="mailto:hello@lizzyland.xyz" class="ll-cta-btn">
+        📬 Email Lizzy
+      </a>
+    </div>
+  </section>
+
+  <div class="ll-divider">✦ · ✦ · ✦</div>
+
+<%- include('partials/footer') %>
+
+<style>
+  /* ── Space page specific styles ── */
+  .ll-space-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(80,30,20,0.78) 0%,
+      rgba(140,60,30,0.35) 55%,
+      rgba(200,149,42,0.08) 100%
+    );
+  }
+
+  .ll-space-intro {
+    background: var(--sand);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .ll-space-intro-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .ll-space-lead {
+    font-size: 1.15rem;
+    color: var(--text-soft);
+    line-height: 1.8;
+    margin-top: 1rem;
+  }
+
+  /* Steps */
+  .ll-steps {
+    background: var(--white);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .ll-steps-inner { max-width: 1100px; margin: 0 auto; }
+  .ll-section-heading {
+    font-family: 'Oleo Script', cursive;
+    font-size: 2rem;
+    color: var(--ocean);
+    margin-bottom: 0.25rem;
+  }
+  .ll-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  .ll-step-card {
+    background: var(--sand);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    position: relative;
+    border-top: 4px solid var(--gold);
+  }
+  .ll-step-number {
+    position: absolute;
+    top: -1px;
+    right: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0.25;
+    line-height: 1;
+  }
+  .ll-step-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .ll-step-title {
+    font-family: 'Oleo Script', cursive;
+    font-size: 1.2rem;
+    color: var(--ocean);
+    margin: 0 0 0.5rem;
+  }
+  .ll-step-desc { color: var(--text-soft); font-size: 0.95rem; line-height: 1.6; }
+
+  /* Pricing */
+  .ll-pricing {
+    background: var(--ocean);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .ll-pricing .ll-section-heading { color: var(--gold); }
+  .ll-pricing .ll-section-sub { color: rgba(255,255,255,0.7); }
+  .ll-pricing-inner { max-width: 900px; margin: 0 auto; }
+  .ll-pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  .ll-pricing-card {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: left;
+    position: relative;
+    color: var(--white);
+    transition: transform 0.2s;
+  }
+  .ll-pricing-card:hover { transform: translateY(-4px); }
+  .ll-pricing-featured {
+    border-color: var(--gold);
+    background: rgba(200,149,42,0.12);
+  }
+  .ll-pricing-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .ll-pricing-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .ll-pricing-name {
+    font-family: 'Oleo Script', cursive;
+    font-size: 1.4rem;
+    margin: 0 0 1rem;
+    color: var(--gold-light, #e8b84b);
+  }
+  .ll-pricing-price { margin-bottom: 1.5rem; }
+  .ll-price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .ll-price-note {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.2rem;
+  }
+  .ll-pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .ll-pricing-cta {
+    display: block;
+    background: var(--gold);
+    color: #fff;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .ll-pricing-cta:hover { background: var(--gold-light, #e8b84b); }
+
+  /* Contact */
+  .ll-contact {
+    background: var(--sand);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .ll-contact-inner { max-width: 600px; margin: 0 auto; }
+  .ll-cta-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--ocean);
+    color: var(--white);
+    padding: 0.9rem 2.5rem;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .ll-cta-btn:hover {
+    background: var(--ocean-dark, #0f5c52);
+    transform: translateY(-2px);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ll-steps-grid { grid-template-columns: 1fr; }
+    .ll-pricing-grid { grid-template-columns: 1fr; }
+  }
+</style>

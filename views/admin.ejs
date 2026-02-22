@@ -1,0 +1,970 @@
+<%
+  var pageTitle   = 'Admin Dashboard — Lizzyland';
+  var currentPage = 'admin';
+%>
+<%- include('partials/header') %>
+
+<style>
+  /* ═══════════════════════════════════════
+     LIZZYLAND ADMIN — Tropical Dark Theme
+  ═══════════════════════════════════════ */
+  body { background: #0d1a17; }
+
+  .ll-admin-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .ll-admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .ll-admin-title {
+    font-family: 'Oleo Script', cursive;
+    font-size: 2rem;
+    color: var(--gold, #c8952a);
+    margin: 0;
+  }
+
+  .ll-admin-meta {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .ll-maintenance-btn {
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 2px solid;
+    transition: all 0.2s;
+    background: none;
+  }
+
+  /* ── Tab bar ── */
+  .ll-admin-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid rgba(200,149,42,0.3);
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0;
+  }
+
+  .ll-admin-tab {
+    padding: 0.75rem 1.4rem;
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.5);
+    border: none;
+    border-radius: 8px 8px 0 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  .ll-admin-tab:hover {
+    background: rgba(200,149,42,0.1);
+    color: var(--gold, #c8952a);
+  }
+
+  .ll-admin-tab.active {
+    background: rgba(200,149,42,0.15);
+    color: var(--gold, #c8952a);
+    border-bottom: 2px solid var(--gold, #c8952a);
+  }
+
+  /* ── Tab content ── */
+  .ll-tab-content { display: none; }
+  .ll-tab-content.active { display: block; }
+
+  /* ── Stat cards ── */
+  .ll-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .ll-stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,149,42,0.25);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .ll-stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold, #c8952a);
+  }
+
+  .ll-stat-lbl {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.25rem;
+  }
+
+  .ll-stat-sub {
+    font-size: 0.7rem;
+    color: rgba(200,149,42,0.6);
+    margin-top: 0.15rem;
+  }
+
+  /* ── Section box ── */
+  .ll-admin-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,149,42,0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .ll-admin-box-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold, #c8952a);
+    font-size: 1rem;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(200,149,42,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ── Tables ── */
+  .ll-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .ll-admin-table th {
+    color: rgba(200,149,42,0.8);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid rgba(200,149,42,0.2);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .ll-admin-table td {
+    padding: 0.7rem 0.75rem;
+    color: rgba(255,255,255,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    vertical-align: middle;
+  }
+
+  .ll-admin-table tr:hover td {
+    background: rgba(200,149,42,0.05);
+  }
+
+  /* ── Buttons ── */
+  .ll-btn {
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .ll-btn-gold   { background: var(--gold, #c8952a); color: #fff; }
+  .ll-btn-teal   { background: var(--ocean, #1a8a7a); color: #fff; }
+  .ll-btn-danger { background: rgba(220,60,60,0.8); color: #fff; }
+  .ll-btn-ghost  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+
+  .ll-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .ll-btn-primary {
+    background: var(--gold, #c8952a);
+    color: #fff;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  /* ── Forms ── */
+  .ll-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .ll-form-group { margin-bottom: 1rem; }
+
+  .ll-form-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(200,149,42,0.8);
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .ll-form-group input,
+  .ll-form-group select,
+  .ll-form-group textarea {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(200,149,42,0.3);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    box-sizing: border-box;
+  }
+
+  .ll-form-group input:focus,
+  .ll-form-group select:focus,
+  .ll-form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold, #c8952a);
+    background: rgba(200,149,42,0.08);
+  }
+
+  .ll-form-group select option { background: #1a2f28; }
+
+  /* ── Badge ── */
+  .ll-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .ll-badge-green  { background: rgba(65,220,20,0.15);  color: #41dc14; }
+  .ll-badge-gold   { background: rgba(200,149,42,0.2);  color: #c8952a; }
+  .ll-badge-blue   { background: rgba(26,138,122,0.2);  color: #1a8a7a; }
+  .ll-badge-red    { background: rgba(220,60,60,0.15);  color: #dc3c3c; }
+
+  /* ── Search ── */
+  .ll-search {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.6rem 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,149,42,0.25);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Modal ── */
+  .ll-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0,0,0,0.85);
+    overflow-y: auto;
+    padding: 2rem 1rem;
+  }
+
+  .ll-modal-box {
+    background: #0d2420;
+    border: 1px solid rgba(200,149,42,0.35);
+    border-radius: 14px;
+    padding: 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .ll-modal-title {
+    font-family: 'Oleo Script', cursive;
+    font-size: 1.5rem;
+    color: var(--gold, #c8952a);
+    margin: 0 0 1.5rem;
+  }
+
+  .ll-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .ll-modal-close:hover { color: var(--gold, #c8952a); }
+
+  /* ── Grid layout helpers ── */
+  .ll-2col { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+  .ll-3col { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+
+  /* ── Product image thumb ── */
+  .ll-prod-thumb {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(200,149,42,0.2);
+  }
+
+  /* ── Activity feed ── */
+  .ll-activity-item {
+    padding: 0.65rem 0.9rem;
+    background: rgba(0,0,0,0.25);
+    border-left: 3px solid var(--gold, #c8952a);
+    margin-bottom: 0.4rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .ll-activity-time {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+  }
+
+  @media (max-width: 900px) {
+    .ll-stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .ll-2col, .ll-3col { grid-template-columns: 1fr; }
+    .ll-form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .ll-stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .ll-admin-tabs { gap: 2px; }
+    .ll-admin-tab { padding: 0.6rem 0.9rem; font-size: 0.8rem; }
+  }
+</style>
+
+<div class="ll-admin-wrap">
+
+  <!-- Top bar -->
+  <div class="ll-admin-topbar">
+    <div>
+      <h1 class="ll-admin-title">🌴 Lizzyland Admin</h1>
+      <div class="ll-admin-meta">Logged in as <%= (user && user.username) ? user.username : 'Admin' %> · <a href="/" style="color:rgba(200,149,42,0.7);">View site →</a></div>
+    </div>
+    <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+      <button id="maintenanceBtn" onclick="toggleMaintenance()"
+        class="ll-maintenance-btn"
+        style="color:#41dc14;border-color:rgba(65,220,20,0.4);background:rgba(65,220,20,0.08);">
+        🟢 Site Live
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Tab bar ── -->
+  <div class="ll-admin-tabs">
+    <button class="ll-admin-tab active" onclick="switchTab('products')"   id="tab-products">🛍️ Products</button>
+    <button class="ll-admin-tab"        onclick="switchTab('orders')"     id="tab-orders">📦 Orders</button>
+    <button class="ll-admin-tab"        onclick="switchTab('customers')"  id="tab-customers">👥 Customers</button>
+    <button class="ll-admin-tab"        onclick="switchTab('analytics')"  id="tab-analytics">📊 Analytics</button>
+    <button class="ll-admin-tab"        onclick="switchTab('vouchers')"   id="tab-vouchers">🎟️ Vouchers</button>
+    <button class="ll-admin-tab"        onclick="switchTab('mail')"       id="tab-mail">📬 Mail</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       TAB 1: PRODUCTS
+  ══════════════════════════════════════════════ -->
+  <div id="tab-products" class="ll-tab-content active">
+
+    <div class="ll-admin-box">
+      <div class="ll-admin-box-title">
+        <span>🛍️ Manual Products <small style="font-size:0.75rem;opacity:0.6;">(Internet Space packages, eBooks, digital products)</small></span>
+        <button class="ll-btn-primary" onclick="openModal('addProductModal')">+ Add Product</button>
+      </div>
+
+      <input class="ll-search" placeholder="🔍 Search products..." oninput="filterTable('productsTable', this.value)">
+
+      <div style="overflow-x:auto;">
+        <table class="ll-admin-table" id="productsTable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (typeof manualProducts !== 'undefined' && manualProducts && manualProducts.length > 0) { %>
+              <% manualProducts.forEach(function(p) { %>
+              <tr data-search="<%= (p.name||'').toLowerCase() %>">
+                <td>
+                  <% if (p.image_url) { %>
+                    <img src="<%= p.image_url %>" class="ll-prod-thumb" alt="">
+                  <% } else { %>
+                    <div style="width:46px;height:46px;background:rgba(200,149,42,0.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🌴</div>
+                  <% } %>
+                </td>
+                <td><strong style="color:#fff;"><%= p.name %></strong><br><small style="opacity:0.5;"><%= p.slug || '' %></small></td>
+                <td><span class="ll-badge ll-badge-blue"><%= p.category || '—' %></span></td>
+                <td style="color:var(--gold,#c8952a);font-weight:700;">$<%= p.price ? Number(p.price).toFixed(2) : '—' %></td>
+                <td><span class="ll-badge <%= p.status === 'published' ? 'll-badge-green' : 'll-badge-gold' %>"><%= p.status || 'draft' %></span></td>
+                <td>
+                  <button class="ll-btn ll-btn-ghost" onclick="editProduct(<%= p.id %>)">✏️</button>
+                  <button class="ll-btn ll-btn-danger" onclick="deleteProduct(<%= p.id %>, '<%= (p.name||'').replace(/'/g,'') %>')">🗑️</button>
+                </td>
+              </tr>
+              <% }); %>
+            <% } else { %>
+              <tr><td colspan="6" style="text-align:center;opacity:0.4;padding:2rem;">No manual products yet — add your first one above!</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Printful products info box -->
+    <div class="ll-admin-box">
+      <div class="ll-admin-box-title">
+        <span>🖨️ Printful Products <small style="opacity:0.6;">(managed in Printful dashboard)</small></span>
+        <a href="https://www.printful.com/dashboard/sync?store=17754042" target="_blank" class="ll-btn ll-btn-teal">Open Printful →</a>
+      </div>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin:0;">
+        Printful products (clothing, towels, accessories etc.) are managed directly in your Printful dashboard.
+        The shop page fetches them automatically every 10 minutes. To add, edit or delete Printful products, use the link above.
+      </p>
+    </div>
+
+  </div><!-- /products tab -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 2: ORDERS
+  ══════════════════════════════════════════════ -->
+  <div id="tab-orders" class="ll-tab-content">
+
+    <!-- Stats row -->
+    <div class="ll-stat-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="ll-stat-card">
+        <div class="ll-stat-val"><%= (typeof orderStats !== 'undefined' && orderStats && orderStats.total) ? orderStats.total : 0 %></div>
+        <div class="ll-stat-lbl">Total Orders</div>
+      </div>
+      <div class="ll-stat-card">
+        <div class="ll-stat-val">$<%= (typeof orderStats !== 'undefined' && orderStats && orderStats.revenue) ? Number(orderStats.revenue).toFixed(0) : '0' %></div>
+        <div class="ll-stat-lbl">Total Revenue</div>
+      </div>
+      <div class="ll-stat-card">
+        <div class="ll-stat-val"><%= (typeof orderStats !== 'undefined' && orderStats && orderStats.pending) ? orderStats.pending : 0 %></div>
+        <div class="ll-stat-lbl">Pending</div>
+      </div>
+      <div class="ll-stat-card">
+        <div class="ll-stat-val"><%= (typeof orderStats !== 'undefined' && orderStats && orderStats.thisMonth) ? orderStats.thisMonth : 0 %></div>
+        <div class="ll-stat-lbl">This Month</div>
+      </div>
+    </div>
+
+    <div class="ll-admin-box">
+      <div class="ll-admin-box-title">
+        <span>📦 Recent Orders</span>
+      </div>
+      <input class="ll-search" placeholder="🔍 Search orders..." oninput="filterTable('ordersTable', this.value)">
+      <div style="overflow-x:auto;">
+        <table class="ll-admin-table" id="ordersTable">
+          <thead>
+            <tr><th>#</th><th>Customer</th><th>Product</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <% if (typeof orders !== 'undefined' && orders && orders.length > 0) { %>
+              <% orders.forEach(function(o) { %>
+              <tr data-search="<%= ((o.customer_name||'') + ' ' + (o.product_name||'')).toLowerCase() %>">
+                <td style="opacity:0.5;">#<%= o.id %></td>
+                <td><%= o.customer_name || o.customer_email || '—' %></td>
+                <td><%= o.product_name || '—' %></td>
+                <td style="color:var(--gold,#c8952a);font-weight:700;">$<%= o.amount ? Number(o.amount).toFixed(2) : '—' %></td>
+                <td><span class="ll-badge <%= o.status === 'paid' ? 'll-badge-green' : o.status === 'pending' ? 'll-badge-gold' : 'll-badge-red' %>"><%= o.status || '—' %></span></td>
+                <td style="opacity:0.6;font-size:0.8rem;"><%= o.created_at ? new Date(o.created_at).toLocaleDateString() : '—' %></td>
+                <td><button class="ll-btn ll-btn-ghost" onclick="viewOrder(<%= o.id %>)">👁️ View</button></td>
+              </tr>
+              <% }); %>
+            <% } else { %>
+              <tr><td colspan="7" style="text-align:center;opacity:0.4;padding:2rem;">No orders yet — they'll appear here when customers buy! 🛍️</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /orders tab -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 3: CUSTOMERS
+  ══════════════════════════════════════════════ -->
+  <div id="tab-customers" class="ll-tab-content">
+
+    <div class="ll-admin-box">
+      <div class="ll-admin-box-title">
+        <span>👥 Customers</span>
+        <span style="font-size:0.8rem;opacity:0.5;"><%= (typeof customers !== 'undefined' && customers) ? customers.length : 0 %> total</span>
+      </div>
+      <input class="ll-search" placeholder="🔍 Search customers..." oninput="filterTable('customersTable', this.value)">
+      <div style="overflow-x:auto;">
+        <table class="ll-admin-table" id="customersTable">
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Orders</th><th>Spent</th><th>Joined</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <% if (typeof customers !== 'undefined' && customers && customers.length > 0) { %>
+              <% customers.forEach(function(c) { %>
+              <tr data-search="<%= ((c.name||'') + ' ' + (c.email||'')).toLowerCase() %>">
+                <td><strong style="color:#fff;"><%= c.name || c.username || '—' %></strong></td>
+                <td style="opacity:0.7;"><%= c.email || '—' %></td>
+                <td style="text-align:center;"><%= c.order_count || 0 %></td>
+                <td style="color:var(--gold,#c8952a);font-weight:700;">$<%= c.total_spent ? Number(c.total_spent).toFixed(2) : '0.00' %></td>
+                <td style="opacity:0.5;font-size:0.8rem;"><%= c.created_at ? new Date(c.created_at).toLocaleDateString() : '—' %></td>
+                <td>
+                  <button class="ll-btn ll-btn-ghost" onclick="emailCustomer('<%= c.email || '' %>')">📧</button>
+                  <% if (c.is_admin) { %>
+                    <span class="ll-badge ll-badge-gold">Admin</span>
+                  <% } %>
+                  <% if (typeof c.is_contributor !== 'undefined') { %>
+                  <button class="ll-btn <%= c.is_contributor ? 'll-btn-danger' : 'll-btn-teal' %>" onclick="toggleContributor(<%= c.id %>, <%= c.is_contributor ? 'true' : 'false' %>)" style="font-size:0.75rem;padding:0.3rem 0.7rem;">
+                    <%= c.is_contributor ? 'Revoke' : 'Contributor' %>
+                  </button>
+                  <% } %>
+                </td>
+              </tr>
+              <% }); %>
+            <% } else { %>
+              <tr><td colspan="6" style="text-align:center;opacity:0.4;padding:2rem;">No customers yet — they'll appear here when people sign up or order.</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /customers tab -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 4: ANALYTICS
+  ══════════════════════════════════════════════ -->
+  <div id="tab-analytics" class="ll-tab-content">
+
+    <!-- Stat cards -->
+    <div class="ll-stat-grid">
+      <div class="ll-stat-card">
+        <div class="ll-stat-val" style="color:#41dc14;"><%= (typeof todayStats !== 'undefined' && todayStats && todayStats.todayVisitors) ? todayStats.todayVisitors.toLocaleString() : '0' %></div>
+        <div class="ll-stat-lbl">Today's Visitors</div>
+        <div class="ll-stat-sub">unique</div>
+      </div>
+      <div class="ll-stat-card">
+        <div class="ll-stat-val" style="color:#41dc14;"><%= (typeof todayStats !== 'undefined' && todayStats && todayStats.todayPageViews) ? todayStats.todayPageViews.toLocaleString() : '0' %></div>
+        <div class="ll-stat-lbl">Today's Views</div>
+        <div class="ll-stat-sub">page views</div>
+      </div>
+      <div class="ll-stat-card">
+        <div class="ll-stat-val"><%= (typeof weeklyStats !== 'undefined' && weeklyStats && weeklyStats.weeklyVisitors) ? weeklyStats.weeklyVisitors.toLocaleString() : '0' %></div>
+        <div class="ll-stat-lbl">This Week</div>
+        <div class="ll-stat-sub">visitors</div>
+      </div>
+      <div class="ll-stat-card">
+        <div class="ll-stat-val"><%= (typeof monthlyStats !== 'undefined' && monthlyStats && monthlyStats.monthlyVisitors) ? monthlyStats.monthlyVisitors.toLocaleString() : '0' %></div>
+        <div class="ll-stat-lbl">This Month</div>
+        <div class="ll-stat-sub">visitors</div>
+      </div>
+    </div>
+
+    <div class="ll-2col">
+
+      <div class="ll-admin-box">
+        <div class="ll-admin-box-title">Daily Traffic — Last 30 Days</div>
+        <canvas id="trafficChart" style="max-height:260px;"></canvas>
+      </div>
+
+      <div class="ll-admin-box">
+        <div class="ll-admin-box-title">Top Pages</div>
+        <table class="ll-admin-table">
+          <thead><tr><th>#</th><th>Page</th><th style="text-align:right;">Views</th></tr></thead>
+          <tbody>
+            <% if (typeof popularPages !== 'undefined' && popularPages && popularPages.length > 0) { %>
+              <% popularPages.slice(0,8).forEach(function(p, i) { %>
+              <tr>
+                <td style="opacity:0.4;"><%= i+1 %></td>
+                <td style="font-size:0.8rem;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><%= p.page_path %></td>
+                <td style="text-align:right;font-weight:700;color:var(--gold,#c8952a);"><%= p.views ? p.views.toLocaleString() : 0 %></td>
+              </tr>
+              <% }); %>
+            <% } else { %>
+              <tr><td colspan="3" style="text-align:center;opacity:0.4;">No data yet</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="ll-admin-box">
+      <div class="ll-admin-box-title">Recent Activity</div>
+      <div style="max-height:300px;overflow-y:auto;">
+        <% if (typeof recentActivity !== 'undefined' && recentActivity && recentActivity.length > 0) { %>
+          <% recentActivity.slice(0,15).forEach(function(a) { %>
+          <div class="ll-activity-item">
+            <strong><%= a.page_path %></strong>
+            <div class="ll-activity-time"><%= a.created_at ? new Date(a.created_at).toLocaleString() : '' %></div>
+          </div>
+          <% }); %>
+        <% } else { %>
+          <p style="opacity:0.4;text-align:center;padding:1rem;">No activity recorded yet.</p>
+        <% } %>
+      </div>
+    </div>
+
+  </div><!-- /analytics tab -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 5: VOUCHERS
+  ══════════════════════════════════════════════ -->
+  <div id="tab-vouchers" class="ll-tab-content">
+
+    <div class="ll-admin-box">
+      <div class="ll-admin-box-title">
+        <span>🎟️ Discount Vouchers</span>
+        <button class="ll-btn-primary" onclick="openModal('addVoucherModal')">+ Create Voucher</button>
+      </div>
+
+      <table class="ll-admin-table">
+        <thead>
+          <tr><th>Code</th><th>Type</th><th>Value</th><th>Used</th><th>Expires</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          <% if (typeof vouchers !== 'undefined' && vouchers && vouchers.length > 0) { %>
+            <% vouchers.forEach(function(v) { %>
+            <tr>
+              <td><code style="background:rgba(200,149,42,0.15);padding:0.2rem 0.5rem;border-radius:4px;color:var(--gold,#c8952a);font-size:0.85rem;"><%= v.code %></code></td>
+              <td><%= v.type || 'percent' %></td>
+              <td style="font-weight:700;"><%= v.type === 'fixed' ? '$' : '' %><%= v.value %><%= v.type !== 'fixed' ? '%' : '' %></td>
+              <td><%= v.used_count || 0 %> / <%= v.max_uses || '∞' %></td>
+              <td style="opacity:0.6;font-size:0.8rem;"><%= v.expires_at ? new Date(v.expires_at).toLocaleDateString() : 'Never' %></td>
+              <td><span class="ll-badge <%= v.active ? 'll-badge-green' : 'll-badge-red' %>"><%= v.active ? 'Active' : 'Inactive' %></span></td>
+              <td>
+                <button class="ll-btn ll-btn-danger" onclick="deleteVoucher(<%= v.id %>, '<%= v.code %>')">🗑️</button>
+              </td>
+            </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="7" style="text-align:center;opacity:0.4;padding:2rem;">No vouchers yet — create your first discount code!</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /vouchers tab -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 6: MAIL
+  ══════════════════════════════════════════════ -->
+  <div id="tab-mail" class="ll-tab-content">
+
+    <div class="ll-2col">
+
+      <div class="ll-admin-box">
+        <div class="ll-admin-box-title">📬 Send a Broadcast</div>
+        <p style="color:rgba(255,255,255,0.45);font-size:0.85rem;margin-top:0;margin-bottom:1.5rem;">
+          Send an email to all customers or a filtered segment.
+        </p>
+        <div class="ll-form-group">
+          <label>To</label>
+          <select>
+            <option>All customers</option>
+            <option>Customers with orders</option>
+            <option>Internet Space customers</option>
+            <option>Newsletter subscribers</option>
+          </select>
+        </div>
+        <div class="ll-form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="e.g. New arrivals in the shop 🌺">
+        </div>
+        <div class="ll-form-group">
+          <label>Message</label>
+          <textarea rows="8" placeholder="Write your message here...&#10;&#10;Keep it warm, keep it Lizzyland. 🌴"></textarea>
+        </div>
+        <button class="ll-btn-primary" onclick="alert('Mail integration coming soon! For now, use Mailchimp or your email provider.')">
+          📤 Send Broadcast
+        </button>
+      </div>
+
+      <div>
+        <div class="ll-admin-box">
+          <div class="ll-admin-box-title">📋 Subscriber List</div>
+          <div style="text-align:center;padding:1.5rem 0;">
+            <div style="font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold,#c8952a);">
+              <%= (typeof subscriberCount !== 'undefined' && subscriberCount) ? subscriberCount : 0 %>
+            </div>
+            <div style="opacity:0.5;font-size:0.85rem;margin-top:0.25rem;">total subscribers</div>
+          </div>
+          <p style="font-size:0.82rem;opacity:0.45;text-align:center;margin:0;">
+            Connect Mailchimp or ConvertKit for full list management.
+          </p>
+        </div>
+
+        <div class="ll-admin-box" style="margin-top:0;">
+          <div class="ll-admin-box-title">⚡ Quick Actions</div>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <button class="ll-btn ll-btn-teal" style="width:100%;padding:0.7rem;" onclick="alert('Coming soon')">📦 Email all order confirmations</button>
+            <button class="ll-btn ll-btn-ghost" style="width:100%;padding:0.7rem;" onclick="alert('Coming soon')">🎟️ Send voucher to segment</button>
+            <button class="ll-btn ll-btn-ghost" style="width:100%;padding:0.7rem;" onclick="alert('Coming soon')">🛍️ New arrivals announcement</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /mail tab -->
+
+</div><!-- /ll-admin-wrap -->
+
+
+<!-- ══ ADD PRODUCT MODAL ══ -->
+<div id="addProductModal" class="ll-modal">
+  <div class="ll-modal-box">
+    <button class="ll-modal-close" onclick="closeModal('addProductModal')">×</button>
+    <h2 class="ll-modal-title">Add Product</h2>
+    <form method="POST" action="/admin/products" enctype="multipart/form-data">
+      <div class="ll-form-row">
+        <div class="ll-form-group">
+          <label>Product Name *</label>
+          <input type="text" name="name" required placeholder="e.g. Internet Space Starter">
+        </div>
+        <div class="ll-form-group">
+          <label>Slug (URL)</label>
+          <input type="text" name="slug" placeholder="e.g. internet-space-starter">
+        </div>
+      </div>
+      <div class="ll-form-row">
+        <div class="ll-form-group">
+          <label>Category</label>
+          <select name="category">
+            <option value="internet-space">Internet Space</option>
+            <option value="ebook">eBook / Digital</option>
+            <option value="service">Service</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="ll-form-group">
+          <label>Price ($)</label>
+          <input type="number" name="price" step="0.01" min="0" placeholder="149.00">
+        </div>
+      </div>
+      <div class="ll-form-group">
+        <label>Short Description</label>
+        <textarea name="description" rows="3" placeholder="What does this product do for the customer?"></textarea>
+      </div>
+      <div class="ll-form-row">
+        <div class="ll-form-group">
+          <label>Product Image</label>
+          <input type="file" name="image" accept="image/*">
+        </div>
+        <div class="ll-form-group">
+          <label>Status</label>
+          <select name="status">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </div>
+      </div>
+      <div class="ll-form-group">
+        <label>Buy / Checkout Link (Stripe or Gumroad URL)</label>
+        <input type="url" name="buy_url" placeholder="https://buy.stripe.com/... or https://gumroad.com/l/...">
+      </div>
+      <button type="submit" class="ll-btn-primary" style="width:100%;margin-top:0.5rem;">Create Product</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══ ADD VOUCHER MODAL ══ -->
+<div id="addVoucherModal" class="ll-modal">
+  <div class="ll-modal-box">
+    <button class="ll-modal-close" onclick="closeModal('addVoucherModal')">×</button>
+    <h2 class="ll-modal-title">Create Voucher</h2>
+    <form method="POST" action="/admin/vouchers">
+      <div class="ll-form-row">
+        <div class="ll-form-group">
+          <label>Code *</label>
+          <input type="text" name="code" required placeholder="e.g. BEACH20" style="text-transform:uppercase;">
+        </div>
+        <div class="ll-form-group">
+          <label>Type</label>
+          <select name="type">
+            <option value="percent">Percentage off</option>
+            <option value="fixed">Fixed amount off</option>
+          </select>
+        </div>
+      </div>
+      <div class="ll-form-row">
+        <div class="ll-form-group">
+          <label>Value</label>
+          <input type="number" name="value" min="1" placeholder="e.g. 20 (for 20% or $20)">
+        </div>
+        <div class="ll-form-group">
+          <label>Max Uses (blank = unlimited)</label>
+          <input type="number" name="max_uses" min="1" placeholder="e.g. 50">
+        </div>
+      </div>
+      <div class="ll-form-group">
+        <label>Expiry Date (optional)</label>
+        <input type="date" name="expires_at">
+      </div>
+      <button type="submit" class="ll-btn-primary" style="width:100%;margin-top:0.5rem;">Create Voucher</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+  // ── Tab switching ──
+  var tabs = ['products','orders','customers','analytics','vouchers','mail'];
+  function switchTab(name) {
+    tabs.forEach(function(t) {
+      document.getElementById('tab-' + t).classList.remove('active');
+    });
+    document.querySelectorAll('.ll-admin-tab').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    document.getElementById('tab-' + name).classList.add('active');
+    // Find the button that called this tab
+    document.querySelectorAll('.ll-admin-tab').forEach(function(btn) {
+      if (btn.getAttribute('onclick') === "switchTab('" + name + "')") {
+        btn.classList.add('active');
+      }
+    });
+    if (name === 'analytics') initChart();
+  }
+
+  // ── Modals ──
+  function openModal(id) { document.getElementById(id).style.display = 'block'; }
+  function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+  window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('ll-modal')) e.target.style.display = 'none';
+  });
+
+  // ── Table search filter ──
+  function filterTable(tableId, term) {
+    var t = term.toLowerCase();
+    document.querySelectorAll('#' + tableId + ' tbody tr').forEach(function(row) {
+      var val = row.dataset.search || row.textContent.toLowerCase();
+      row.style.display = val.includes(t) ? '' : 'none';
+    });
+  }
+
+  // ── Maintenance toggle ──
+  function toggleMaintenance() {
+    var btn = document.getElementById('maintenanceBtn');
+    fetch('/admin/toggle-maintenance', { method: 'POST' })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var on = data.enabled;
+        btn.textContent = on ? '🔴 Maintenance ON' : '🟢 Site Live';
+        btn.style.color = on ? '#dc3c3c' : '#41dc14';
+        btn.style.borderColor = on ? 'rgba(220,60,60,0.4)' : 'rgba(65,220,20,0.4)';
+        btn.style.background = on ? 'rgba(220,60,60,0.1)' : 'rgba(65,220,20,0.08)';
+      })
+      .catch(function(e) { alert('Could not toggle maintenance: ' + e.message); });
+  }
+
+  // ── Delete product ──
+  function deleteProduct(id, name) {
+    if (!confirm('Delete "' + name + '"?')) return;
+    fetch('/admin/products/' + id, { method: 'DELETE' })
+      .then(function(r) { if (r.ok) location.reload(); else alert('Delete failed'); });
+  }
+
+  // ── Edit product (placeholder) ──
+  function editProduct(id) {
+    // TODO: fetch product and populate an edit modal
+    alert('Edit modal coming — product #' + id);
+  }
+
+  // ── Delete voucher ──
+  function deleteVoucher(id, code) {
+    if (!confirm('Delete voucher ' + code + '?')) return;
+    fetch('/admin/vouchers/' + id, { method: 'DELETE' })
+      .then(function(r) { if (r.ok) location.reload(); else alert('Delete failed'); });
+  }
+
+  // ── View order ──
+  function viewOrder(id) {
+    alert('Order detail view coming soon — order #' + id);
+  }
+
+  // ── Email customer ──
+  function emailCustomer(email) {
+    if (email) window.location.href = 'mailto:' + email;
+  }
+
+  // ── Toggle contributor ──
+  function toggleContributor(id, isCurrent) {
+    fetch('/admin/users/' + id + '/toggle-contributor', { method: 'POST' })
+      .then(function(r) { if (r.ok) location.reload(); });
+  }
+
+  // ── Analytics chart ──
+  var chartInitialised = false;
+  function initChart() {
+    if (chartInitialised) return;
+    chartInitialised = true;
+    var ctx = document.getElementById('trafficChart');
+    if (!ctx) return;
+    var dailyData = <%- JSON.stringify(typeof dailyStats !== 'undefined' ? (dailyStats || []) : []) %>;
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dailyData.map(function(d) { return d.date; }),
+        datasets: [{
+          label: 'Page Views',
+          data: dailyData.map(function(d) { return d.page_views; }),
+          borderColor: '#c8952a',
+          backgroundColor: 'rgba(200,149,42,0.12)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#c8952a'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: 'rgba(255,255,255,0.6)', font: { size: 11 } } }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 } },
+            grid:  { color: 'rgba(200,149,42,0.1)' }
+          },
+          x: {
+            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 } },
+            grid:  { color: 'rgba(200,149,42,0.08)' }
+          }
+        }
+      }
+    });
+  }
+</script>
+
+<%- include('partials/footer') %>

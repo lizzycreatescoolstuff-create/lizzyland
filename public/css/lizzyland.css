@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,300;1,400&family=Pacifico&family=Oleo+Script:wght@400;700&display=swap');
 
 /* ═══════════════════════════════════════════════════
    LIZZYLAND — Tropical Art Nouveau Theme
@@ -1051,7 +1051,12 @@ p { color: var(--text-soft); line-height: 1.8; }
 .ll-shop-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(15,92,82,0.85) 0%, rgba(15,92,82,0.3) 100%);
+  background: linear-gradient(
+    to top,
+    rgba(80,30,20,0.78) 0%,
+    rgba(140,60,30,0.35) 55%,
+    rgba(200,149,42,0.08) 100%
+  );
 }
 
 .ll-shop-hero-inner {
@@ -1152,4 +1157,30 @@ p { color: var(--text-soft); line-height: 1.8; }
     flex-direction: column;
     gap: 1.5rem;
   }
+}
+
+/* ─── Pacifico + Oleo font usage ─────────────────── */
+
+/* Hero title — Pacifico only for the big splashy Lizzyland title */
+.ll-hero-title {
+  font-family: 'Pacifico', cursive !important;
+  letter-spacing: 0.01em;
+}
+
+/* Shop hero h1 — Oleo for a slightly different vibe on the shop */
+.ll-shop-hero-inner h1 {
+  font-family: 'Oleo Script', cursive !important;
+}
+
+/* Path card titles — Oleo Script for the door headings */
+.ll-path-title {
+  font-family: 'Oleo Script', cursive !important;
+  font-size: 1.6rem;
+}
+
+/* Section headings — keep Playfair for body sections, Oleo for accents */
+.ll-about-title {
+  font-family: 'Oleo Script', cursive !important;
+  font-size: 1.8rem;
+  font-weight: 400;
 }
