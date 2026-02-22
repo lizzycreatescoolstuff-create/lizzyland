@@ -1159,26 +1159,27 @@ p { color: var(--text-soft); line-height: 1.8; }
   }
 }
 
-/* ─── Pacifico + Oleo font usage ─────────────────── */
+/* ─── Font assignments ───────────────────────────── */
 
-/* Hero title — Pacifico only for the big splashy Lizzyland title */
+/* Big hero title — Playfair Display, bold and elegant */
 .ll-hero-title {
-  font-family: 'Pacifico', cursive !important;
-  letter-spacing: 0.01em;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
-/* Shop hero h1 — Oleo for a slightly different vibe on the shop */
+/* Shop hero h1 — Oleo Script for warmth */
 .ll-shop-hero-inner h1 {
   font-family: 'Oleo Script', cursive !important;
 }
 
-/* Path card titles — Oleo Script for the door headings */
+/* Path card titles — Oleo Script */
 .ll-path-title {
   font-family: 'Oleo Script', cursive !important;
   font-size: 1.6rem;
 }
 
-/* Section headings — keep Playfair for body sections, Oleo for accents */
+/* About + section headings — Oleo Script */
 .ll-about-title {
   font-family: 'Oleo Script', cursive !important;
   font-size: 1.8rem;
