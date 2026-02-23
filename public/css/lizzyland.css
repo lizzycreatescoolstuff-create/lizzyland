@@ -2,7 +2,7 @@
 
 /* ═══════════════════════════════════════════════════
    LIZZYLAND — Tropical Art Nouveau Theme
-   Where Pipe-dreams Come True
+   La Dolce Vita — The Sweet Life
    ═══════════════════════════════════════════════════ */
 
 :root {
@@ -1621,4 +1621,90 @@ p { color: var(--text-soft); line-height: 1.8; }
 @media (max-width: 768px) {
   .ll-health-grid { grid-template-columns: 1fr; }
   .ll-health-card-icon { font-size: 2.2rem; }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   THREE DOORS — Hero overlap variant
+   ═══════════════════════════════════════════════════ */
+
+.ll-three-doors--overlap {
+  padding-top: 0;
+  margin-top: -72px;          /* pulls cards up to overlap the hero base */
+  position: relative;
+  z-index: 10;                /* sit above the hero */
+  padding-bottom: 0;
+}
+
+.ll-three-doors--overlap .ll-doors-grid {
+  /* cards get a stronger shadow to lift them off the hero */
+  filter: drop-shadow(0 8px 32px rgba(45,27,14,0.18));
+}
+
+
+/* ═══════════════════════════════════════════════════
+   LA DOLCE VITA — heading + about section
+   ═══════════════════════════════════════════════════ */
+
+.ll-dolce-vita {
+  background: var(--sand-light);
+  padding: 6rem 2rem 5rem;
+  margin-top: 3rem;
+}
+
+.ll-dolce-vita-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ll-dolce-heading-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 0.7rem;
+}
+
+.ll-dolce-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  color: var(--warm-dark);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.ll-dolce-ornament {
+  font-size: 1.2rem;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+.ll-dolce-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* About block sits inside the Dolce Vita section — reuse existing ll-about-inner */
+.ll-dolce-vita .ll-about-inner {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .ll-dolce-vita .ll-about-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  .ll-three-doors--overlap {
+    margin-top: -40px;
+  }
 }
