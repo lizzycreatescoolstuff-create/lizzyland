@@ -1,0 +1,164 @@
+<%
+  var pageTitle   = 'Health — Lizzyland';
+  var pageDesc    = 'Red light therapy, infrared sauna, massage chairs, vibration plates and more. Curated wellness for real results.';
+  var currentPage = 'health';
+%>
+<%- include('partials/header') %>
+
+  <!-- ══ HERO ══ -->
+  <section class="ll-hero">
+    <img
+      src="/images/door-health.jpg"
+      alt="Lizzyland Health — Spa and Wellness"
+      class="ll-hero-img"
+      onerror="this.style.display='none'"
+    >
+    <div class="ll-health-hero-overlay"></div>
+    <div class="ll-hero-content">
+      <div class="ll-hero-eyebrow">✦ Door One ✦</div>
+      <h1 class="ll-hero-title">Health</h1>
+      <p class="ll-hero-tagline">Feel extraordinary in your body.</p>
+    </div>
+  </section>
+
+  <!-- ══ INTRO ══ -->
+  <section class="ll-health-intro">
+    <div class="ll-health-intro-inner">
+      <span class="ll-about-eyebrow">Why this matters ✨</span>
+      <h2 class="ll-about-title">The foundation of everything.</h2>
+      <p class="ll-health-lead">
+        <!-- LIZZY — your words here. Something like:
+             "You can't build wealth or happiness from a depleted body.
+              I've spent years researching what actually works — no fads,
+              no nonsense — and I only share what I genuinely believe in." -->
+        [Tell them why you care about this — your back, your energy, what changed for you]
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ AFFILIATE BLOCKS ══ -->
+  <section class="ll-health-affiliates">
+    <div class="ll-health-affiliates-inner">
+
+      <h2 class="ll-section-heading">Lizzy's Picks</h2>
+      <p class="ll-section-sub">Every product here is something I'd buy myself.</p>
+
+      <div class="ll-health-grid">
+
+        <!-- Block 1: Infrared Sauna -->
+        <div class="ll-health-card">
+          <div class="ll-health-card-icon">🔆</div>
+          <div class="ll-health-card-body">
+            <div class="ll-health-card-label">Red Light &amp; Heat Therapy</div>
+            <h3 class="ll-health-card-title">Infrared Sauna</h3>
+            <p class="ll-health-card-desc">
+              Full-spectrum infrared sauna for deep tissue warmth, detox, circulation and that post-session glow. Game-changing for back pain and chronic tension.
+            </p>
+            <ul class="ll-health-benefits">
+              <li>✦ Deep muscle relaxation</li>
+              <li>✦ Improved circulation</li>
+              <li>✦ Skin health &amp; detox</li>
+              <li>✦ Stress and cortisol reduction</li>
+            </ul>
+            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">
+              Shop Infrared Saunas →
+            </a>
+            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+          </div>
+        </div>
+
+        <!-- Block 2: Massage Chair -->
+        <div class="ll-health-card">
+          <div class="ll-health-card-icon">💆</div>
+          <div class="ll-health-card-body">
+            <div class="ll-health-card-label">Recovery &amp; Relief</div>
+            <h3 class="ll-health-card-title">Massage Chair</h3>
+            <p class="ll-health-card-desc">
+              A serious massage chair is the most underrated investment for your health. Herniated disc, sciatica, desk fatigue — this is the daily reset your body needs.
+            </p>
+            <ul class="ll-health-benefits">
+              <li>✦ Zero-gravity decompression</li>
+              <li>✦ Full back, neck &amp; shoulder relief</li>
+              <li>✦ Heat therapy built in</li>
+              <li>✦ On-demand, any time</li>
+            </ul>
+            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">
+              Shop Massage Chairs →
+            </a>
+            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+          </div>
+        </div>
+
+        <!-- Block 3: Vibration Plate -->
+        <div class="ll-health-card">
+          <div class="ll-health-card-icon">⚡</div>
+          <div class="ll-health-card-body">
+            <div class="ll-health-card-label">Movement &amp; Lymphatics</div>
+            <h3 class="ll-health-card-title">Vibration Plate</h3>
+            <p class="ll-health-card-desc">
+              Ten minutes on a vibration disk does what an hour's walk does for your lymphatic system. Low effort, high reward — perfect for high-output brains in low-energy bodies.
+            </p>
+            <ul class="ll-health-benefits">
+              <li>✦ Lymphatic drainage</li>
+              <li>✦ Bone density support</li>
+              <li>✦ Core &amp; balance activation</li>
+              <li>✦ Barely counts as exercise 😄</li>
+            </ul>
+            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">
+              Shop Vibration Plates →
+            </a>
+            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+          </div>
+        </div>
+
+        <!-- Block 4: Peptides / Supplements -->
+        <div class="ll-health-card">
+          <div class="ll-health-card-icon">🧬</div>
+          <div class="ll-health-card-body">
+            <div class="ll-health-card-label">Cellular Health</div>
+            <h3 class="ll-health-card-title">Peptides &amp; Supplements</h3>
+            <p class="ll-health-card-desc">
+              The frontier of biohacking — peptides for tissue repair, energy, cognitive function and longevity. I'll only ever share what's legal, researched and genuinely interesting.
+            </p>
+            <ul class="ll-health-benefits">
+              <li>✦ Tissue &amp; joint repair support</li>
+              <li>✦ Cognitive clarity</li>
+              <li>✦ Energy and recovery</li>
+              <li>✦ Longevity-focused</li>
+            </ul>
+            <a href="#" class="ll-health-cta ll-health-cta-soon" target="_blank" rel="noopener">
+              Coming Soon — Researching Now
+            </a>
+            <span class="ll-health-affiliate-note">Checking regulatory compliance before recommending. Watch this space.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PHILOSOPHY STRIP ══ -->
+  <section class="ll-health-philosophy">
+    <div class="ll-health-philosophy-inner">
+      <div class="ll-philosophy-quote">
+        "Your health is your most important asset. Everything else is built on top of it."
+      </div>
+      <p class="ll-philosophy-byline">— Lizzy</p>
+    </div>
+  </section>
+
+  <!-- ══ BACK TO DOORS ══ -->
+  <section class="ll-back-to-doors">
+    <div class="ll-back-inner">
+      <p class="ll-back-label">Explore the other doors</p>
+      <div class="ll-back-links">
+        <a href="/space" class="ll-back-link">💰 Wealth</a>
+        <a href="/shop"  class="ll-back-link">🌴 Happiness</a>
+        <a href="/"      class="ll-back-link ll-back-home">← Back to Lizzyland</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ll-divider">✦ · ✦ · ✦</div>
+
+<%- include('partials/footer') %>

@@ -1,6 +1,6 @@
 <%
   var pageTitle   = 'Lizzyland — Where Pipe-dreams Come True';
-  var pageDesc    = 'Lizzyland — your instant internet space, tropical lifestyle store, and pipe-dream launcher.';
+  var pageDesc    = 'Lizzyland — your tropical gateway to Health, Wealth and Happiness. Where Pipe-dreams Come True.';
   var currentPage = 'home';
 %>
 <%- include('partials/header') %>
@@ -21,41 +21,56 @@
     </div>
   </section>
 
-  <!-- ══ TWO PATHS — The Doors ══ -->
-  <section class="ll-paths">
+  <!-- ══ THREE DOORS ══ -->
+  <section class="ll-three-doors">
 
-    <!-- Door 1: Your Internet Space -->
-    <a href="/space" class="ll-path-card path-space">
-      <div class="ll-path-door-img">
-        <img src="/images/door-space.jpg" alt="Your Internet Space" onerror="this.style.display='none'">
-      </div>
-      <div class="ll-path-content">
-        <div class="ll-path-label">Done-for-you digital</div>
-        <h2 class="ll-path-title">Your Internet Space</h2>
-        <p class="ll-path-desc">
-          <!-- LIZZY — your tagline here -->
-          [Your words go here — tell them what you do and why it's different]
-        </p>
-        <span class="ll-path-cta">Get Started →</span>
-      </div>
-    </a>
+    <div class="ll-doors-intro">
+      <h2 class="ll-doors-heading">Choose the Good Life</h2>
+      <p class="ll-doors-sub">Three doors. One philosophy. I've done the hard bit so you don't have to.</p>
+    </div>
 
-    <!-- Door 2: The Shop -->
-    <a href="/shop" class="ll-path-card path-shop">
-      <div class="ll-path-door-img">
-        <img src="/images/door-shop.jpg" alt="The Shop" onerror="this.style.display='none'">
-      </div>
-      <div class="ll-path-content">
-        <div class="ll-path-label">Tropical lifestyle store</div>
-        <h2 class="ll-path-title">The Shop</h2>
-        <p class="ll-path-desc">
-          <!-- LIZZY — your tagline here -->
-          [Your words go here — sell the vibe of the shop]
-        </p>
-        <span class="ll-path-cta">Shop Now →</span>
-      </div>
-    </a>
+    <div class="ll-doors-grid">
 
+      <!-- Door 1: Health -->
+      <a href="/health" class="ll-door-card ll-door-health">
+        <div class="ll-door-img-wrap">
+          <img src="/images/door-health.jpg" alt="Health" onerror="this.style.display='none'">
+        </div>
+        <div class="ll-door-body">
+          <div class="ll-door-label">Spa &amp; Wellness</div>
+          <h2 class="ll-door-title">Health</h2>
+          <p class="ll-door-desc">Red light therapy, infrared sauna, massage chairs, vibration and peptides — feel extraordinary in your body.</p>
+          <span class="ll-door-cta ll-door-cta-health">Discover →</span>
+        </div>
+      </a>
+
+      <!-- Door 2: Wealth -->
+      <a href="/space" class="ll-door-card ll-door-wealth">
+        <div class="ll-door-img-wrap">
+          <img src="/images/door-space.jpg" alt="Wealth" onerror="this.style.display='none'">
+        </div>
+        <div class="ll-door-body">
+          <div class="ll-door-label">Internet Space &amp; Business</div>
+          <h2 class="ll-door-title">Wealth</h2>
+          <p class="ll-door-desc">Your internet space, ADHD-friendly productivity, neuro-divergent business tools and niche finders — build something that actually fits your brain.</p>
+          <span class="ll-door-cta ll-door-cta-wealth">Discover →</span>
+        </div>
+      </a>
+
+      <!-- Door 3: Happiness -->
+      <a href="/shop" class="ll-door-card ll-door-happy">
+        <div class="ll-door-img-wrap">
+          <img src="/images/door-shop.jpg" alt="Happiness" onerror="this.style.display='none'">
+        </div>
+        <div class="ll-door-body">
+          <div class="ll-door-label">Shop &amp; Adventures</div>
+          <h2 class="ll-door-title">Happiness</h2>
+          <p class="ll-door-desc">Yacht Club and Pool Party clothing, dream villa holidays, yacht charters — everything that makes life feel like a permanent holiday.</p>
+          <span class="ll-door-cta ll-door-cta-happy">Discover →</span>
+        </div>
+      </a>
+
+    </div>
   </section>
 
   <!-- ══ ABOUT LIZZY ══ -->
