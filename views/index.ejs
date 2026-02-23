@@ -1,6 +1,6 @@
 <%
-  var pageTitle   = 'Lizzyland — Where Pipe-dreams Come True';
-  var pageDesc    = 'Lizzyland — your tropical gateway to Health, Wealth and Happiness. Where Pipe-dreams Come True.';
+  var pageTitle   = 'Lizzyland — La Dolce Vita';
+  var pageDesc    = 'Lizzyland — your tropical gateway to Health, Wealth and Happiness.';
   var currentPage = 'home';
 %>
 <%- include('partials/header') %>
@@ -15,19 +15,13 @@
     >
     <div class="ll-hero-overlay"></div>
     <div class="ll-hero-content">
-      <div class="ll-hero-eyebrow">✦ Welcome to ✦</div>
       <h1 class="ll-hero-title">Lizzyland</h1>
-      <p class="ll-hero-tagline">Where Pipe-dreams Come True.</p>
+      <p class="ll-hero-tagline">Choose the Good Life.</p>
     </div>
   </section>
 
-  <!-- ══ THREE DOORS ══ -->
-  <section class="ll-three-doors">
-
-    <div class="ll-doors-intro">
-      <h2 class="ll-doors-heading">Choose the Good Life</h2>
-      <p class="ll-doors-sub">Three doors. One philosophy. I've done the hard bit so you don't have to.</p>
-    </div>
+  <!-- ══ THREE DOORS — overlapping hero ══ -->
+  <section class="ll-three-doors ll-three-doors--overlap">
 
     <div class="ll-doors-grid">
 
@@ -73,32 +67,42 @@
     </div>
   </section>
 
-  <!-- ══ ABOUT LIZZY ══ -->
-  <section class="ll-about">
-    <div class="ll-about-inner">
+  <!-- ══ LA DOLCE VITA + ABOUT LIZZY ══ -->
+  <section class="ll-dolce-vita">
+    <div class="ll-dolce-vita-inner">
 
-      <div class="ll-about-portrait">
-        <img src="/images/lizzy-profile-lizzyland.jpg" alt="Lizzy Sims">
+      <div class="ll-dolce-heading-wrap">
+        <span class="ll-dolce-ornament">✦</span>
+        <h2 class="ll-dolce-title">La Dolce Vita</h2>
+        <span class="ll-dolce-ornament">✦</span>
       </div>
+      <p class="ll-dolce-sub">The sweet life — curated, intentional, and entirely yours.</p>
 
-      <div class="ll-about-text">
-        <span class="ll-about-eyebrow">Hey, I'm Lizzy 👋</span>
-        <h2 class="ll-about-title">Multi-faceted human, pipe-dream enabler.</h2>
-        <p class="ll-about-body">
-          <!-- LIZZY — write your bio here -->
-          [Tell your story here — who you are, what you believe in, why Lizzyland exists]
-        </p>
+      <div class="ll-about-inner">
 
-        <div class="ll-about-tags">
-          <span class="ll-about-tag">🌊 Beach Life</span>
-          <span class="ll-about-tag">💻 Web Wizardry</span>
-          <span class="ll-about-tag">🐰 Bunny Mum</span>
-          <span class="ll-about-tag">🎨 Fine Art</span>
-          <span class="ll-about-tag">✨ Pipe-dream Enabler</span>
-          <span class="ll-about-tag">🌴 Made in South Africa</span>
+        <div class="ll-about-portrait">
+          <img src="/images/lizzy-profile-lizzyland.jpg" alt="Lizzy Sims">
         </div>
-      </div>
 
+        <div class="ll-about-text">
+          <span class="ll-about-eyebrow">Hey, I'm Lizzy 👋</span>
+          <h3 class="ll-about-title">Multi-faceted human, good-life curator.</h3>
+          <p class="ll-about-body">
+            <!-- LIZZY — write your bio here -->
+            [Tell your story here — who you are, what you believe in, why Lizzyland exists]
+          </p>
+
+          <div class="ll-about-tags">
+            <span class="ll-about-tag">🌊 Beach Life</span>
+            <span class="ll-about-tag">💻 Web Wizardry</span>
+            <span class="ll-about-tag">🐰 Bunny Mum</span>
+            <span class="ll-about-tag">🎨 Fine Art</span>
+            <span class="ll-about-tag">✨ Good Life Curator</span>
+            <span class="ll-about-tag">🌴 Made in South Africa</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
