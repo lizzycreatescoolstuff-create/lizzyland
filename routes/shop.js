@@ -94,7 +94,7 @@ function detectCategory(name) {
   const n = (name || '').toLowerCase();
   if (/tee|t-shirt|shirt|tank|top/.test(n))                   return 'shirts';
   if (/hoodie|sweatshirt|sweater|pullover/.test(n))            return 'hoodies';
-  if (/shoe|sneaker|slide|sandal|footwear/.test(n))            return 'footwear';
+  if (/shoe|sneaker|slide|sandal|footwear|flip.flop|flipflop|thong|slipper/.test(n))            return 'footwear';
   if (/towel|beach towel/.test(n))                             return 'towels';
   if (/mug|cushion|pillow|decor|candle|print|poster/.test(n))  return 'homewares';
   if (/bag|hat|cap|beanie|accessory|accessories/.test(n))      return 'accessories';
@@ -111,7 +111,7 @@ router.get('/', async function(req, res) {
     const allProducts = await fetchPrintfulProducts();
 
     // Seasonal — never appear in main shop tabs
-    const SEASONAL_CATS = ['christmas', 'colouring', 'novelty', 'seasonal', 'other'];
+    const SEASONAL_CATS = ['christmas', 'colouring', 'novelty', 'seasonal'];
 
     let products;
     if (currentCat === 'all') {

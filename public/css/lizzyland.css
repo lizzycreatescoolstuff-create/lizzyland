@@ -155,9 +155,9 @@ p { color: var(--text-soft); line-height: 1.8; }
 .ll-hero {
   position: relative;
   height: 70vh;
-  min-height: 480px;
-  max-height: 700px;
-  overflow: hidden;
+  min-height: 520px;
+  max-height: 760px;
+  overflow: visible; /* allows doors to overlap downward out of the banner */
 }
 
 .ll-hero-img {
@@ -180,9 +180,9 @@ p { color: var(--text-soft); line-height: 1.8; }
 
 .ll-hero-content {
   position: absolute;
-  bottom: 3rem;
+  top: 38%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   width: 100%;
   padding: 0 2rem;
@@ -1630,15 +1630,21 @@ p { color: var(--text-soft); line-height: 1.8; }
 
 .ll-three-doors--overlap {
   padding-top: 0;
-  margin-top: -72px;          /* pulls cards up to overlap the hero base */
+  margin-top: -220px;         /* doors climb well up into the banner image */
   position: relative;
-  z-index: 10;                /* sit above the hero */
+  z-index: 10;
   padding-bottom: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -220px;
 }
 
 .ll-three-doors--overlap .ll-doors-grid {
   /* cards get a stronger shadow to lift them off the hero */
-  filter: drop-shadow(0 8px 32px rgba(45,27,14,0.18));
+  filter: drop-shadow(0 12px 40px rgba(45,27,14,0.28));
 }
 
 
@@ -1649,7 +1655,7 @@ p { color: var(--text-soft); line-height: 1.8; }
 .ll-dolce-vita {
   background: var(--sand-light);
   padding: 6rem 2rem 5rem;
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .ll-dolce-vita-inner {
