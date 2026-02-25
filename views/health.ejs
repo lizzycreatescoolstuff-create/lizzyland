@@ -1,160 +1,415 @@
 <%
   var pageTitle   = 'Health — Lizzyland';
-  var pageDesc    = 'Red light therapy, infrared sauna, massage chairs, vibration plates and more. Curated wellness for real results.';
+  var pageDesc    = 'Curated wellness tools to help you detox from your past and float into your bliss.';
   var currentPage = 'health';
 %>
 <%- include('partials/header') %>
 
+<style>
+  /* ── Health hero — beach banner, shop-hero proportions ── */
+  .ll-health-hero {
+    position: relative;
+    min-height: 280px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--ocean);
+  }
+  .ll-health-hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 40%;
+  }
+  .ll-health-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(45,27,14,0.82) 0%,
+      rgba(26,138,122,0.3) 55%,
+      rgba(200,149,42,0.08) 100%
+    );
+  }
+  .ll-health-hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    width: 100%; padding: 2.5rem 2rem;
+    color: var(--white);
+  }
+  .ll-health-hero-eyebrow {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 0.9rem; color: var(--gold-light);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0.8; margin-bottom: 0.4rem;
+  }
+  .ll-health-hero-inner h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--white); margin: 0 0 0.4rem;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+  .ll-health-hero-inner p {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.1rem; opacity: 0.85; margin: 0;
+  }
+
+  /* ── Intro ── */
+  .ll-health-intro {
+    padding: 4rem 2rem 3rem;
+    background: var(--sand-light);
+    text-align: center;
+  }
+  .ll-health-intro-inner { max-width: 720px; margin: 0 auto; }
+  .ll-health-intro-eyebrow {
+    font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 0.75rem;
+  }
+  .ll-health-intro h2 {
+    font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--warm-dark); margin-bottom: 1rem; font-weight: 600;
+  }
+  .ll-health-lead {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.15rem; color: var(--text-soft);
+    line-height: 1.85;
+  }
+
+  /* ── Collapsible affiliate blocks ── */
+  .ll-health-affiliates {
+    padding: 3rem 2rem 5rem;
+    background: var(--cream);
+  }
+  .ll-health-affiliates-inner { max-width: 1100px; margin: 0 auto; }
+
+  .ll-health-block {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--gold);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .ll-health-block:hover { box-shadow: var(--shadow-md); }
+
+  .ll-health-block-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    user-select: none;
+    gap: 1rem;
+  }
+  .ll-health-block-header:hover { background: rgba(200,149,42,0.03); }
+
+  .ll-health-block-left { display: flex; align-items: center; gap: 1.25rem; }
+
+  .ll-health-block-label {
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--gold); margin-bottom: 0.2rem;
+  }
+  .ll-health-block-title {
+    font-family: var(--font-display); font-size: 1.3rem;
+    font-weight: 600; color: var(--warm-dark); line-height: 1.2;
+  }
+  .ll-health-block-preview {
+    font-size: 0.88rem; color: var(--text-muted);
+    font-style: italic; margin-top: 0.15rem;
+  }
+
+  .ll-health-block-toggle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--sand); border: 1.5px solid var(--sand-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: var(--text-muted);
+    transition: all 0.25s; flex-shrink: 0;
+  }
+  .ll-health-block.open .ll-health-block-toggle {
+    background: var(--ocean); border-color: var(--ocean);
+    color: var(--white); transform: rotate(45deg);
+  }
+
+  .ll-health-block-body {
+    display: none;
+    padding: 0 2rem 2rem;
+    border-top: 1px solid var(--sand-deep);
+  }
+  .ll-health-block.open .ll-health-block-body { display: block; }
+
+  .ll-health-block-desc {
+    font-size: 0.95rem; color: var(--text-soft);
+    line-height: 1.8; margin: 1.25rem 0;
+  }
+
+  .ll-health-benefits {
+    list-style: none; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.5rem;
+  }
+  .ll-health-benefits li {
+    font-size: 0.87rem; color: var(--text-soft);
+    padding: 0.3rem 0; border-bottom: 1px solid var(--sand-deep);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .ll-health-benefits li::before { content: '✦'; color: var(--gold); font-size: 0.6rem; flex-shrink: 0; }
+
+  .ll-health-video-placeholder {
+    background: var(--sand); border-radius: var(--radius-sm);
+    aspect-ratio: 16/9; max-width: 560px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 1.25rem 0; font-size: 0.85rem; color: var(--text-muted);
+    font-style: italic; border: 2px dashed var(--sand-deep);
+  }
+
+  .ll-health-cta-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; }
+
+  .ll-health-cta {
+    display: inline-block; background: var(--ocean);
+    color: var(--white) !important; padding: 0.7rem 1.8rem;
+    border-radius: 50px; font-weight: 600; font-size: 0.88rem;
+    letter-spacing: 0.05em; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .ll-health-cta:hover { background: var(--gold); transform: translateY(-2px); }
+  .ll-health-cta-soon { background: var(--sand-deep); color: var(--text-muted) !important; cursor: default; }
+  .ll-health-cta-soon:hover { background: var(--sand-deep); transform: none; }
+
+  .ll-health-affiliate-note {
+    font-size: 0.72rem; color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── Philosophy strip — tighter ── */
+  .ll-health-philosophy {
+    background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%);
+    padding: 3rem 2rem;
+  }
+  .ll-health-philosophy-inner { max-width: 620px; margin: 0 auto; text-align: center; }
+  .ll-philosophy-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    color: var(--white); line-height: 1.6; margin-bottom: 0.75rem;
+  }
+  .ll-philosophy-byline { font-family: var(--font-display); font-size: 1rem; color: var(--gold-light); font-style: italic; }
+
+  /* ── Back to doors — tight ── */
+  .ll-back-to-doors { padding: 2.5rem 2rem; background: var(--sand-light); }
+  .ll-back-inner { max-width: 500px; margin: 0 auto; text-align: center; }
+  .ll-back-label {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 1rem;
+  }
+  .ll-back-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .ll-back-link {
+    display: inline-block; padding: 0.5rem 1.25rem;
+    border-radius: 50px; background: var(--white);
+    border: 2px solid var(--sand-deep); color: var(--text-soft);
+    font-weight: 500; font-size: 0.85rem; text-decoration: none; transition: all 0.2s;
+  }
+  .ll-back-link:hover { border-color: var(--ocean); color: var(--ocean); }
+  .ll-back-home { border-color: var(--gold); color: var(--gold); }
+  .ll-back-home:hover { background: var(--gold); color: var(--white); }
+
+  @media (max-width: 768px) {
+    .ll-health-benefits { grid-template-columns: 1fr; }
+    .ll-health-block-header { padding: 1.25rem 1.25rem; }
+    .ll-health-block-body { padding: 0 1.25rem 1.5rem; }
+  }
+</style>
+
   <!-- ══ HERO ══ -->
-  <section class="ll-hero">
-    <img
-      src="/images/door-health.jpg"
-      alt="Lizzyland Health — Spa and Wellness"
-      class="ll-hero-img"
-      onerror="this.style.display='none'"
-    >
+  <section class="ll-health-hero">
+    <img src="/images/beach-banner.jpg" alt="Health — Be Well" class="ll-health-hero-img" onerror="this.style.display='none'">
     <div class="ll-health-hero-overlay"></div>
-    <div class="ll-hero-content">
-      <div class="ll-hero-eyebrow">✦ Door One ✦</div>
-      <h1 class="ll-hero-title">Health</h1>
-      <p class="ll-hero-tagline">Feel extraordinary in your body.</p>
+    <div class="ll-health-hero-inner">
+      <div class="ll-health-hero-eyebrow">✦ Door One · Wellness ✦</div>
+      <h1>Be Well.</h1>
+      <p>The foundation of everything — and why it matters.</p>
     </div>
   </section>
 
   <!-- ══ INTRO ══ -->
   <section class="ll-health-intro">
     <div class="ll-health-intro-inner">
-      <span class="ll-about-eyebrow">Why this matters ✨</span>
-      <h2 class="ll-about-title">The foundation of everything.</h2>
+      <div class="ll-health-intro-eyebrow">Why this matters</div>
+      <h2>You will never fully embrace la dolce vita<br>carrying the past with you.</h2>
       <p class="ll-health-lead">
-        <!-- LIZZY — your words here. Something like:
-             "You can't build wealth or happiness from a depleted body.
-              I've spent years researching what actually works — no fads,
-              no nonsense — and I only share what I genuinely believe in." -->
-        [Tell them why you care about this — your back, your energy, what changed for you]
+        Slide into your beautiful future — invigorated, refreshed, renewed, hydrated and thriving.
+        Here are some tools to help you detox from your past, or simply float into your bliss.
       </p>
     </div>
   </section>
 
-  <!-- ══ AFFILIATE BLOCKS ══ -->
+  <!-- ══ COLLAPSIBLE AFFILIATE BLOCKS ══ -->
   <section class="ll-health-affiliates">
     <div class="ll-health-affiliates-inner">
 
-      <h2 class="ll-section-heading">Lizzy's Picks</h2>
-      <p class="ll-section-sub">Every product here is something I'd buy myself.</p>
-
-      <div class="ll-health-grid">
-
-        <!-- Block 1: Infrared Sauna -->
-        <div class="ll-health-card">
-          <div class="ll-health-card-icon">🔆</div>
-          <div class="ll-health-card-body">
-            <div class="ll-health-card-label">Red Light &amp; Heat Therapy</div>
-            <h3 class="ll-health-card-title">Infrared Sauna</h3>
-            <p class="ll-health-card-desc">
-              Full-spectrum infrared sauna for deep tissue warmth, detox, circulation and that post-session glow. Game-changing for back pain and chronic tension.
-            </p>
-            <ul class="ll-health-benefits">
-              <li>✦ Deep muscle relaxation</li>
-              <li>✦ Improved circulation</li>
-              <li>✦ Skin health &amp; detox</li>
-              <li>✦ Stress and cortisol reduction</li>
-            </ul>
-            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">
-              Shop Infrared Saunas →
-            </a>
+      <!-- Block 1: Infrared Sauna -->
+      <div class="ll-health-block open" id="block-sauna">
+        <div class="ll-health-block-header" onclick="toggleBlock('block-sauna')">
+          <div class="ll-health-block-left">
+            <div>
+              <div class="ll-health-block-label">Red Light &amp; Heat Therapy</div>
+              <div class="ll-health-block-title">Infrared Sauna</div>
+              <div class="ll-health-block-preview">Deep tissue warmth, detox &amp; that post-session glow.</div>
+            </div>
+          </div>
+          <div class="ll-health-block-toggle">+</div>
+        </div>
+        <div class="ll-health-block-body">
+          <p class="ll-health-block-desc">
+            Full-spectrum infrared sauna for deep tissue warmth, detox, circulation and that post-session glow.
+            Game-changing for back pain, chronic tension, and anyone who wants to feel extraordinary in their body.
+            Unlike traditional saunas, infrared penetrates the tissue directly — the heat works from the inside out.
+          </p>
+          <ul class="ll-health-benefits">
+            <li>Deep muscle relaxation</li>
+            <li>Improved circulation</li>
+            <li>Skin health &amp; cellular detox</li>
+            <li>Stress and cortisol reduction</li>
+            <li>Pain relief — back, joints, sciatica</li>
+            <li>Immune system support</li>
+          </ul>
+          <div class="ll-health-video-placeholder">
+            📹 Video embed — add Dr Gary Brecka / sauna benefits here
+          </div>
+          <div class="ll-health-cta-row">
+            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">Shop Infrared Saunas →</a>
             <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
           </div>
         </div>
+      </div>
 
-        <!-- Block 2: Massage Chair -->
-        <div class="ll-health-card">
-          <div class="ll-health-card-icon">💆</div>
-          <div class="ll-health-card-body">
-            <div class="ll-health-card-label">Recovery &amp; Relief</div>
-            <h3 class="ll-health-card-title">Massage Chair</h3>
-            <p class="ll-health-card-desc">
-              A serious massage chair is the most underrated investment for your health. Herniated disc, sciatica, desk fatigue — this is the daily reset your body needs.
-            </p>
-            <ul class="ll-health-benefits">
-              <li>✦ Zero-gravity decompression</li>
-              <li>✦ Full back, neck &amp; shoulder relief</li>
-              <li>✦ Heat therapy built in</li>
-              <li>✦ On-demand, any time</li>
-            </ul>
-            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">
-              Shop Massage Chairs →
-            </a>
+      <!-- Block 2: Massage Chair -->
+      <div class="ll-health-block" id="block-massage">
+        <div class="ll-health-block-header" onclick="toggleBlock('block-massage')">
+          <div class="ll-health-block-left">
+            <div>
+              <div class="ll-health-block-label">Recovery &amp; Relief</div>
+              <div class="ll-health-block-title">Massage Chair</div>
+              <div class="ll-health-block-preview">The daily reset your body has been asking for.</div>
+            </div>
+          </div>
+          <div class="ll-health-block-toggle">+</div>
+        </div>
+        <div class="ll-health-block-body">
+          <p class="ll-health-block-desc">
+            A serious massage chair is the most underrated investment in your own wellbeing.
+            Herniated disc, sciatica, desk fatigue, tension headaches — this is your on-demand reset.
+            Zero-gravity positioning decompresses the spine while heat and percussion do the rest.
+            Your massage therapist, whenever you need one.
+          </p>
+          <ul class="ll-health-benefits">
+            <li>Zero-gravity spinal decompression</li>
+            <li>Full back, neck &amp; shoulder relief</li>
+            <li>Heat therapy built in</li>
+            <li>On-demand — no appointment needed</li>
+            <li>Reduces cortisol, improves sleep</li>
+            <li>Lymphatic drainage support</li>
+          </ul>
+          <div class="ll-health-video-placeholder">
+            📹 Video embed — add massage chair demo / review here
+          </div>
+          <div class="ll-health-cta-row">
+            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">Shop Massage Chairs →</a>
             <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
           </div>
         </div>
+      </div>
 
-        <!-- Block 3: Vibration Plate -->
-        <div class="ll-health-card">
-          <div class="ll-health-card-icon">⚡</div>
-          <div class="ll-health-card-body">
-            <div class="ll-health-card-label">Movement &amp; Lymphatics</div>
-            <h3 class="ll-health-card-title">Vibration Plate</h3>
-            <p class="ll-health-card-desc">
-              Ten minutes on a vibration disk does what an hour's walk does for your lymphatic system. Low effort, high reward — perfect for high-output brains in low-energy bodies.
-            </p>
-            <ul class="ll-health-benefits">
-              <li>✦ Lymphatic drainage</li>
-              <li>✦ Bone density support</li>
-              <li>✦ Core &amp; balance activation</li>
-              <li>✦ Barely counts as exercise 😄</li>
-            </ul>
-            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">
-              Shop Vibration Plates →
-            </a>
+      <!-- Block 3: Vibration Plate -->
+      <div class="ll-health-block" id="block-vibration">
+        <div class="ll-health-block-header" onclick="toggleBlock('block-vibration')">
+          <div class="ll-health-block-left">
+            <div>
+              <div class="ll-health-block-label">Movement &amp; Lymphatics</div>
+              <div class="ll-health-block-title">Vibration Plate</div>
+              <div class="ll-health-block-preview">Ten minutes. Life-changing results. Barely counts as exercise.</div>
+            </div>
+          </div>
+          <div class="ll-health-block-toggle">+</div>
+        </div>
+        <div class="ll-health-block-body">
+          <p class="ll-health-block-desc">
+            Ten minutes on a vibration plate does what an hour's walk does for your lymphatic system.
+            Low effort, genuinely high reward — perfect for anyone who wants results without the gym.
+            The lymphatic system has no pump of its own — it relies on movement to flush toxins, reduce
+            inflammation and keep your immune system thriving. This is the shortcut.
+          </p>
+          <ul class="ll-health-benefits">
+            <li>Lymphatic drainage &amp; detox</li>
+            <li>Bone density support</li>
+            <li>Core &amp; balance activation</li>
+            <li>Reduces inflammation</li>
+            <li>Circulation boost</li>
+            <li>Barely counts as exercise 😄</li>
+          </ul>
+          <div class="ll-health-video-placeholder">
+            📹 Video embed — add Dr Gary Brecka lymph drainage / vibration plate here
+          </div>
+          <div class="ll-health-cta-row">
+            <a href="#" class="ll-health-cta" target="_blank" rel="noopener">Shop Vibration Plates →</a>
             <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
           </div>
         </div>
+      </div>
 
-        <!-- Block 4: Peptides / Supplements -->
-        <div class="ll-health-card">
-          <div class="ll-health-card-icon">🧬</div>
-          <div class="ll-health-card-body">
-            <div class="ll-health-card-label">Cellular Health</div>
-            <h3 class="ll-health-card-title">Peptides &amp; Supplements</h3>
-            <p class="ll-health-card-desc">
-              The frontier of biohacking — peptides for tissue repair, energy, cognitive function and longevity. I'll only ever share what's legal, researched and genuinely interesting.
-            </p>
-            <ul class="ll-health-benefits">
-              <li>✦ Tissue &amp; joint repair support</li>
-              <li>✦ Cognitive clarity</li>
-              <li>✦ Energy and recovery</li>
-              <li>✦ Longevity-focused</li>
-            </ul>
-            <a href="#" class="ll-health-cta ll-health-cta-soon" target="_blank" rel="noopener">
-              Coming Soon — Researching Now
-            </a>
+      <!-- Block 4: Peptides -->
+      <div class="ll-health-block" id="block-peptides">
+        <div class="ll-health-block-header" onclick="toggleBlock('block-peptides')">
+          <div class="ll-health-block-left">
+            <div>
+              <div class="ll-health-block-label">Cellular Health</div>
+              <div class="ll-health-block-title">Peptides &amp; Supplements</div>
+              <div class="ll-health-block-preview">The frontier of longevity — researching now.</div>
+            </div>
+          </div>
+          <div class="ll-health-block-toggle">+</div>
+        </div>
+        <div class="ll-health-block-body">
+          <p class="ll-health-block-desc">
+            Peptides are short chains of amino acids that signal the body to repair, regenerate and restore.
+            The research is extraordinary — tissue repair, cognitive clarity, energy, longevity.
+            I'm deep in research on this one and I'll only ever share what is legal, well-studied
+            and genuinely worth your attention. Watch this space.
+          </p>
+          <ul class="ll-health-benefits">
+            <li>Tissue &amp; joint repair support</li>
+            <li>Cognitive clarity</li>
+            <li>Energy and recovery</li>
+            <li>Longevity-focused</li>
+          </ul>
+          <div class="ll-health-video-placeholder">
+            📹 Video embed — add peptides / longevity research here
+          </div>
+          <div class="ll-health-cta-row">
+            <a href="#" class="ll-health-cta ll-health-cta-soon">Researching Now — Coming Soon</a>
             <span class="ll-health-affiliate-note">Checking regulatory compliance before recommending. Watch this space.</span>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
 
-  <!-- ══ PHILOSOPHY STRIP ══ -->
+  <!-- ══ PHILOSOPHY STRIP — tighter ══ -->
   <section class="ll-health-philosophy">
     <div class="ll-health-philosophy-inner">
       <div class="ll-philosophy-quote">
-        "Your health is your most important asset. Everything else is built on top of it."
+        "Your health is your most important asset.<br>Everything else is built on top of it."
       </div>
       <p class="ll-philosophy-byline">— Lizzy</p>
     </div>
   </section>
 
-  <!-- ══ BACK TO DOORS ══ -->
+  <!-- ══ EXPLORE OTHER DOORS — tight ══ -->
   <section class="ll-back-to-doors">
     <div class="ll-back-inner">
       <p class="ll-back-label">Explore the other doors</p>
       <div class="ll-back-links">
-        <a href="/space" class="ll-back-link">💰 Wealth</a>
-        <a href="/shop"  class="ll-back-link">🌴 Happiness</a>
-        <a href="/"      class="ll-back-link ll-back-home">← Back to Lizzyland</a>
+        <a href="/space" class="ll-back-link">Wealth</a>
+        <a href="/shop"  class="ll-back-link">Happiness</a>
+        <a href="/"      class="ll-back-link ll-back-home">← Lizzyland</a>
       </div>
     </div>
   </section>
@@ -162,3 +417,10 @@
   <div class="ll-divider">✦ · ✦ · ✦</div>
 
 <%- include('partials/footer') %>
+
+<script>
+  function toggleBlock(id) {
+    var block = document.getElementById(id);
+    block.classList.toggle('open');
+  }
+</script>

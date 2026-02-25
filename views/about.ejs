@@ -1,0 +1,302 @@
+<%
+  var pageTitle   = 'About — Lizzyland';
+  var pageDesc    = 'Lizzyland exists for one reason — to help you live more beautifully.';
+  var currentPage = 'about';
+%>
+<%- include('partials/header') %>
+
+<style>
+  /* ── About hero — warm dark, no image ── */
+  .ll-about-hero {
+    background: linear-gradient(160deg, var(--warm-dark) 0%, #3d2510 60%, var(--warm-mid) 100%);
+    min-height: 280px;
+    display: flex; align-items: flex-end;
+    padding: 0;
+    position: relative; overflow: hidden;
+  }
+  .ll-about-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 60%, rgba(200,149,42,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 85% 30%, rgba(26,138,122,0.07) 0%, transparent 40%);
+  }
+  .ll-about-hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto;
+    width: 100%; padding: 2.5rem 2rem;
+  }
+  .ll-about-hero-eyebrow {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 0.9rem; color: var(--gold-light);
+    letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 0.4rem;
+  }
+  .ll-about-hero-inner h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--white); margin: 0 0 0.4rem;
+  }
+  .ll-about-hero-inner p {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.05rem; color: rgba(255,255,255,0.7); margin: 0;
+  }
+
+  /* ── Main philosophy section ── */
+  .ll-about-philosophy {
+    padding: 5rem 2rem;
+    background: var(--sand-light);
+  }
+  .ll-about-philosophy-inner {
+    max-width: 780px; margin: 0 auto;
+    text-align: center;
+  }
+  .ll-about-ornament {
+    font-size: 1rem; color: var(--gold); opacity: 0.6;
+    letter-spacing: 0.5rem; display: block; margin-bottom: 1.5rem;
+  }
+  .ll-about-philosophy h2 {
+    font-family: var(--font-display); font-style: italic;
+    font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400;
+    color: var(--warm-dark); margin-bottom: 1.5rem; line-height: 1.2;
+  }
+  .ll-about-philosophy-lead {
+    font-size: 1.15rem; color: var(--text-soft);
+    line-height: 1.9; margin-bottom: 2rem;
+  }
+  .ll-about-philosophy-lead em {
+    font-family: var(--font-accent); font-style: italic;
+    color: var(--warm-dark); font-size: 1.2rem;
+  }
+
+  /* ── Profile block ── */
+  .ll-about-guide {
+    padding: 0 2rem 5rem;
+    background: var(--sand-light);
+  }
+  .ll-about-guide-inner {
+    max-width: 780px; margin: 0 auto;
+    display: flex; align-items: center;
+    gap: 3rem; padding: 3rem;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1.5px solid var(--sand-deep);
+  }
+  .ll-about-guide-portrait {
+    width: 160px; height: 160px;
+    border-radius: 50%; overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid var(--gold);
+    box-shadow: 0 8px 24px rgba(200,149,42,0.2);
+  }
+  .ll-about-guide-portrait img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .ll-about-guide-text { flex: 1; }
+  .ll-about-guide-role {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .ll-about-guide-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--warm-dark); margin-bottom: 0.75rem;
+  }
+  .ll-about-guide-bio {
+    font-size: 0.95rem; color: var(--text-soft);
+    line-height: 1.8;
+  }
+  .ll-about-contact {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1rem; padding: 0.55rem 1.4rem;
+    border: 1.5px solid var(--ocean);
+    border-radius: var(--radius-xl);
+    color: var(--ocean); font-weight: 600;
+    font-size: 0.85rem; transition: all 0.2s;
+    text-decoration: none;
+  }
+  .ll-about-contact:hover { background: var(--ocean); color: var(--white); }
+
+  /* ── Dolce Vita principles ── */
+  .ll-about-principles {
+    padding: 5rem 2rem;
+    background: linear-gradient(160deg, var(--warm-dark) 0%, #3d2510 100%);
+  }
+  .ll-about-principles-inner { max-width: 1100px; margin: 0 auto; }
+  .ll-about-principles h2 {
+    font-family: var(--font-display); font-style: italic;
+    font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400;
+    color: var(--white); text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .ll-about-principles-sub {
+    font-family: var(--font-accent); font-style: italic;
+    text-align: center; color: rgba(245,230,200,0.55);
+    font-size: 1.05rem; margin-bottom: 3rem;
+  }
+  .ll-principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .ll-principle-card {
+    background: rgba(245,230,200,0.06);
+    border: 1px solid rgba(245,230,200,0.12);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    transition: all 0.25s;
+  }
+  .ll-principle-card:hover {
+    background: rgba(245,230,200,0.1);
+    border-color: rgba(200,149,42,0.4);
+    transform: translateY(-3px);
+  }
+  .ll-principle-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--gold-light); margin-bottom: 0.6rem;
+  }
+  .ll-principle-desc {
+    font-size: 0.88rem; color: rgba(245,230,200,0.6);
+    line-height: 1.7;
+  }
+
+  /* ── Closing quote ── */
+  .ll-about-closing {
+    padding: 5rem 2rem;
+    background: var(--sand-light);
+    text-align: center;
+  }
+  .ll-about-closing-inner { max-width: 680px; margin: 0 auto; }
+  .ll-about-closing-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    color: var(--warm-dark); line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .ll-about-doors-prompt {
+    font-size: 0.88rem; color: var(--text-muted);
+    margin-bottom: 1.25rem; letter-spacing: 0.05em;
+  }
+  .ll-about-doors-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .ll-about-door-btn {
+    display: inline-block; padding: 0.65rem 1.75rem;
+    border-radius: var(--radius-xl); font-weight: 600;
+    font-size: 0.88rem; text-decoration: none; transition: all 0.2s;
+  }
+  .ll-about-door-btn.health { background: var(--ocean-pale); color: var(--ocean); border: 1.5px solid var(--ocean); }
+  .ll-about-door-btn.health:hover { background: var(--ocean); color: var(--white); }
+  .ll-about-door-btn.wealth { background: #fdf3e3; color: var(--gold); border: 1.5px solid var(--gold); }
+  .ll-about-door-btn.wealth:hover { background: var(--gold); color: var(--white); }
+  .ll-about-door-btn.happy { background: var(--ocean-pale); color: var(--ocean); border: 1.5px solid var(--ocean); }
+  .ll-about-door-btn.happy:hover { background: var(--ocean); color: var(--white); }
+
+  @media (max-width: 860px) {
+    .ll-about-guide-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+    .ll-principles-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  }
+</style>
+
+  <!-- ══ HERO ══ -->
+  <section class="ll-about-hero">
+    <div class="ll-about-hero-inner">
+      <div class="ll-about-hero-eyebrow">✦ The Philosophy ✦</div>
+      <h1>About Lizzyland</h1>
+      <p>A guide to the good life — curated, intentional, entirely yours.</p>
+    </div>
+  </section>
+
+  <!-- ══ PHILOSOPHY ══ -->
+  <section class="ll-about-philosophy">
+    <div class="ll-about-philosophy-inner">
+      <span class="ll-about-ornament">✦ · ✦ · ✦</span>
+      <h2>Lizzyland exists for one reason.</h2>
+      <p class="ll-about-philosophy-lead">
+        To help you live more beautifully.<br><br>
+        Not perfectly. Not productively. <em>Beautifully.</em><br><br>
+        La dolce vita — the sweet life — is not a holiday mindset. It is a way of being.
+        It is the art of savouring what is in front of you, moving through the world
+        with intention, and choosing quality of life over the relentless pursuit of more.
+        <br><br>
+        Your life is a blessing. Be a blessing.
+        Everything here is designed to help you remember that.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ THE GUIDE ══ -->
+  <section class="ll-about-guide">
+    <div class="ll-about-guide-inner">
+      <div class="ll-about-guide-portrait">
+        <img src="/images/lizzy-profile-lizzyland.jpg" alt="Lizzy" onerror="this.style.display='none'">
+      </div>
+      <div class="ll-about-guide-text">
+        <div class="ll-about-guide-role">Your Guide</div>
+        <div class="ll-about-guide-name">Lizzy</div>
+        <p class="ll-about-guide-bio">
+          Life coach, web architect, and benevolent curator of the good life.
+          I help people find their way to what they actually want —
+          not what they think they want.
+          I build beautiful digital spaces, curate extraordinary experiences,
+          and gently point people toward their beautiful future.
+        </p>
+        <a href="mailto:hello@lizzyland.xyz" class="ll-about-contact">
+          hello@lizzyland.xyz
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LA DOLCE VITA PRINCIPLES ══ -->
+  <section class="ll-about-principles">
+    <div class="ll-about-principles-inner">
+      <h2>La Dolce Vita</h2>
+      <p class="ll-about-principles-sub">The principles that guide everything here.</p>
+      <div class="ll-principles-grid">
+        <div class="ll-principle-card">
+          <div class="ll-principle-title">Savour Everything</div>
+          <p class="ll-principle-desc">Linger over meals. Enjoy your coffee slowly. Value what is fresh, seasonal and made with care. Eating is not fuel — it is pleasure.</p>
+        </div>
+        <div class="ll-principle-card">
+          <div class="ll-principle-title">Slow Down</div>
+          <p class="ll-principle-desc">Reject the constant rush. Favour a more present, leisurely pace. The best moments in life cannot be rushed — they can only be received.</p>
+        </div>
+        <div class="ll-principle-card">
+          <div class="ll-principle-title">Cultivate Connection</div>
+          <p class="ll-principle-desc">Spend time with people you love. Socialise without agenda. The quality of your relationships determines the quality of your life.</p>
+        </div>
+        <div class="ll-principle-card">
+          <div class="ll-principle-title">Dress with Intention</div>
+          <p class="ll-principle-desc">Style is not vanity — it is self-respect. Dressing well is a way of showing joy, confidence, and care for the life you are living.</p>
+        </div>
+        <div class="ll-principle-card">
+          <div class="ll-principle-title">Find Beauty Daily</div>
+          <p class="ll-principle-desc">Appreciate art, history, and the beauty of your surroundings. Joy is not a destination — it is a daily practice of noticing.</p>
+        </div>
+        <div class="ll-principle-card">
+          <div class="ll-principle-title">Rest Without Guilt</div>
+          <p class="ll-principle-desc">Do not apologise for taking breaks, enjoying long lunches, or taking vacations. Rest is not laziness — it is the source of everything good.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ══ -->
+  <section class="ll-about-closing">
+    <div class="ll-about-closing-inner">
+      <div class="ll-about-closing-quote">
+        "Your life is a blessing.<br>Be a blessing.<br>And live it beautifully."
+      </div>
+      <p class="ll-about-doors-prompt">Choose your door.</p>
+      <div class="ll-about-doors-links">
+        <a href="/health" class="ll-about-door-btn health">Health</a>
+        <a href="/space"  class="ll-about-door-btn wealth">Wealth</a>
+        <a href="/shop"   class="ll-about-door-btn happy">Happiness</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ll-divider">✦ · ✦ · ✦</div>
+
+<%- include('partials/footer') %>
