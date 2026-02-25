@@ -77,7 +77,11 @@ app.get('/space', function(req, res) {
 
 app.get('/health', function(req, res) {
   res.render('health', { user: req.session ? req.session.user : null });
+
+  app.get('/about', (req, res) => res.render('about'));
+  
 });
+
 
 // Shop
 var shopRouter = require('./routes/shop');
