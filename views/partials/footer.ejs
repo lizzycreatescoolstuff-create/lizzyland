@@ -3,7 +3,10 @@
     <div class="ll-footer-inner">
 
       <div class="ll-footer-brand">
-        <div class="ll-footer-logo">Lizzyland</div>
+        <a href="/" class="ll-footer-logo-link">
+          <img src="/images/lizzyland-logo.png" alt="Lizzyland" class="ll-footer-logo-img" onerror="this.style.display='none'">
+          <div class="ll-footer-logo">Lizzyland</div>
+        </a>
         <div class="ll-footer-tagline">La Dolce Vita.</div>
       </div>
 
@@ -15,6 +18,7 @@
             <li><a href="/health">Health</a></li>
             <li><a href="/space">Wealth</a></li>
             <li><a href="/shop">Happiness</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
         </div>
         <div class="ll-footer-nav-col">
@@ -57,13 +61,20 @@
     </div>
 
     <div class="ll-footer-copy">
-      <span>© 2026 Lizzyland</span>
+      <span>© 2026 Lizzyland · All rights reserved</span>
       <span class="ll-footer-dot">·</span>
       <a href="mailto:hello@lizzyland.xyz">hello@lizzyland.xyz</a>
       <span class="ll-footer-dot">·</span>
-      <span>Made with ☀️ from South Africa</span>
+      <a href="#" class="ll-back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
     </div>
   </footer>
+
+  <style>
+    .ll-footer-logo-link { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .ll-footer-logo-img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; border: 2px solid rgba(200,149,42,0.4); }
+    .ll-back-to-top { color: rgba(245,230,200,0.5); font-size: 0.82rem; transition: color 0.2s; }
+    .ll-back-to-top:hover { color: var(--gold-light, #e8b84b); }
+  </style>
 
   <script>
     // Mobile nav toggle
