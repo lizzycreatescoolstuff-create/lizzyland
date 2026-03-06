@@ -1,0 +1,41 @@
+<% var pageTitle = 'Blog — Lizzyland'; var currentPage = 'blog'; %>
+<%- include('partials/header') %>
+<style>
+.ll-blog-hero { background:linear-gradient(135deg,#1a1008,#2d1b08); padding:3.5rem 2rem 2.5rem; text-align:center; }
+.ll-blog-hero h1 { font-family:var(--font-heading); font-size:clamp(2rem,5vw,3rem); color:var(--white); margin:0.3rem 0; }
+.ll-blog-hero p { font-family:var(--font-accent); font-style:italic; color:rgba(255,255,255,0.55); }
+.ll-blog-grid { max-width:1100px; margin:0 auto; padding:3rem 1.5rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2rem; }
+.ll-blog-card { background:var(--sand-light); border-radius:var(--radius-lg); overflow:hidden; transition:transform 0.2s,box-shadow 0.2s; box-shadow:0 2px 12px rgba(45,27,14,0.08); text-decoration:none; display:block; color:inherit; }
+.ll-blog-card:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(45,27,14,0.14); }
+.ll-blog-card-img { aspect-ratio:16/9; background:#e8ddd0; overflow:hidden; }
+.ll-blog-card-img img { width:100%; height:100%; object-fit:cover; }
+.ll-blog-card-body { padding:1.1rem 1.25rem 1.4rem; }
+.ll-blog-card-cat { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:0.4rem; }
+.ll-blog-card-title { font-family:var(--font-heading); font-size:1.1rem; color:var(--warm-dark); margin-bottom:0.5rem; line-height:1.25; }
+.ll-blog-card-date { font-size:0.75rem; color:var(--text-muted); }
+.ll-blog-empty { text-align:center; padding:5rem 2rem; opacity:0.5; font-family:var(--font-accent); font-style:italic; font-size:1.1rem; }
+</style>
+<section class="ll-blog-hero">
+  <p style="font-family:var(--font-accent);font-style:italic;color:var(--gold-light);opacity:0.8;letter-spacing:0.15em;font-size:0.9rem;">✦ musings & dispatches ✦</p>
+  <h1>The Lizzyland Journal</h1>
+  <p>From the bath. From the beach. From the beautiful ordinary.</p>
+</section>
+<div class="ll-blog-grid">
+  <% if (typeof posts !== 'undefined' && posts && posts.length > 0) { %>
+    <% posts.forEach(function(post) { %>
+    <a href="/blog/<%= post.slug %>" class="ll-blog-card">
+      <div class="ll-blog-card-img">
+        <% if (post.image_url) { %><img src="<%= post.image_url %>" alt="<%= post.title %>" loading="lazy"><% } %>
+      </div>
+      <div class="ll-blog-card-body">
+        <div class="ll-blog-card-cat"><%= post.category || 'general' %></div>
+        <div class="ll-blog-card-title"><%= post.title %></div>
+        <div class="ll-blog-card-date"><%= post.created_at ? new Date(post.created_at).toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'}) : '' %></div>
+      </div>
+    </a>
+    <% }); %>
+  <% } else { %>
+    <div class="ll-blog-empty" style="grid-column:1/-1;">No posts yet — the journal is warming up. 🌴</div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>
