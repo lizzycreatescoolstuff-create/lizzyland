@@ -18,16 +18,16 @@
             <li><a href="/health">Health</a></li>
             <li><a href="/space">Wealth</a></li>
             <li><a href="/shop">Happiness</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/about">About</a></li>
           </ul>
         </div>
         <div class="ll-footer-nav-col">
           <div class="ll-footer-nav-heading">Shop</div>
           <ul>
-            <li><a href="/shop?cat=shirts">Shirts</a></li>
-            <li><a href="/shop?cat=hoodies">Hoodies</a></li>
-            <li><a href="/shop?cat=towels">Towels</a></li>
-            <li><a href="/shop?cat=accessories">Accessories</a></li>
+            <li><a href="/shop?brand=meridian">Meridian</a></li>
+            <li><a href="/shop?brand=selva-mar">Selva Mar</a></li>
+            <li><a href="/shop">All Products</a></li>
           </ul>
         </div>
         <div class="ll-footer-nav-col">
@@ -42,19 +42,19 @@
 
       <div class="ll-footer-socials">
         <a href="#" title="Instagram" aria-label="Instagram">
-          <img src="/images/socials/instagram-icon.png" alt="Instagram">
+          <img src="/images/socials/instagram-icon.png" alt="Instagram" onerror="this.style.display='none'">
         </a>
         <a href="#" title="TikTok" aria-label="TikTok">
-          <img src="/images/socials/tiktok-icon.png" alt="TikTok">
+          <img src="/images/socials/tiktok-icon.png" alt="TikTok" onerror="this.style.display='none'">
         </a>
         <a href="#" title="Facebook" aria-label="Facebook">
-          <img src="/images/socials/facebook-icon.png" alt="Facebook">
+          <img src="/images/socials/facebook-icon.png" alt="Facebook" onerror="this.style.display='none'">
         </a>
         <a href="#" title="YouTube" aria-label="YouTube">
-          <img src="/images/socials/youtube-icon.png" alt="YouTube">
+          <img src="/images/socials/youtube-icon.png" alt="YouTube" onerror="this.style.display='none'">
         </a>
         <a href="#" title="X / Twitter" aria-label="X">
-          <img src="/images/socials/x-icon.png" alt="X">
+          <img src="/images/socials/x-icon.png" alt="X" onerror="this.style.display='none'">
         </a>
       </div>
 
@@ -71,22 +71,10 @@
 
   <style>
     .ll-footer-logo-link { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; }
-    .ll-footer-logo-img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; border: 2px solid rgba(200,149,42,0.4); }
-    .ll-back-to-top { color: rgba(245,230,200,0.5); font-size: 0.82rem; transition: color 0.2s; }
+    .ll-footer-logo-img  { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; border: 2px solid rgba(200,149,42,0.4); }
+    .ll-back-to-top      { color: rgba(245,230,200,0.5); font-size: 0.82rem; transition: color 0.2s; }
     .ll-back-to-top:hover { color: var(--gold-light, #e8b84b); }
   </style>
-
-  <script>
-    // Mobile nav toggle
-    var toggle = document.getElementById('navToggle');
-    var nav    = document.getElementById('navWrap');
-    if (toggle && nav) {
-      toggle.addEventListener('click', function() {
-        nav.classList.toggle('open');
-        toggle.textContent = nav.classList.contains('open') ? '✕' : '☰';
-      });
-    }
-  </script>
 
 </body>
 </html>
