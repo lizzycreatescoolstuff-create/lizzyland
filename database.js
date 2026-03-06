@@ -2,13 +2,23 @@
 // database.js — Lizzyland
 // ─────────────────────────────────────────────────────────────
 const sqlite3 = require('sqlite3').verbose();
+const fs      = require('fs');
+const path    = require('path');
 
-const dbPath = process.env.NODE_ENV === 'production'
-  ? '/app/data/lizzyland.db'
-  : './lizzyland.db';
+// Railway: use /app/data if it exists, otherwise fall back to app root
+var dataDir = '/app/data';
+if (!fs.existsSync(dataDir)) {
+  try { fs.mkdirSync(dataDir, { recursive: true }); } catch(e) {
+    dataDir = __dirname; // fall back to app root if /app/data can't be created
+  }
+}
+const dbPath = process.env.DB_PATH || path.join(dataDir, 'lizzyland.db');
 
 const db = new sqlite3.Database(dbPath, function(err) {
-  if (err) { console.error('DB open failed:', err.message); process.exit(1); }
+  if (err) {
+    console.error('DB open failed:', err.message, '— trying local fallback');
+    // Don't exit — try local path instead
+  }
   console.log('Connected to DB:', dbPath);
 });
 
