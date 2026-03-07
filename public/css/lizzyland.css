@@ -1032,9 +1032,11 @@ p { color: var(--text-soft); line-height: 1.8; }
 
 .ll-shop-hero {
   position: relative;
-  min-height: 280px;
+  min-height: 220px;
+  max-height: 280px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   background: var(--ocean);
 }
@@ -1067,13 +1069,15 @@ p { color: var(--text-soft); line-height: 1.8; }
   width: 100%;
   padding: 2.5rem 2rem;
   color: var(--white);
+  text-align: center;
 }
 
 .ll-shop-hero-inner h1 {
-  font-family: var(--font-heading);
-  font-size: 2.8rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
   margin: 0 0 0.5rem;
   color: var(--white);
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
 
 .ll-shop-hero-inner p {
@@ -1168,9 +1172,9 @@ p { color: var(--text-soft); line-height: 1.8; }
   letter-spacing: 0.02em;
 }
 
-/* Shop hero h1 — Oleo Script for warmth */
+/* Shop hero h1 — Playfair Display, consistent with all other page heroes */
 .ll-shop-hero-inner h1 {
-  font-family: 'Oleo Script', cursive !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
 }
 
 /* Path card titles — Oleo Script */
