@@ -6,13 +6,10 @@
 <%- include('partials/header') %>
 
 <style>
-  /* ── Health hero — beach banner, shop-hero proportions ── */
+  /* ── Hero ── */
   .ll-health-hero {
-    position: relative;
-    min-height: 280px;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
+    position: relative; min-height: 280px;
+    display: flex; align-items: flex-end; overflow: hidden;
     background: var(--ocean);
   }
   .ll-health-hero-img {
@@ -22,18 +19,12 @@
   }
   .ll-health-hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(45,27,14,0.82) 0%,
-      rgba(26,138,122,0.3) 55%,
-      rgba(200,149,42,0.08) 100%
-    );
+    background: linear-gradient(to top, rgba(45,27,14,0.82) 0%, rgba(26,138,122,0.3) 55%, rgba(200,149,42,0.08) 100%);
   }
   .ll-health-hero-inner {
     position: relative; z-index: 2;
     max-width: 1100px; margin: 0 auto;
-    width: 100%; padding: 2.5rem 2rem;
-    color: var(--white);
+    width: 100%; padding: 2.5rem 2rem; color: var(--white);
   }
   .ll-health-hero-eyebrow {
     font-family: var(--font-accent); font-style: italic;
@@ -55,8 +46,7 @@
   /* ── Intro ── */
   .ll-health-intro {
     padding: 4rem 2rem 3rem;
-    background: var(--sand-light);
-    text-align: center;
+    background: var(--sand-light); text-align: center;
   }
   .ll-health-intro-inner { max-width: 720px; margin: 0 auto; }
   .ll-health-intro-eyebrow {
@@ -70,134 +60,131 @@
   }
   .ll-health-lead {
     font-family: var(--font-accent); font-style: italic;
-    font-size: 1.15rem; color: var(--text-soft);
-    line-height: 1.85;
+    font-size: 1.15rem; color: var(--text-soft); line-height: 1.85;
   }
 
-  /* ── Collapsible affiliate blocks ── */
-  .ll-health-affiliates {
-    padding: 3rem 2rem 5rem;
-    background: var(--cream);
-  }
-  .ll-health-affiliates-inner { max-width: 1100px; margin: 0 auto; }
+  /* ── Magazine sections ── */
+  .ll-wellness-section { padding: 5rem 2rem; }
+  .ll-wellness-section:nth-child(odd)  { background: var(--cream); }
+  .ll-wellness-section:nth-child(even) { background: var(--sand-light); }
 
-  .ll-health-block {
-    background: var(--white);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    border-left: 5px solid var(--gold);
-    margin-bottom: 1.25rem;
-    overflow: hidden;
-    transition: box-shadow 0.3s;
+  .ll-wellness-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
   }
-  .ll-health-block:hover { box-shadow: var(--shadow-md); }
+  .ll-wellness-inner.reverse { direction: rtl; }
+  .ll-wellness-inner.reverse > * { direction: ltr; }
 
-  .ll-health-block-header {
-    display: flex; align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
-    cursor: pointer;
-    user-select: none;
-    gap: 1rem;
-  }
-  .ll-health-block-header:hover { background: rgba(200,149,42,0.03); }
-
-  .ll-health-block-left { display: flex; align-items: center; gap: 1.25rem; }
-
-  .ll-health-block-label {
-    font-size: 0.68rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.18em;
-    color: var(--gold); margin-bottom: 0.2rem;
-  }
-  .ll-health-block-title {
-    font-family: var(--font-display); font-size: 1.3rem;
-    font-weight: 600; color: var(--warm-dark); line-height: 1.2;
-  }
-  .ll-health-block-preview {
-    font-size: 0.88rem; color: var(--text-muted);
-    font-style: italic; margin-top: 0.15rem;
-  }
-
-  .ll-health-block-toggle {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--sand); border: 1.5px solid var(--sand-deep);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; color: var(--text-muted);
-    transition: all 0.25s; flex-shrink: 0;
-  }
-  .ll-health-block.open .ll-health-block-toggle {
-    background: var(--ocean); border-color: var(--ocean);
-    color: var(--white); transform: rotate(45deg);
-  }
-
-  .ll-health-block-body {
-    display: none;
-    padding: 0 2rem 2rem;
-    border-top: 1px solid var(--sand-deep);
-  }
-  .ll-health-block.open .ll-health-block-body { display: block; }
-
-  .ll-health-block-desc {
-    font-size: 0.95rem; color: var(--text-soft);
-    line-height: 1.8; margin: 1.25rem 0;
-  }
-
-  .ll-health-benefits {
-    list-style: none; margin-bottom: 1.5rem;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.5rem;
-  }
-  .ll-health-benefits li {
-    font-size: 0.87rem; color: var(--text-soft);
-    padding: 0.3rem 0; border-bottom: 1px solid var(--sand-deep);
-    display: flex; align-items: center; gap: 0.4rem;
-  }
-  .ll-health-benefits li::before { content: '✦'; color: var(--gold); font-size: 0.6rem; flex-shrink: 0; }
-
-  .ll-health-video-wrap {
-    max-width: 560px; margin: 1.25rem 0;
-    border-radius: var(--radius-sm); overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-  }
-  .ll-health-video-wrap iframe {
-    display: block; width: 100%; aspect-ratio: 16/9; border: none;
-  }
-  .ll-health-video-placeholder {
-    background: var(--sand); border-radius: var(--radius-sm);
-    aspect-ratio: 16/9; max-width: 560px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 1.25rem 0; font-size: 0.85rem; color: var(--text-muted);
-    font-style: italic; border: 2px dashed var(--sand-deep);
-  }
-
-  .ll-health-cta-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; }
-
-  .ll-health-cta {
-    display: inline-block; background: var(--ocean);
-    color: var(--white) !important; padding: 0.7rem 1.8rem;
-    border-radius: 50px; font-weight: 600; font-size: 0.88rem;
-    letter-spacing: 0.05em; text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .ll-health-cta:hover { background: var(--gold); transform: translateY(-2px); }
-  .ll-health-cta-soon { background: var(--sand-deep); color: var(--text-muted) !important; cursor: default; }
-  .ll-health-cta-soon:hover { background: var(--sand-deep); transform: none; }
-
-
-  .ll-health-product-img {
-    width: 100%; max-width: 480px;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-    margin: 1.25rem 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  .ll-wellness-img {
+    width: 100%; border-radius: var(--radius-md);
+    object-fit: cover; aspect-ratio: 4/5;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
     display: block;
   }
 
-  .ll-health-affiliate-note {
-    font-size: 0.72rem; color: var(--text-muted);
-    font-style: italic;
+  .ll-wellness-eyebrow {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--gold); margin-bottom: 0.75rem;
+  }
+  .ll-wellness-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--warm-dark); font-weight: 600;
+    line-height: 1.15; margin-bottom: 0.6rem;
+  }
+  .ll-wellness-tagline {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.1rem; color: var(--ocean);
+    margin-bottom: 1.5rem; line-height: 1.5;
+  }
+  .ll-wellness-desc {
+    font-size: 0.97rem; color: var(--text-soft);
+    line-height: 1.85; margin-bottom: 1.75rem;
+  }
+  .ll-wellness-benefits {
+    list-style: none; margin-bottom: 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 1.5rem;
+  }
+  .ll-wellness-benefits li {
+    font-size: 0.85rem; color: var(--text-soft);
+    padding: 0.3rem 0; border-bottom: 1px solid var(--sand-deep);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .ll-wellness-benefits li::before { content: '✦'; color: var(--gold); font-size: 0.55rem; flex-shrink: 0; }
+
+  .ll-wellness-video {
+    margin-bottom: 1.75rem;
+    border-radius: var(--radius-sm); overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .ll-wellness-video iframe { display: block; width: 100%; aspect-ratio: 16/9; border: none; }
+
+  .ll-wellness-cta {
+    display: inline-block; background: var(--ocean);
+    color: var(--white) !important; padding: 0.8rem 2.2rem;
+    border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.04em; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .ll-wellness-cta:hover { background: var(--gold); transform: translateY(-2px); }
+
+  .ll-wellness-affiliate-note {
+    display: block; margin-top: 0.75rem;
+    font-size: 0.72rem; color: var(--text-muted); font-style: italic;
   }
 
-  /* ── Philosophy strip — tighter ── */
+  /* ── Sleep sanctuary ── */
+  .ll-sleep-section { padding: 5rem 2rem; background: var(--white); }
+  .ll-sleep-inner { max-width: 900px; margin: 0 auto; }
+  .ll-sleep-header { text-align: center; margin-bottom: 3rem; }
+  .ll-sleep-banner {
+    width: 100%; border-radius: var(--radius-md);
+    object-fit: cover; max-height: 420px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-bottom: 2.5rem; display: block;
+  }
+  .ll-sleep-benefits {
+    list-style: none; margin: 1.5rem 0 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 2rem;
+  }
+  .ll-sleep-benefits li {
+    font-size: 0.85rem; color: var(--text-soft);
+    padding: 0.3rem 0; border-bottom: 1px solid var(--sand-deep);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .ll-sleep-benefits li::before { content: '✦'; color: var(--gold); font-size: 0.55rem; flex-shrink: 0; }
+
+  .ll-sleep-divider {
+    max-width: 120px; margin: 3rem auto;
+    border: none; border-top: 1px solid var(--sand-deep);
+  }
+
+  .ll-sleep-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem; margin: 2.5rem 0 0.75rem;
+  }
+  .ll-sleep-card { text-align: center; }
+  .ll-sleep-card a { text-decoration: none; }
+  .ll-sleep-card img {
+    width: 100%; border-radius: var(--radius-sm);
+    object-fit: cover; aspect-ratio: 1/1;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+    margin-bottom: 0.75rem; transition: transform 0.3s;
+    display: block;
+  }
+  .ll-sleep-card img:hover { transform: scale(1.02); }
+  .ll-sleep-card-name { font-size: 0.85rem; font-weight: 600; color: var(--warm-dark); margin-bottom: 0.2rem; }
+  .ll-sleep-card-tagline { font-size: 0.75rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.6rem; }
+  .ll-sleep-card-btn {
+    display: inline-block; background: var(--ocean); color: white;
+    padding: 0.35rem 1rem; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 600; transition: background 0.2s;
+  }
+  .ll-sleep-card-btn:hover { background: var(--gold); }
+
+  /* ── Philosophy strip ── */
   .ll-health-philosophy {
     background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%);
     padding: 3rem 2rem;
@@ -210,13 +197,10 @@
   }
   .ll-philosophy-byline { font-family: var(--font-display); font-size: 1rem; color: var(--gold-light); font-style: italic; }
 
-  /* ── Back to doors — tight ── */
+  /* ── Back to doors ── */
   .ll-back-to-doors { padding: 2.5rem 2rem; background: var(--sand-light); }
   .ll-back-inner { max-width: 500px; margin: 0 auto; text-align: center; }
-  .ll-back-label {
-    font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 1rem;
-  }
+  .ll-back-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 1rem; }
   .ll-back-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
   .ll-back-link {
     display: inline-block; padding: 0.5rem 1.25rem;
@@ -229,398 +213,326 @@
   .ll-back-home:hover { background: var(--gold); color: var(--white); }
 
   @media (max-width: 768px) {
-    .ll-health-benefits { grid-template-columns: 1fr; }
-    .ll-health-block-header { padding: 1.25rem 1.25rem; }
-    .ll-health-block-body { padding: 0 1.25rem 1.5rem; }
+    .ll-wellness-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .ll-wellness-inner.reverse { direction: ltr; }
+    .ll-wellness-benefits { grid-template-columns: 1fr; }
+    .ll-wellness-img { aspect-ratio: 16/9; }
+    .ll-sleep-benefits { grid-template-columns: 1fr; }
+    .ll-sleep-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .ll-sleep-grid { grid-template-columns: 1fr; }
   }
 </style>
 
-  <!-- ══ HERO ══ -->
-  <section class="ll-health-hero">
-    <img src="/images/beach-banner.jpg" alt="Health — Be Well" class="ll-health-hero-img" onerror="this.style.display='none'">
-    <div class="ll-health-hero-overlay"></div>
-    <div class="ll-health-hero-inner">
-      <div class="ll-health-hero-eyebrow">✦ Door One · Wellness ✦</div>
-      <h1>Be Well.</h1>
-      <p>The foundation of everything — and why it matters.</p>
-    </div>
-  </section>
+<!-- ══ HERO ══ -->
+<section class="ll-health-hero">
+  <img src="/images/beach-banner.jpg" alt="Health — Be Well" class="ll-health-hero-img" onerror="this.style.display='none'">
+  <div class="ll-health-hero-overlay"></div>
+  <div class="ll-health-hero-inner">
+    <div class="ll-health-hero-eyebrow">✦ Door One · Wellness ✦</div>
+    <h1>Be Well.</h1>
+    <p>The foundation of everything — and why it matters.</p>
+  </div>
+</section>
 
-  <!-- ══ INTRO ══ -->
-  <section class="ll-health-intro">
-    <div class="ll-health-intro-inner">
-      <div class="ll-health-intro-eyebrow">Why this matters</div>
-      <h2>You will never fully embrace la dolce vita<br>carrying the past with you.</h2>
-      <p class="ll-health-lead">
-        Slide into your beautiful future — invigorated, refreshed, renewed, hydrated and thriving.
-        Here are some tools to help you detox from your past, or simply float into your bliss.
+<!-- ══ INTRO ══ -->
+<section class="ll-health-intro">
+  <div class="ll-health-intro-inner">
+    <div class="ll-health-intro-eyebrow">Why this matters</div>
+    <h2>You will never fully embrace la dolce vita<br>carrying the past with you.</h2>
+    <p class="ll-health-lead">
+      Slide into your beautiful future — invigorated, refreshed, renewed, hydrated and thriving.
+      Here are some tools to help you detox from your past, or simply float into your bliss.
+    </p>
+  </div>
+</section>
+
+<!-- ══ 1: INFRARED SAUNA ══ -->
+<section class="ll-wellness-section">
+  <div class="ll-wellness-inner">
+    <img src="/images/FD2.webp" alt="Finnmark FD-2 Full Spectrum Infrared Sauna" class="ll-wellness-img" loading="lazy">
+    <div class="ll-wellness-content">
+      <div class="ll-wellness-eyebrow">Red Light &amp; Heat Therapy</div>
+      <h2 class="ll-wellness-title">Infrared Sauna</h2>
+      <p class="ll-wellness-tagline">Deep tissue warmth, detox &amp; that post-session glow.</p>
+      <p class="ll-wellness-desc">
+        The Finnmark FD-2 is the only infrared sauna combining UL Listed Spectrum Plus™ short-wave heaters
+        with Spectrum Carbon 360° long-wave panels — full body coverage, deeper tissue penetration than anything else.
+        Reaches 170°F on a standard home outlet. No electrician. No fuss.
+        Antimicrobial Western Canadian cedar, lifetime heater warranty, EMF tested by a NASA-certified lab.
+        Gary Brecka recommends Finnmark specifically. Now you know why.
       </p>
+      <ul class="ll-wellness-benefits">
+        <li>Deep muscle relaxation</li>
+        <li>Improved circulation</li>
+        <li>Skin health &amp; cellular detox</li>
+        <li>Stress and cortisol reduction</li>
+        <li>Pain relief — back, joints, sciatica</li>
+        <li>Immune system support</li>
+      </ul>
+      <div class="ll-wellness-video">
+        <iframe src="https://www.youtube.com/embed/YOUR_SAUNA_VIDEO_ID" title="Gary Brecka on Infrared Sauna" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a href="https://www.universeofcomfort.com/products/finnmark-fd-2-full-spectrum-infrared-sauna?sca_ref=10751709.9nW4AaEjzT" class="ll-wellness-cta" target="_blank" rel="noopener">Shop Infrared Saunas →</a>
+      <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══ COLLAPSIBLE AFFILIATE BLOCKS ══ -->
-  <section class="ll-health-affiliates">
-    <div class="ll-health-affiliates-inner">
-
-      <!-- Block 1: Infrared Sauna -->
-      <div class="ll-health-block open" id="block-sauna">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-sauna')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Red Light &amp; Heat Therapy</div>
-              <div class="ll-health-block-title">Infrared Sauna</div>
-              <div class="ll-health-block-preview">Deep tissue warmth, detox &amp; that post-session glow.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            The Finnmark FD-2 is the only infrared sauna in the industry that combines UL Listed
-            Spectrum Plus™ short-wave heaters with Spectrum Carbon 360° long-wave panels —
-            delivering full body coverage and deeper tissue penetration than any other sauna on the market.
-            It reaches 170°F in under an hour on a standard home outlet. No electrician required.
-            Antimicrobial Western Canadian cedar interior. Thermal Plus™ Aspen exterior that won't rot, warp or chip.
-            Gary Brecka recommends Finnmark specifically — and this is why.
-          </p>
-          <img src="/images/FD2.webp" alt="Finnmark FD-2 Full Spectrum Infrared Sauna" class="ll-health-product-img" loading="lazy">
-          <ul class="ll-health-benefits">
-            <li>Deep muscle relaxation</li>
-            <li>Improved circulation</li>
-            <li>Skin health &amp; cellular detox</li>
-            <li>Stress and cortisol reduction</li>
-            <li>Pain relief — back, joints, sciatica</li>
-            <li>Immune system support</li>
-          </ul>
-          <!-- YouTube: search "Gary Brecka sauna immune system" → grab video ID → replace YOUR_SAUNA_VIDEO_ID -->
-          <div class="ll-health-video-wrap">
-            <iframe src="https://www.youtube.com/embed/YOUR_SAUNA_VIDEO_ID" title="Gary Brecka on Infrared Sauna" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="ll-health-cta-row">
-            <!-- Replace YOUR-AFFILIATE-LINK-SAUNA with your Universe of Comfort affiliate URL -->
-            <a href="https://www.universeofcomfort.com/products/finnmark-fd-2-full-spectrum-infrared-sauna?sca_ref=10751709.9nW4AaEjzT" class="ll-health-cta" target="_blank" rel="noopener">Shop Infrared Saunas →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-        </div>
+<!-- ══ 2: MASSAGE CHAIR ══ -->
+<section class="ll-wellness-section">
+  <div class="ll-wellness-inner reverse">
+    <img src="/images/luraco-i9.webp" alt="Luraco i9 MAX Plus Medical Massage Chair" class="ll-wellness-img" loading="lazy">
+    <div class="ll-wellness-content">
+      <div class="ll-wellness-eyebrow">Recovery &amp; Relief</div>
+      <h2 class="ll-wellness-title">Massage Chair</h2>
+      <p class="ll-wellness-tagline">The daily reset your body has been asking for.</p>
+      <p class="ll-wellness-desc">
+        The Luraco i9 MAX Plus is the only massage chair made in America and the only one
+        FDA registered as a medical device. Patented 3D Butterfly Technology rollers, zero gravity,
+        heat for hands, lower back and feet, built-in blood pressure and heart rate monitoring.
+        Military-grade technology in your living room.
+        5-year warranty. The quietest chair in the industry. Your massage therapist, on call forever.
+      </p>
+      <ul class="ll-wellness-benefits">
+        <li>Zero-gravity spinal decompression</li>
+        <li>Full back, neck &amp; shoulder relief</li>
+        <li>Heat therapy built in</li>
+        <li>On-demand — no appointment needed</li>
+        <li>Reduces cortisol, improves sleep</li>
+        <li>Lymphatic drainage support</li>
+      </ul>
+      <div class="ll-wellness-video">
+        <iframe src="https://www.youtube.com/embed/YOUR_MASSAGE_VIDEO_ID" title="Luraco i9 MAX Plus Massage Chair" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
-
-      <!-- Block 2: Massage Chair -->
-      <div class="ll-health-block" id="block-massage">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-massage')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Recovery &amp; Relief</div>
-              <div class="ll-health-block-title">Massage Chair</div>
-              <div class="ll-health-block-preview">The daily reset your body has been asking for.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            The Luraco i9 MAX Plus is the only massage chair made in America, and the only one
-            FDA registered as a medical device. Patented 3D Butterfly Technology rollers deliver
-            a closer feel to an actual hands-on massage than anything else on the market.
-            Patented Split L-Track combines L-track and S-track benefits. Powered armrests for hand and arm stretching.
-            Zero gravity. Heat for hands, lower back and feet. Built-in blood pressure and heart rate monitoring.
-            5-year warranty. Quietest chair in the industry. From $13,490. Your massage therapist, on call forever.
-          </p>
-          <img src="/images/luraco-i9.webp" alt="Luraco i9 MAX Plus Medical Massage Chair — Made in USA" class="ll-health-product-img" loading="lazy">
-          <ul class="ll-health-benefits">
-            <li>Zero-gravity spinal decompression</li>
-            <li>Full back, neck &amp; shoulder relief</li>
-            <li>Heat therapy built in</li>
-            <li>On-demand — no appointment needed</li>
-            <li>Reduces cortisol, improves sleep</li>
-            <li>Lymphatic drainage support</li>
-          </ul>
-
-          <!-- YouTube: search "Universe of Comfort massage chair" on their channel → grab video ID → replace YOUR_MASSAGE_VIDEO_ID -->
-          <div class="ll-health-video-wrap">
-            <iframe src="https://www.youtube.com/embed/YOUR_MASSAGE_VIDEO_ID" title="Massage Chair Demo — Universe of Comfort" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="ll-health-cta-row">
-            <!-- Replace YOUR-AFFILIATE-LINK-CHAIR with your Universe of Comfort affiliate URL -->
-            <a href="https://www.universeofcomfort.com/products/luraco-i9-max-plus-medical-massage-chair?sca_ref=10751709.9nW4AaEjzT" class="ll-health-cta" target="_blank" rel="noopener">Shop Massage Chairs →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ═══════════════════════════════════════════════════════════════
-           VIBRATION PLATE — commented out until supplier link is sourced
-           To restore: remove the comment tags around this block
-      ════════════════════════════════════════════════════════════════════
-      <div class="ll-health-block" id="block-vibration">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-vibration')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Movement &amp; Lymphatics</div>
-              <div class="ll-health-block-title">Vibration Plate</div>
-              <div class="ll-health-block-preview">Ten minutes. Life-changing results. Barely counts as exercise.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            Ten minutes on a vibration plate does what an hour's walk does for your lymphatic system.
-            Low effort, genuinely high reward — perfect for anyone who wants results without the gym.
-            The lymphatic system has no pump of its own — it relies on movement to flush toxins, reduce
-            inflammation and keep your immune system thriving. This is the shortcut.
-          </p>
-          <ul class="ll-health-benefits">
-            <li>Lymphatic drainage &amp; detox</li>
-            <li>Bone density support</li>
-            <li>Core &amp; balance activation</li>
-            <li>Reduces inflammation</li>
-            <li>Circulation boost</li>
-            <li>Barely counts as exercise 😄</li>
-          </ul>
-          <div class="ll-health-video-wrap">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIBRATION_VIDEO_ID" title="Gary Brecka on Vibration Plates and Lymphatic Drainage" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="ll-health-cta-row">
-            <a href="YOUR-AFFILIATE-LINK-VIBRATION" class="ll-health-cta" target="_blank" rel="noopener">Shop Vibration Plates →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-        </div>
-      </div>
-      ═══════════════════════════════════════════════════════════════ -->
-
-      <!-- Block 4: Therapy Tub -->
-      <div class="ll-health-block" id="block-tub">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-tub')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Hydration &amp; Manifestation</div>
-              <div class="ll-health-block-title">Therapy Tub</div>
-              <div class="ll-health-block-preview">Soak into your bliss. Manifest your abundant life while the water does its work.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            Your Venus needs water. She needs to soak, to soften, to be held by something warm and elemental.
-            This isn't a plastic spa — it's a hand-crafted cedar tub that heats on wood fire, under open sky,
-            with no electricity and no noise. Just cedar scent, crackling fire, and 104°F of pure ritual.
-            You cannot attract abundance from a place of tension. This is the place you let it go.
-          </p>
-          <ul class="ll-health-benefits">
-            <li>Wood-fired cedar — no electricity needed</li>
-            <li>Nervous system reset — parasympathetic mode</li>
-            <li>Ritual bathing under the stars</li>
-            <li>Skin hydration &amp; circulation</li>
-            <li>Lymphatic support through warm immersion</li>
-            <li>Your manifestation practice, amplified</li>
-          </ul>
-          <img src="/images/CT372W.webp" alt="Dundalk Leisurecraft Starlight Wood-Burning Hot Tub" class="ll-health-product-img" loading="lazy">
-          <!-- YouTube: search "wood fired hot tub cedar ritual" or Dundalk Leisurecraft demo → replace YOUR_TUB_VIDEO_ID -->
-          <div class="ll-health-video-wrap">
-            <iframe src="https://www.youtube.com/embed/YOUR_TUB_VIDEO_ID" title="Dundalk Starlight Wood-Fired Hot Tub" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="ll-health-cta-row">
-            <a href="https://www.universeofcomfort.com/products/dundalk-leisurecraft-the-starlight-wood-burning-hot-tub?sca_ref=10751709.9nW4AaEjzT" class="ll-health-cta" target="_blank" rel="noopener">Shop the Starlight Tub →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Block 5: Cold Plunge -->
-      <div class="ll-health-block" id="block-coldplunge">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-coldplunge')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Contrast Therapy &amp; Dopamine</div>
-              <div class="ll-health-block-title">Cold Plunge</div>
-              <div class="ll-health-block-preview">The brave reset. Three minutes that change everything.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            You soaked in the tub. Now for the brave part. Cold immersion is the fastest
-            nervous system reset known to science — dopamine spikes 250% and stays elevated for hours.
-            Not the cold shower. Not ice in a bin bag. A proper cedar cold plunge, handcrafted in North America,
-            rot-resistant, built for full body immersion. Soak hot, then plunge cold — that's the
-            protocol elite athletes swear by, and the most alive you will feel all week.
-          </p>
-          <ul class="ll-health-benefits">
-            <li>Dopamine spike — sustained for hours</li>
-            <li>Nervous system regulation</li>
-            <li>Reduces inflammation &amp; soreness</li>
-            <li>Circulation &amp; lymphatic flush</li>
-            <li>Mental clarity &amp; resilience</li>
-            <li>The discipline that changes everything</li>
-          </ul>
-          <img src="/images/CT362PP.webp" alt="Dundalk Polar Cold Plunge Tub" class="ll-health-product-img" loading="lazy">
-          <!-- YouTube: search "cold plunge dopamine benefits" or Andrew Huberman cold exposure → replace YOUR_COLDPLUNGE_VIDEO_ID -->
-          <div class="ll-health-video-wrap">
-            <iframe src="https://www.youtube.com/embed/YOUR_COLDPLUNGE_VIDEO_ID" title="Cold Plunge — Dopamine, Nervous System &amp; Recovery" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="ll-health-cta-row">
-            <a href="https://www.universeofcomfort.com/products/dundalk-leisurecraft-the-polar-plunge-tub-ct362pp?sca_ref=10751709.9nW4AaEjzT" class="ll-health-cta" target="_blank" rel="noopener">Shop the Polar Cold Plunge →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Block 6: Silk Bedding -->
-      <div class="ll-health-block" id="block-silk">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-silk')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Beauty Sleep &amp; Skin</div>
-              <div class="ll-health-block-title">Silk Bedding</div>
-              <div class="ll-health-block-preview">You've soaked. Now slide into silk.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            You've done the sauna, the soak, the plunge. Your nervous system is reset, your skin is warm
-            and open — now lay it down on something that keeps working while you sleep.
-            Promeed's 100% Grade 6A+ Mulberry Silk is clinically tested, dermatologist-recommended,
-            and infused with hyaluronic acid. It reduces facial friction by 43%, keeps your skincare
-            on your face instead of absorbed into the fabric, and contains 18 natural amino acids your
-            skin actually recognises. You will wake up differently. Good Housekeeping Best Value 2026.
-            Forbes, ELLE, Harper's Bazaar, RIVIERA Breakthrough Beauty Award. OEKO-TEX certified —
-            no harmful chemicals. This is not a luxury. This is sleep as a beauty treatment.
-          </p>
-          <img src="/images/promeed-banner.jpg" alt="Promeed Silk Bedding Collection" class="ll-health-product-img" loading="lazy">
-          <ul class="ll-health-benefits">
-            <li>Reduces sleep wrinkles &amp; creases — 95%+ users report visible improvement</li>
-            <li>Hyaluronic acid infused — hydrates skin overnight</li>
-            <li>43% less facial friction than standard silk</li>
-            <li>Frizz-free hair — preserves moisture &amp; curl pattern</li>
-            <li>Temperature regulating — cool in summer, warm in winter</li>
-            <li>18 natural amino acids — antibacterial, anti-mite, no irritants</li>
-            <li>OEKO-TEX certified — no formaldehyde, no harmful substances</li>
-            <li>360-day warranty included</li>
-          </ul>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin: 1rem 0;">
-            <img src="/images/promeed-pillow-1.webp" alt="Promeed Silk Pillowcase" style="width:48%; max-width:220px; border-radius:8px; object-fit:cover; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-            <img src="/images/promeed-pillow-2.webp" alt="Promeed Silk Bedding" style="width:48%; max-width:220px; border-radius:8px; object-fit:cover; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-          </div>
-          <div class="ll-health-cta-row">
-            <a href="https://tidd.ly/4rcNdtx" class="ll-health-cta" target="_blank" rel="noopener">Shop Silk Pillowcases →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-
-          <!-- Sleepwear -->
-          <p class="ll-health-block-desc" style="margin-top:2rem;">
-            And while you're sleeping in silk — why not wear it too? The same OEKO-TEX certified 
-            Grade 6A+ mulberry silk, now as sleepwear. Temperature regulating, impossibly soft against 
-            skin, and the kind of thing that makes you actually look forward to going to bed.
-            The chemise slips on like water. The pyjama set is structured enough for a slow morning.
-            The sleep shirt is the one you'll never want to take off.
-          </p>
-
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.25rem 0;">
-
-            <div style="text-align:center;">
-              <a href="https://tidd.ly/4ufVYFW" target="_blank" rel="noopener" style="text-decoration:none;">
-                <img src="/images/silk-chemise-black.webp" alt="Promeed Silk Chemise" style="width:100%; border-radius:8px; object-fit:cover; aspect-ratio:1/1; box-shadow:0 2px 12px rgba(0,0,0,0.1); margin-bottom:0.5rem;">
-                <div style="font-size:0.8rem; font-weight:600; color:var(--warm-dark); margin-bottom:0.2rem;">Silk Chemise</div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic; margin-bottom:0.5rem;">The slip you'll live in</div>
-                <span style="display:inline-block; background:var(--ocean); color:white; padding:0.35rem 0.9rem; border-radius:50px; font-size:0.75rem; font-weight:600;">Shop →</span>
-              </a>
-            </div>
-
-            <div style="text-align:center;">
-              <a href="https://tidd.ly/4rh8bYi" target="_blank" rel="noopener" style="text-decoration:none;">
-                <img src="/images/silk-pj-green.webp" alt="Promeed Silk Pyjamas" style="width:100%; border-radius:8px; object-fit:cover; aspect-ratio:1/1; box-shadow:0 2px 12px rgba(0,0,0,0.1); margin-bottom:0.5rem;">
-                <div style="font-size:0.8rem; font-weight:600; color:var(--warm-dark); margin-bottom:0.2rem;">Silk Pyjama Set</div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic; margin-bottom:0.5rem;">Structured. Effortless.</div>
-                <span style="display:inline-block; background:var(--ocean); color:white; padding:0.35rem 0.9rem; border-radius:50px; font-size:0.75rem; font-weight:600;">Shop →</span>
-              </a>
-            </div>
-
-            <div style="text-align:center;">
-              <a href="https://tidd.ly/4svv8bs" target="_blank" rel="noopener" style="text-decoration:none;">
-                <img src="/images/silk-sleepshirt-blue.webp" alt="Promeed Silk Sleep Shirt" style="width:100%; border-radius:8px; object-fit:cover; aspect-ratio:1/1; box-shadow:0 2px 12px rgba(0,0,0,0.1); margin-bottom:0.5rem;">
-                <div style="font-size:0.8rem; font-weight:600; color:var(--warm-dark); margin-bottom:0.2rem;">Silk Sleep Shirt</div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic; margin-bottom:0.5rem;">Never want to take off</div>
-                <span style="display:inline-block; background:var(--ocean); color:white; padding:0.35rem 0.9rem; border-radius:50px; font-size:0.75rem; font-weight:600;">Shop →</span>
-              </a>
-            </div>
-
-          </div>
-          <span class="ll-health-affiliate-note">Affiliate links — I earn a small commission at no extra cost to you.</span>
-        </div>
-      </div>
-
-      <!-- ═══════════════════════════════════════════════════════════════
-           PEPTIDES & SUPPLEMENTS — commented out until affiliate approved
-           To restore: remove the comment tags around this block
-      ════════════════════════════════════════════════════════════════════
-      <div class="ll-health-block" id="block-peptides">
-        <div class="ll-health-block-header" onclick="toggleBlock('block-peptides')">
-          <div class="ll-health-block-left">
-            <div>
-              <div class="ll-health-block-label">Cellular Health</div>
-              <div class="ll-health-block-title">Peptides &amp; Supplements</div>
-              <div class="ll-health-block-preview">The frontier of longevity — researching now.</div>
-            </div>
-          </div>
-          <div class="ll-health-block-toggle">+</div>
-        </div>
-        <div class="ll-health-block-body">
-          <p class="ll-health-block-desc">
-            Peptides are short chains of amino acids that signal the body to repair, regenerate and restore.
-            The research is extraordinary — tissue repair, cognitive clarity, energy, longevity.
-            I'm deep in research on this one and I'll only ever share what is legal, well-studied
-            and genuinely worth your attention. Watch this space.
-          </p>
-          <ul class="ll-health-benefits">
-            <li>Tissue &amp; joint repair support</li>
-            <li>Cognitive clarity</li>
-            <li>Energy and recovery</li>
-            <li>Longevity-focused</li>
-          </ul>
-          <div class="ll-health-cta-row">
-            <a href="YOUR-AFFILIATE-LINK-SUPPLEMENTS" class="ll-health-cta" target="_blank" rel="noopener">Shop Supplements →</a>
-            <span class="ll-health-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
-          </div>
-        </div>
-      </div>
-      ═══════════════════════════════════════════════════════════════ -->
-
+      <a href="https://www.universeofcomfort.com/products/luraco-i9-max-plus-medical-massage-chair?sca_ref=10751709.9nW4AaEjzT" class="ll-wellness-cta" target="_blank" rel="noopener">Shop Massage Chairs →</a>
+      <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══ PHILOSOPHY STRIP — tighter ══ -->
-  <section class="ll-health-philosophy">
-    <div class="ll-health-philosophy-inner">
-      <div class="ll-philosophy-quote">
-        "Your health is your most important asset.<br>Everything else is built on top of it."
+<!-- ══ 3: THERAPY TUB ══ -->
+<section class="ll-wellness-section">
+  <div class="ll-wellness-inner">
+    <img src="/images/CT372W.webp" alt="Dundalk Leisurecraft Starlight Wood-Burning Hot Tub" class="ll-wellness-img" loading="lazy">
+    <div class="ll-wellness-content">
+      <div class="ll-wellness-eyebrow">Hydration &amp; Manifestation</div>
+      <h2 class="ll-wellness-title">The Soak</h2>
+      <p class="ll-wellness-tagline">Soak into your bliss. Manifest your abundant life while the water does its work.</p>
+      <p class="ll-wellness-desc">
+        Your Venus needs water. She needs to soak, to soften, to be held by something warm and elemental.
+        This isn't a plastic spa — it's a hand-crafted cedar tub that heats on wood fire, under open sky,
+        with no electricity and no noise. Just cedar scent, crackling fire, and 104°F of pure ritual.
+        You cannot attract abundance from a place of tension. This is the place you let it go.
+      </p>
+      <ul class="ll-wellness-benefits">
+        <li>Wood-fired cedar — no electricity needed</li>
+        <li>Nervous system reset — parasympathetic mode</li>
+        <li>Ritual bathing under the stars</li>
+        <li>Skin hydration &amp; circulation</li>
+        <li>Lymphatic support through warm immersion</li>
+        <li>Your manifestation practice, amplified</li>
+      </ul>
+      <div class="ll-wellness-video">
+        <iframe src="https://www.youtube.com/embed/YOUR_TUB_VIDEO_ID" title="Dundalk Starlight Wood-Fired Hot Tub" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
-      <p class="ll-philosophy-byline">— Lizzy</p>
+      <a href="https://www.universeofcomfort.com/products/dundalk-leisurecraft-the-starlight-wood-burning-hot-tub?sca_ref=10751709.9nW4AaEjzT" class="ll-wellness-cta" target="_blank" rel="noopener">Shop the Starlight Tub →</a>
+      <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══ EXPLORE OTHER DOORS — tight ══ -->
-  <section class="ll-back-to-doors">
-    <div class="ll-back-inner">
-      <p class="ll-back-label">Explore the other doors</p>
-      <div class="ll-back-links">
-        <a href="/space" class="ll-back-link">Wealth</a>
-        <a href="/shop"  class="ll-back-link">Happiness</a>
-        <a href="/"      class="ll-back-link ll-back-home">← Lizzyland</a>
+<!-- ══ 4: COLD PLUNGE ══ -->
+<section class="ll-wellness-section">
+  <div class="ll-wellness-inner reverse">
+    <img src="/images/CT362PP.webp" alt="Dundalk Polar Cold Plunge Tub" class="ll-wellness-img" loading="lazy">
+    <div class="ll-wellness-content">
+      <div class="ll-wellness-eyebrow">Contrast Therapy &amp; Dopamine</div>
+      <h2 class="ll-wellness-title">The Plunge</h2>
+      <p class="ll-wellness-tagline">The brave reset. Three minutes that change everything.</p>
+      <p class="ll-wellness-desc">
+        You soaked in the tub. Now for the brave part. Cold immersion is the fastest
+        nervous system reset known to science — dopamine spikes 250% and stays elevated for hours.
+        Not the cold shower. Not ice in a bin bag. A proper cedar cold plunge, handcrafted in North America,
+        rot-resistant, built for full body immersion. Soak hot, plunge cold —
+        the protocol elite athletes swear by, and the most alive you will feel all week.
+      </p>
+      <ul class="ll-wellness-benefits">
+        <li>Dopamine spike — sustained for hours</li>
+        <li>Nervous system regulation</li>
+        <li>Reduces inflammation &amp; soreness</li>
+        <li>Circulation &amp; lymphatic flush</li>
+        <li>Mental clarity &amp; resilience</li>
+        <li>The discipline that changes everything</li>
+      </ul>
+      <div class="ll-wellness-video">
+        <iframe src="https://www.youtube.com/embed/YOUR_COLDPLUNGE_VIDEO_ID" title="Cold Plunge — Dopamine &amp; Recovery" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a href="https://www.universeofcomfort.com/products/dundalk-leisurecraft-the-polar-plunge-tub-ct362pp?sca_ref=10751709.9nW4AaEjzT" class="ll-wellness-cta" target="_blank" rel="noopener">Shop the Polar Cold Plunge →</a>
+      <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5: SLEEP SANCTUARY ══ -->
+<section class="ll-sleep-section">
+  <div class="ll-sleep-inner">
+    <div class="ll-sleep-header">
+      <div class="ll-wellness-eyebrow">Beauty Sleep &amp; Skin</div>
+      <h2 class="ll-wellness-title">The Sleep Sanctuary</h2>
+      <p class="ll-wellness-tagline">You've soaked. You've plunged. Now slide into silk.</p>
+    </div>
+    <img src="/images/promeed-banner.jpg" alt="Promeed Silk Bedding Collection" class="ll-sleep-banner" loading="lazy">
+    <p class="ll-wellness-desc">
+      You've done the sauna, the soak, the plunge. Your nervous system is reset, your skin is warm
+      and open — now lay it down on something that keeps working while you sleep.
+      Promeed's 100% Grade 6A+ Mulberry Silk is clinically tested, dermatologist-recommended,
+      and infused with hyaluronic acid. It reduces facial friction by 43%, keeps your skincare
+      on your face instead of absorbed into the fabric, and contains 18 natural amino acids your
+      skin actually recognises. You will wake up differently. Good Housekeeping Best Value 2026.
+      Forbes, ELLE, Harper's Bazaar. OEKO-TEX certified — no harmful chemicals.
+      This is not a luxury. This is sleep as a beauty treatment.
+    </p>
+    <ul class="ll-sleep-benefits">
+      <li>Reduces sleep wrinkles &amp; creases — 95%+ users report visible improvement</li>
+      <li>Hyaluronic acid infused — hydrates skin overnight</li>
+      <li>43% less facial friction than standard silk</li>
+      <li>Frizz-free hair — preserves moisture &amp; curl pattern</li>
+      <li>Temperature regulating — cool in summer, warm in winter</li>
+      <li>18 natural amino acids — antibacterial, anti-mite, no irritants</li>
+      <li>OEKO-TEX certified — no formaldehyde, no harmful substances</li>
+      <li>360-day warranty included</li>
+    </ul>
+    <a href="https://tidd.ly/4rcNdtx" class="ll-wellness-cta" target="_blank" rel="noopener">Shop Silk Pillowcases →</a>
+    <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+
+    <hr class="ll-sleep-divider">
+
+    <p class="ll-wellness-desc">
+      And while you're sleeping in silk — why not wear it too? The same OEKO-TEX certified
+      Grade 6A+ mulberry silk, now as sleepwear. Temperature regulating, impossibly soft against skin,
+      and the kind of thing that makes you actually look forward to going to bed.
+      The chemise slips on like water. The pyjama set is structured enough for a slow morning.
+      The sleep shirt is the one you'll never want to take off.
+    </p>
+    <div class="ll-sleep-grid">
+      <div class="ll-sleep-card">
+        <a href="https://tidd.ly/4ufVYFW" target="_blank" rel="noopener">
+          <img src="/images/silk-chemise-black.webp" alt="Promeed Silk Chemise" loading="lazy">
+          <div class="ll-sleep-card-name">Silk Chemise</div>
+          <div class="ll-sleep-card-tagline">The slip you'll live in</div>
+          <span class="ll-sleep-card-btn">Shop →</span>
+        </a>
+      </div>
+      <div class="ll-sleep-card">
+        <a href="https://tidd.ly/4rh8bYi" target="_blank" rel="noopener">
+          <img src="/images/silk-pj-green.webp" alt="Promeed Silk Pyjamas" loading="lazy">
+          <div class="ll-sleep-card-name">Silk Pyjama Set</div>
+          <div class="ll-sleep-card-tagline">Structured. Effortless.</div>
+          <span class="ll-sleep-card-btn">Shop →</span>
+        </a>
+      </div>
+      <div class="ll-sleep-card">
+        <a href="https://tidd.ly/4svv8bs" target="_blank" rel="noopener">
+          <img src="/images/silk-sleepshirt-blue.webp" alt="Promeed Silk Sleep Shirt" loading="lazy">
+          <div class="ll-sleep-card-name">Silk Sleep Shirt</div>
+          <div class="ll-sleep-card-tagline">Never want to take off</div>
+          <span class="ll-sleep-card-btn">Shop →</span>
+        </a>
       </div>
     </div>
-  </section>
+    <span class="ll-wellness-affiliate-note">Affiliate links — I earn a small commission at no extra cost to you.</span>
+  </div>
+</section>
 
-  <div class="ll-divider">✦ · ✦ · ✦</div>
+<!-- ═══════════════════════════════════════════════════════════════
+     VIBRATION PLATE — commented out until supplier link is sourced
+     To restore: copy this section, remove comment tags, add image + affiliate link
+════════════════════════════════════════════════════════════════════
+<section class="ll-wellness-section">
+  <div class="ll-wellness-inner">
+    <img src="/images/YOUR-VIBRATION-IMAGE.webp" alt="Vibration Plate" class="ll-wellness-img" loading="lazy">
+    <div class="ll-wellness-content">
+      <div class="ll-wellness-eyebrow">Movement &amp; Lymphatics</div>
+      <h2 class="ll-wellness-title">Vibration Plate</h2>
+      <p class="ll-wellness-tagline">Ten minutes. Life-changing results. Barely counts as exercise.</p>
+      <p class="ll-wellness-desc">
+        Ten minutes on a vibration plate does what an hour's walk does for your lymphatic system.
+        Low effort, genuinely high reward — perfect for anyone who wants results without the gym.
+        The lymphatic system has no pump of its own — it relies on movement to flush toxins, reduce
+        inflammation and keep your immune system thriving. This is the shortcut.
+      </p>
+      <ul class="ll-wellness-benefits">
+        <li>Lymphatic drainage &amp; detox</li>
+        <li>Bone density support</li>
+        <li>Core &amp; balance activation</li>
+        <li>Reduces inflammation</li>
+        <li>Circulation boost</li>
+        <li>Barely counts as exercise</li>
+      </ul>
+      <div class="ll-wellness-video">
+        <iframe src="https://www.youtube.com/embed/YOUR_VIBRATION_VIDEO_ID" title="Gary Brecka on Vibration Plates" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a href="YOUR-AFFILIATE-LINK-VIBRATION" class="ll-wellness-cta" target="_blank" rel="noopener">Shop Vibration Plates →</a>
+      <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+    </div>
+  </div>
+</section>
+═══════════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PEPTIDES & SUPPLEMENTS — commented out until affiliate approved
+     To restore: copy this section, remove comment tags, add image + affiliate link
+════════════════════════════════════════════════════════════════════
+<section class="ll-wellness-section">
+  <div class="ll-wellness-inner reverse">
+    <img src="/images/YOUR-SUPPLEMENTS-IMAGE.webp" alt="Peptides and Supplements" class="ll-wellness-img" loading="lazy">
+    <div class="ll-wellness-content">
+      <div class="ll-wellness-eyebrow">Cellular Health</div>
+      <h2 class="ll-wellness-title">Peptides &amp; Supplements</h2>
+      <p class="ll-wellness-tagline">The frontier of longevity — researching now.</p>
+      <p class="ll-wellness-desc">
+        Peptides are short chains of amino acids that signal the body to repair, regenerate and restore.
+        The research is extraordinary — tissue repair, cognitive clarity, energy, longevity.
+        I'm deep in research on this one and I'll only ever share what is legal, well-studied
+        and genuinely worth your attention. Watch this space.
+      </p>
+      <ul class="ll-wellness-benefits">
+        <li>Tissue &amp; joint repair support</li>
+        <li>Cognitive clarity</li>
+        <li>Energy and recovery</li>
+        <li>Longevity-focused</li>
+      </ul>
+      <a href="YOUR-AFFILIATE-LINK-SUPPLEMENTS" class="ll-wellness-cta" target="_blank" rel="noopener">Shop Supplements →</a>
+      <span class="ll-wellness-affiliate-note">Affiliate link — I earn a small commission at no extra cost to you.</span>
+    </div>
+  </div>
+</section>
+═══════════════════════════════════════════════════════════════ -->
+
+<!-- ══ PHILOSOPHY STRIP ══ -->
+<section class="ll-health-philosophy">
+  <div class="ll-health-philosophy-inner">
+    <div class="ll-philosophy-quote">
+      "Your health is your most important asset.<br>Everything else is built on top of it."
+    </div>
+    <p class="ll-philosophy-byline">— Lizzy</p>
+  </div>
+</section>
+
+<!-- ══ EXPLORE OTHER DOORS ══ -->
+<section class="ll-back-to-doors">
+  <div class="ll-back-inner">
+    <p class="ll-back-label">Explore the other doors</p>
+    <div class="ll-back-links">
+      <a href="/space" class="ll-back-link">Wealth</a>
+      <a href="/shop"  class="ll-back-link">Happiness</a>
+      <a href="/"      class="ll-back-link ll-back-home">← Lizzyland</a>
+    </div>
+  </div>
+</section>
+
+<div class="ll-divider">✦ · ✦ · ✦</div>
 
 <%- include('partials/footer') %>
-
-<script>
-  function toggleBlock(id) {
-    var block = document.getElementById(id);
-    block.classList.toggle('open');
-  }
-</script>
