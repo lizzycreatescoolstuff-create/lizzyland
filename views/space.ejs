@@ -1,253 +1,288 @@
 <%
   var pageTitle   = 'Wealth — Lizzyland';
-  var pageDesc    = 'Create your legacy. Build something beautiful that fits your brain and your life.';
-  var currentPage = 'space';
+  var pageDesc    = 'Your abundant life. Build something beautiful that fits your brain and your life.';
+  var currentPage = 'wealth';
 %>
 <%- include('partials/header') %>
 
 <style>
-  /* ── Hero — same proportions as shop ── */
-  .ll-space-hero {
-    position: relative; min-height: 280px;
-    display: flex; align-items: flex-end;
-    overflow: hidden; background: var(--warm-dark);
+  /* ── Hero ── */
+  .ll-w-hero {
+    position: relative; min-height: 300px;
+    display: flex; align-items: flex-end; overflow: hidden;
+    background: var(--warm-dark);
   }
-  .ll-space-hero-img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
+  .ll-w-hero-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; object-position: center 40%;
   }
-  .ll-space-hero-overlay {
+  .ll-w-hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(45,27,14,0.85) 0%,
-      rgba(92,61,30,0.4) 55%,
-      rgba(200,149,42,0.08) 100%
-    );
+    background: linear-gradient(to top, rgba(45,27,14,0.88) 0%, rgba(92,61,30,0.4) 55%, rgba(200,149,42,0.06) 100%);
   }
-  .ll-space-hero-inner {
-    position: relative; z-index: 2;
-    max-width: 1100px; margin: 0 auto;
-    width: 100%; padding: 2.5rem 2rem;
+  .ll-w-hero-inner {
+    position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;
+    width: 100%; padding: 2.5rem 2rem; color: var(--white);
   }
-  .ll-space-hero-eyebrow {
+  .ll-w-hero-eyebrow {
     font-family: var(--font-accent); font-style: italic;
     font-size: 0.9rem; color: var(--gold-light);
     letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 0.4rem;
   }
-  .ll-space-hero-inner h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem,5vw,3.2rem);
+  .ll-w-hero-inner h1 {
+    font-family: var(--font-display); font-size: clamp(2rem,5vw,3.2rem);
     color: var(--white); margin: 0 0 0.4rem;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.3);
   }
-  .ll-space-hero-inner p {
+  .ll-w-hero-inner p {
     font-family: var(--font-accent); font-style: italic;
     font-size: 1.05rem; color: rgba(255,255,255,0.72); margin: 0;
   }
 
   /* ── Intro ── */
-  .ll-space-intro {
-    background: var(--sand-light); padding: 4.5rem 2rem; text-align: center;
-  }
-  .ll-space-intro-inner { max-width: 720px; margin: 0 auto; }
-  .ll-space-eyebrow {
+  .ll-w-intro { background: var(--sand-light); padding: 4.5rem 2rem; text-align: center; }
+  .ll-w-intro-inner { max-width: 720px; margin: 0 auto; }
+  .ll-w-eyebrow {
     font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.75rem;
   }
-  .ll-space-intro h2 {
+  .ll-w-intro h2 {
     font-family: var(--font-display); font-size: clamp(1.6rem,3.5vw,2.6rem);
     color: var(--warm-dark); margin-bottom: 1rem; font-weight: 600; line-height: 1.2;
   }
-  .ll-space-lead {
+  .ll-w-lead {
     font-family: var(--font-accent); font-style: italic;
     font-size: 1.15rem; color: var(--text-soft); line-height: 1.85;
   }
 
-  /* ── Dream Finder / Wizard ── */
-  .ll-dream-finder {
-    background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%);
-    padding: 5rem 2rem;
-  }
-  .ll-dream-finder-inner { max-width: 820px; margin: 0 auto; text-align: center; }
-  .ll-dream-eyebrow {
-    font-family: var(--font-accent); font-style: italic;
-    font-size: 0.95rem; color: var(--gold-light);
-    letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 0.6rem;
-  }
-  .ll-dream-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem,4vw,2.8rem);
-    color: var(--white); font-weight: 600; margin-bottom: 0.75rem; line-height: 1.2;
-  }
-  .ll-dream-sub {
-    font-family: var(--font-accent); font-style: italic;
-    font-size: 1.1rem; color: rgba(255,255,255,0.7);
-    margin-bottom: 2.5rem; line-height: 1.7;
-  }
-  .ll-dream-cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .ll-dream-cta {
-    display: inline-block; padding: 0.85rem 2.25rem;
-    background: var(--gold); color: var(--warm-dark);
-    border-radius: var(--radius-xl); font-weight: 700;
-    font-size: 0.95rem; text-decoration: none; transition: all 0.25s;
-    box-shadow: 0 4px 20px rgba(200,149,42,0.3);
-  }
-  .ll-dream-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .ll-dream-skip {
-    display: inline-block; padding: 0.85rem 2.25rem;
-    background: rgba(255,255,255,0.1);
-    border: 1.5px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-xl); color: var(--white);
-    font-weight: 600; font-size: 0.95rem;
-    text-decoration: none; transition: all 0.25s;
-  }
-  .ll-dream-skip:hover { background: rgba(255,255,255,0.18); }
-  .ll-dream-note {
-    font-size: 0.8rem; color: rgba(255,255,255,0.45);
-    margin-top: 1.5rem; font-style: italic;
-  }
+  /* ── Shared section styles ── */
+  .ll-w-section { padding: 5rem 2rem; }
+  .ll-w-section.cream  { background: var(--cream); }
+  .ll-w-section.sand   { background: var(--sand-light); }
+  .ll-w-section.white  { background: var(--white); }
+  .ll-w-section.teal   { background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%); }
+  .ll-w-section.dark   { background: linear-gradient(135deg, #1a1008 0%, #2d1b0e 100%); }
 
-  /* ── Three web spaces ── */
-  .ll-spaces {
-    background: var(--cream); padding: 5rem 2rem;
-  }
-  .ll-spaces-inner { max-width: 1100px; margin: 0 auto; }
-  .ll-spaces-heading { text-align: center; margin-bottom: 3rem; }
-  .ll-spaces-eyebrow {
+  .ll-w-section-inner  { max-width: 1100px; margin: 0 auto; }
+  .ll-w-section-narrow { max-width: 820px; margin: 0 auto; }
+  .ll-w-section-header { text-align: center; margin-bottom: 3rem; }
+
+  .ll-w-section-eyebrow {
     font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.6rem;
+    letter-spacing: 0.22em; color: var(--gold); margin-bottom: 0.6rem;
   }
-  .ll-spaces-title {
-    font-family: var(--font-display); font-size: clamp(1.6rem,3.5vw,2.4rem);
-    color: var(--warm-dark); font-weight: 600; margin-bottom: 0.5rem;
+  .ll-w-section-eyebrow.light { color: var(--gold-light); opacity: 0.8; }
+  .ll-w-section-title {
+    font-family: var(--font-display); font-size: clamp(1.8rem,3.5vw,2.8rem);
+    color: var(--warm-dark); font-weight: 600; line-height: 1.15; margin-bottom: 0.6rem;
   }
-  .ll-spaces-sub {
+  .ll-w-section-title.light { color: var(--white); }
+  .ll-w-section-tagline {
     font-family: var(--font-accent); font-style: italic;
-    font-size: 1.05rem; color: var(--text-muted);
+    font-size: 1.1rem; color: var(--text-soft); line-height: 1.6;
   }
-  .ll-spaces-grid {
-    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem;
-  }
-  .ll-space-card {
-    background: var(--white); border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm); border: 1.5px solid var(--sand-deep);
-    padding: 2.5rem 2rem; transition: all 0.3s; position: relative;
-    overflow: hidden;
-  }
-  .ll-space-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--ocean), var(--gold));
-  }
-  .ll-space-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-  .ll-space-card-badge {
-    display: inline-block; padding: 0.25rem 0.75rem;
-    background: var(--ocean-pale); color: var(--ocean);
-    font-size: 0.7rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    border-radius: var(--radius-xl); margin-bottom: 1rem;
-  }
-  .ll-space-card-badge.featured {
-    background: rgba(200,149,42,0.12); color: var(--gold);
-  }
-  .ll-space-card-title {
-    font-family: var(--font-display); font-size: 1.4rem;
-    font-weight: 600; color: var(--warm-dark); margin-bottom: 0.5rem;
-  }
-  .ll-space-card-desc {
-    font-size: 0.9rem; color: var(--text-soft);
-    line-height: 1.75; margin-bottom: 1.5rem;
-  }
-  .ll-space-price {
-    font-family: var(--font-display);
-    font-size: 2.2rem; font-weight: 700;
-    color: var(--ocean); line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .ll-space-price-note {
-    font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem;
-  }
-  .ll-space-features {
-    list-style: none; margin-bottom: 1.75rem;
-  }
-  .ll-space-features li {
-    font-size: 0.87rem; color: var(--text-soft);
-    padding: 0.35rem 0; border-bottom: 1px solid var(--sand-deep);
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .ll-space-features li::before { content: '✦'; color: var(--gold); font-size: 0.6rem; }
-  .ll-space-cta {
-    display: block; text-align: center;
-    padding: 0.75rem 1.5rem;
-    background: var(--ocean); color: var(--white);
-    border-radius: var(--radius-xl); font-weight: 600;
-    font-size: 0.9rem; text-decoration: none; transition: all 0.2s;
-  }
-  .ll-space-cta:hover { background: var(--gold); color: var(--white); }
+  .ll-w-section-tagline.light { color: rgba(255,255,255,0.7); }
 
-  /* ── How it works ── */
-  .ll-how-it-works {
-    background: var(--sand); padding: 5rem 2rem;
-  }
-  .ll-how-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-  .ll-how-title {
-    font-family: var(--font-display); font-size: clamp(1.6rem,3.5vw,2.4rem);
-    color: var(--warm-dark); font-weight: 600; margin-bottom: 0.5rem;
-  }
-  .ll-how-sub {
-    font-family: var(--font-accent); font-style: italic;
-    font-size: 1.05rem; color: var(--text-muted); margin-bottom: 3rem;
-  }
-  .ll-steps-grid {
-    display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
-  }
-  .ll-step-card {
+  /* ── Ikigai Chatbot ── */
+  .ll-ikigai-chat {
     background: var(--white); border-radius: var(--radius-md);
-    padding: 2rem 1.5rem; position: relative;
-    border-top: 4px solid var(--gold);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1); overflow: hidden;
+    max-width: 640px; margin: 0 auto;
   }
-  .ll-step-number {
-    position: absolute; top: 0.75rem; right: 1.25rem;
+  .ll-chat-messages {
+    padding: 1.5rem; min-height: 260px; max-height: 340px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 0.85rem;
+  }
+  .ll-chat-bubble {
+    max-width: 80%; padding: 0.75rem 1rem; border-radius: 18px; font-size: 0.9rem; line-height: 1.6;
+  }
+  .ll-chat-bubble.lizzy {
+    background: var(--ocean); color: var(--white); align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .ll-chat-bubble.user {
+    background: var(--sand-light); color: var(--warm-dark);
+    align-self: flex-end; border-bottom-right-radius: 4px;
+    border: 1px solid var(--sand-deep);
+  }
+  .ll-chat-bubble.lizzy.typing span {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.6); margin: 0 2px;
+    animation: bounce 1.2s infinite;
+  }
+  .ll-chat-bubble.lizzy.typing span:nth-child(2) { animation-delay: 0.2s; }
+  .ll-chat-bubble.lizzy.typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  .ll-chat-input-row {
+    display: flex; gap: 0.5rem; padding: 1rem 1.5rem;
+    border-top: 1px solid var(--sand-deep); background: var(--sand-light);
+  }
+  .ll-chat-input {
+    flex: 1; padding: 0.65rem 1rem; border-radius: 30px;
+    border: 1.5px solid var(--sand-deep); background: var(--white);
+    font-size: 0.9rem; font-family: var(--font-body); outline: none;
+    transition: border-color 0.2s;
+  }
+  .ll-chat-input:focus { border-color: var(--ocean); }
+  .ll-chat-send {
+    padding: 0.65rem 1.25rem; background: var(--ocean); color: white;
+    border: none; border-radius: 30px; font-weight: 600; font-size: 0.85rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .ll-chat-send:hover { background: var(--gold); }
+  .ll-chat-note {
+    text-align: center; margin-top: 1rem;
+    font-size: 0.75rem; color: var(--text-muted); font-style: italic;
+  }
+
+  /* ── Two-column tools ── */
+  .ll-tools-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .ll-tool-card {
+    background: var(--white); border-radius: var(--radius-md);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07); overflow: hidden;
+    border: 1px solid var(--sand-deep);
+  }
+  .ll-tool-card-header {
+    padding: 1.5rem 1.75rem 1rem;
+    border-bottom: 1px solid var(--sand-deep);
+    background: var(--sand-light);
+  }
+  .ll-tool-card-body { padding: 1.75rem; }
+
+  /* numerology */
+  .ll-num-result {
+    display: none; margin-top: 1.25rem; padding: 1.25rem;
+    background: linear-gradient(135deg, var(--ocean), #0d6b5e);
+    border-radius: var(--radius-sm); color: white; text-align: center;
+  }
+  .ll-num-result.show { display: block; }
+  .ll-num-number {
     font-family: var(--font-display); font-size: 3rem;
-    font-weight: 700; color: var(--gold); opacity: 0.15; line-height: 1;
+    color: var(--gold-light); line-height: 1; margin-bottom: 0.25rem;
   }
-  .ll-step-title {
-    font-family: var(--font-display); font-size: 1.1rem;
-    font-weight: 600; color: var(--warm-dark); margin-bottom: 0.5rem;
-  }
-  .ll-step-desc { color: var(--text-soft); font-size: 0.9rem; line-height: 1.7; }
+  .ll-num-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .ll-num-desc { font-size: 0.85rem; line-height: 1.7; opacity: 0.85; font-style: italic; }
 
-  /* ── Coaching ── */
-  .ll-coaching {
-    background: linear-gradient(160deg, var(--warm-dark) 0%, #3d2510 100%);
-    padding: 5rem 2rem;
+  /* moving calculator */
+  .ll-move-q { margin-bottom: 1rem; }
+  .ll-move-q label {
+    display: block; font-size: 0.85rem; color: var(--text-soft);
+    font-weight: 600; margin-bottom: 0.35rem;
   }
-  .ll-coaching-inner {
-    max-width: 780px; margin: 0 auto; text-align: center;
+  .ll-move-q select, .ll-move-q input[type=range] {
+    width: 100%; padding: 0.5rem 0.75rem;
+    border: 1.5px solid var(--sand-deep); border-radius: var(--radius-sm);
+    font-size: 0.85rem; background: var(--sand-light); outline: none;
   }
-  .ll-coaching-eyebrow {
+  .ll-move-q input[type=range] { padding: 0; }
+  .ll-move-score {
+    display: none; margin-top: 1.25rem; padding: 1.25rem;
+    border-radius: var(--radius-sm); text-align: center;
+  }
+  .ll-move-score.show { display: block; }
+  .ll-move-score-num {
+    font-family: var(--font-display); font-size: 2.5rem;
+    line-height: 1; margin-bottom: 0.25rem;
+  }
+  .ll-tool-btn {
+    width: 100%; padding: 0.7rem; background: var(--ocean); color: white;
+    border: none; border-radius: 30px; font-weight: 600; font-size: 0.88rem;
+    cursor: pointer; margin-top: 1rem; transition: background 0.2s;
+  }
+  .ll-tool-btn:hover { background: var(--gold); }
+
+  /* ── Reading list / blog ── */
+  .ll-reading-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem;
+    max-width: 1100px; margin: 0 auto 2.5rem;
+  }
+  .ll-book-card {
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 1.75rem; border: 1px solid var(--sand-deep);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05); transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .ll-book-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--ocean));
+  }
+  .ll-book-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  .ll-book-emoji { font-size: 2rem; margin-bottom: 0.75rem; }
+  .ll-book-title {
+    font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--warm-dark); margin-bottom: 0.25rem; font-weight: 600;
+  }
+  .ll-book-author {
+    font-size: 0.75rem; color: var(--gold); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;
+  }
+  .ll-book-synopsis {
+    font-size: 0.85rem; color: var(--text-soft); line-height: 1.75;
+    font-style: italic;
+  }
+  .ll-blog-cta-row { text-align: center; margin-top: 1rem; }
+
+  /* ── Templates ── */
+  .ll-templates-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .ll-template-card {
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 2rem; border: 1px solid var(--sand-deep);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05); transition: all 0.25s;
+    text-align: center;
+  }
+  .ll-template-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  .ll-template-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .ll-template-name {
+    font-family: var(--font-display); font-size: 1.15rem;
+    color: var(--warm-dark); margin-bottom: 0.5rem; font-weight: 600;
+  }
+  .ll-template-desc {
+    font-size: 0.85rem; color: var(--text-soft); line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .ll-template-tag {
+    display: inline-block; padding: 0.2rem 0.75rem;
+    background: rgba(26,138,122,0.1); color: var(--ocean);
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; border-radius: 30px; margin-bottom: 1rem;
+  }
+  .ll-template-btn {
+    display: inline-block; padding: 0.6rem 1.5rem;
+    background: var(--ocean); color: white; border-radius: 30px;
+    font-size: 0.82rem; font-weight: 600; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .ll-template-btn:hover { background: var(--gold); }
+  .ll-template-btn.soon {
+    background: var(--sand-deep); color: var(--text-muted); cursor: default;
+  }
+  .ll-template-btn.soon:hover { background: var(--sand-deep); }
+
+  /* ── Shared CTA button ── */
+  .ll-w-cta {
+    display: inline-block; background: var(--ocean); color: var(--white) !important;
+    padding: 0.8rem 2.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.04em; text-decoration: none; transition: background 0.2s, transform 0.2s;
+  }
+  .ll-w-cta:hover { background: var(--gold); transform: translateY(-2px); }
+  .ll-w-cta.gold { background: var(--gold); color: var(--warm-dark) !important; }
+  .ll-w-cta.gold:hover { background: var(--gold-light); }
+
+  /* ── Philosophy / quote ── */
+  .ll-w-philosophy { background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%); padding: 3rem 2rem; }
+  .ll-w-philosophy-inner { max-width: 620px; margin: 0 auto; text-align: center; }
+  .ll-w-quote {
     font-family: var(--font-accent); font-style: italic;
-    font-size: 0.95rem; color: var(--gold-light);
-    letter-spacing: 0.12em; opacity: 0.8; margin-bottom: 0.6rem;
+    font-size: clamp(1.1rem,2.2vw,1.5rem); color: var(--white); line-height: 1.7; margin-bottom: 0.75rem;
   }
-  .ll-coaching-title {
-    font-family: var(--font-display); font-style: italic;
-    font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 400;
-    color: var(--white); margin-bottom: 1rem; line-height: 1.2;
-  }
-  .ll-coaching-desc {
-    font-size: 1rem; color: rgba(245,230,200,0.65);
-    line-height: 1.85; margin-bottom: 2rem;
-    font-family: var(--font-accent); font-style: italic; font-size: 1.1rem;
-  }
-  .ll-coaching-cta {
-    display: inline-block; padding: 0.85rem 2.5rem;
-    border: 1.5px solid rgba(200,149,42,0.6);
-    border-radius: var(--radius-xl); color: var(--gold-light);
-    font-weight: 600; font-size: 0.92rem; text-decoration: none; transition: all 0.25s;
-  }
-  .ll-coaching-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--warm-dark); }
+  .ll-w-byline { font-family: var(--font-display); font-size: 1rem; color: var(--gold-light); font-style: italic; }
 
   /* ── Back to doors ── */
   .ll-back-to-doors { padding: 2.5rem 2rem; background: var(--sand-light); }
@@ -255,171 +290,428 @@
   .ll-back-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 1rem; }
   .ll-back-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
   .ll-back-link {
-    display: inline-block; padding: 0.5rem 1.25rem;
-    border-radius: 50px; background: var(--white);
-    border: 2px solid var(--sand-deep); color: var(--text-soft);
-    font-weight: 500; font-size: 0.85rem; text-decoration: none; transition: all 0.2s;
+    display: inline-block; padding: 0.5rem 1.25rem; border-radius: 50px;
+    background: var(--white); border: 2px solid var(--sand-deep);
+    color: var(--text-soft); font-weight: 500; font-size: 0.85rem;
+    text-decoration: none; transition: all 0.2s;
   }
   .ll-back-link:hover { border-color: var(--ocean); color: var(--ocean); }
   .ll-back-home { border-color: var(--gold); color: var(--gold); }
   .ll-back-home:hover { background: var(--gold); color: var(--white); }
 
   @media (max-width: 900px) {
-    .ll-spaces-grid, .ll-steps-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .ll-tools-grid, .ll-reading-grid, .ll-templates-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .ll-reading-grid { grid-template-columns: 1fr; }
   }
 </style>
 
-  <!-- ══ HERO ══ -->
-  <section class="ll-space-hero">
-    <img src="/images/space-banner.jpg" alt="Wealth" class="ll-space-hero-img" onerror="this.style.display='none'">
-    <div class="ll-space-hero-overlay"></div>
-    <div class="ll-space-hero-inner">
-      <div class="ll-space-hero-eyebrow">✦ Door Two · Wealth Coaching ✦</div>
-      <h1>Create Your Legacy</h1>
-      <p>Leave your mark.</p>
-    </div>
-  </section>
+<!-- ══ HERO ══ -->
+<section class="ll-w-hero">
+  <img src="/images/wealth-banner.jpg" alt="Wealth — Your Abundant Life" class="ll-w-hero-img" onerror="this.style.display='none'">
+  <div class="ll-w-hero-overlay"></div>
+  <div class="ll-w-hero-inner">
+    <div class="ll-w-hero-eyebrow">✦ Door Two · Wealth ✦</div>
+    <h1>Your Abundant Life.</h1>
+    <p>Not hustle. Not excess. Purpose. Creativity. Joy. Built around your beautiful brain.</p>
+  </div>
+</section>
 
-  <!-- ══ INTRO ══ -->
-  <section class="ll-space-intro">
-    <div class="ll-space-intro-inner">
-      <div class="ll-space-eyebrow">Ready to scale your dreams?</div>
-      <h2>Step into the lifestyle you desire.<br>It's easier than you think.</h2>
-      <p class="ll-space-lead">
-        Most people don't know what they actually want — only what they think they want.
-        The gap between those two things is where everything changes.
-        Let's find out what your beautiful future actually looks like.
+<!-- ══ INTRO ══ -->
+<section class="ll-w-intro">
+  <div class="ll-w-intro-inner">
+    <div class="ll-w-eyebrow">What wealth actually means</div>
+    <h2>La dolce vita is not a reward.<br>It's a decision.</h2>
+    <p class="ll-w-lead">
+      Most people spend their whole lives waiting for permission to live beautifully.
+      I'm not interested in waiting. Wealth isn't the number in the bank —
+      it's waking up and doing work that lights you up, in a life that actually fits you.
+      Here's what I've found. Here's what works. Start wherever you are.
+    </p>
+  </div>
+</section>
+
+<!-- ══ IKIGAI CHATBOT ══ -->
+<section class="ll-w-section teal">
+  <div class="ll-w-section-narrow">
+    <div class="ll-w-section-header">
+      <div class="ll-w-section-eyebrow light">✦ Find Your Why ✦</div>
+      <h2 class="ll-w-section-title light">The Ikigai Finder</h2>
+      <p class="ll-w-section-tagline light">
+        A gentle conversation. Not a quiz. Not a test.<br>
+        Just a few questions to help you find what you're actually here to do.
       </p>
     </div>
-  </section>
+    <div class="ll-ikigai-chat">
+      <div class="ll-chat-messages" id="chatMessages">
+        <div class="ll-chat-bubble lizzy">
+          Hey! I'm so glad you're here. 🌿 Let's find your ikigai — the thing that sits at the crossroads of what you love, what you're good at, what the world needs, and what can sustain you. Ready? Tell me — what's something you do where time just disappears?
+        </div>
+      </div>
+      <div class="ll-chat-input-row">
+        <input class="ll-chat-input" id="chatInput" type="text" placeholder="Type your answer..." autocomplete="off">
+        <button class="ll-chat-send" onclick="sendChat()">Send →</button>
+      </div>
+    </div>
+    <p class="ll-chat-note">Powered by AI · Your conversation is private · No account needed</p>
+  </div>
+</section>
 
-  <!-- ══ DREAM FINDER ══ -->
-  <section class="ll-dream-finder">
-    <div class="ll-dream-finder-inner">
-      <div class="ll-dream-eyebrow">✦ The Dream Finder ✦</div>
-      <h2 class="ll-dream-title">Not sure where to start?</h2>
-      <p class="ll-dream-sub">
-        A few simple questions. Your life's direction as the answer.
-        I help people find their way to what they actually want —
-        and then I help them build it.
+<!-- ══ TOOLS: NUMEROLOGY + MOVING ══ -->
+<section class="ll-w-section sand">
+  <div class="ll-w-section-inner">
+    <div class="ll-w-section-header">
+      <div class="ll-w-section-eyebrow">Tools for the journey</div>
+      <h2 class="ll-w-section-title">A little clarity goes a long way.</h2>
+      <p class="ll-w-section-tagline">Two tools I keep coming back to. Use them, share them, trust the numbers.</p>
+    </div>
+    <div class="ll-tools-grid">
+
+      <!-- NUMEROLOGY -->
+      <div class="ll-tool-card">
+        <div class="ll-tool-card-header">
+          <div class="ll-w-section-eyebrow">✦ Life Path</div>
+          <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--warm-dark);margin:0.25rem 0 0.35rem;">Numerology Calculator</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);font-style:italic;margin:0;">Your life path number reveals the energy you came in with.</p>
+        </div>
+        <div class="ll-tool-card-body">
+          <div class="ll-move-q">
+            <label>Your date of birth</label>
+            <input type="date" id="numDate" style="width:100%;padding:0.5rem 0.75rem;border:1.5px solid var(--sand-deep);border-radius:var(--radius-sm);font-size:0.9rem;background:var(--sand-light);outline:none;">
+          </div>
+          <button class="ll-tool-btn" onclick="calcNumerology()">Calculate My Number →</button>
+          <div class="ll-num-result" id="numResult">
+            <div class="ll-num-number" id="numNumber"></div>
+            <div class="ll-num-name" id="numName"></div>
+            <div class="ll-num-desc" id="numDesc"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOVING CALCULATOR -->
+      <div class="ll-tool-card">
+        <div class="ll-tool-card-header">
+          <div class="ll-w-section-eyebrow">✦ Readiness Check</div>
+          <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--warm-dark);margin:0.25rem 0 0.35rem;">Should I Move?</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);font-style:italic;margin:0;">A practical gut-check for one of life's biggest decisions.</p>
+        </div>
+        <div class="ll-tool-card-body">
+          <div class="ll-move-q">
+            <label>How happy are you where you live? (1 = miserable, 5 = love it)</label>
+            <input type="range" id="moveQ1" min="1" max="5" value="3" oninput="document.getElementById('mq1val').innerText=this.value">
+            <span style="font-size:0.8rem;color:var(--text-muted);">Current: <span id="mq1val">3</span></span>
+          </div>
+          <div class="ll-move-q">
+            <label>How strong is your reason to move?</label>
+            <select id="moveQ2">
+              <option value="1">Vague feeling</option>
+              <option value="2">A few real reasons</option>
+              <option value="3" selected>Several clear reasons</option>
+              <option value="4">Overwhelming need</option>
+              <option value="5">I've already decided, just nervous</option>
+            </select>
+          </div>
+          <div class="ll-move-q">
+            <label>Do you have somewhere specific in mind?</label>
+            <select id="moveQ3">
+              <option value="1">Not at all</option>
+              <option value="2" selected>A few ideas</option>
+              <option value="3">A shortlist</option>
+              <option value="4">One clear place</option>
+              <option value="5">Already researched and ready</option>
+            </select>
+          </div>
+          <div class="ll-move-q">
+            <label>Financial readiness</label>
+            <select id="moveQ4">
+              <option value="1">No funds, no plan</option>
+              <option value="2">Minimal savings</option>
+              <option value="3" selected>Some savings, could make it work</option>
+              <option value="4">Comfortable cushion</option>
+              <option value="5">Fully funded and ready</option>
+            </select>
+          </div>
+          <button class="ll-tool-btn" onclick="calcMove()">Get My Readiness Score →</button>
+          <div class="ll-move-score" id="moveResult">
+            <div class="ll-move-score-num" id="moveScore"></div>
+            <div style="font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;" id="moveVerdict"></div>
+            <div style="font-size:0.82rem;font-style:italic;line-height:1.7;" id="moveAdvice"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ READING LIST / BLOG ══ -->
+<section class="ll-w-section cream">
+  <div class="ll-w-section-inner">
+    <div class="ll-w-section-header">
+      <div class="ll-w-section-eyebrow">Reading List</div>
+      <h2 class="ll-w-section-title">Books that changed things for me.</h2>
+      <p class="ll-w-section-tagline">
+        ADHD-friendly synopses. No academic summaries — just what it actually did.
       </p>
-      <div class="ll-dream-cta-row">
-        <a href="#" class="ll-dream-cta">Find My Direction →</a>
-        <a href="#spaces" class="ll-dream-skip">I already know what I want</a>
-      </div>
-      <p class="ll-dream-note">The quiz takes about 3 minutes. No email required to start.</p>
     </div>
-  </section>
-
-  <!-- ══ THREE WEB SPACES ══ -->
-  <section class="ll-spaces" id="spaces">
-    <div class="ll-spaces-inner">
-      <div class="ll-spaces-heading">
-        <div class="ll-spaces-eyebrow">Your Internet Space</div>
-        <h2 class="ll-spaces-title">Three ways to show up online.</h2>
-        <p class="ll-spaces-sub">Done-for-you. Installed. Ready. Yours.</p>
+    <div class="ll-reading-grid">
+      <div class="ll-book-card">
+        <div class="ll-book-emoji">🍋</div>
+        <div class="ll-book-title">Ikigai</div>
+        <div class="ll-book-author">Héctor García & Francesc Miralles</div>
+        <div class="ll-book-synopsis">
+          This is the book that gave me language for something I'd been feeling for years.
+          The Japanese concept of ikigai — your reason for being — isn't grand or dramatic.
+          It lives in small, daily things. It stopped me chasing a destination and helped me build a life instead.
+        </div>
       </div>
-      <div class="ll-spaces-grid">
-
-        <div class="ll-space-card">
-          <span class="ll-space-card-badge">Starter</span>
-          <div class="ll-space-card-title">The Calling Card</div>
-          <div class="ll-space-card-desc">A beautiful one-page presence. Your story, your offer, your contact — nothing more. Perfect if you just need to exist online with dignity.</div>
-          <div class="ll-space-price">$99</div>
-          <div class="ll-space-price-note">once-off setup · hosting included year 1</div>
-          <ul class="ll-space-features">
-            <li>Single page — beautifully designed</li>
-            <li>Your domain connected</li>
-            <li>Contact form or booking link</li>
-            <li>Mobile-perfect</li>
-          </ul>
-          <a href="mailto:hello@lizzyland.xyz" class="ll-space-cta">Get Started →</a>
+      <div class="ll-book-card">
+        <div class="ll-book-emoji">🚀</div>
+        <div class="ll-book-title">The Big Leap</div>
+        <div class="ll-book-author">Gay Hendricks</div>
+        <div class="ll-book-synopsis">
+          The concept of the "Upper Limit Problem" — the way we sabotage ourselves just as things start going well —
+          was like reading my own diary. Every time I got close to something good, I'd find a way to mess it up.
+          This book named the pattern. Once you see it, you can't unsee it.
         </div>
-
-        <div class="ll-space-card">
-          <span class="ll-space-card-badge featured">Most Popular</span>
-          <div class="ll-space-card-title">The Full House</div>
-          <div class="ll-space-card-desc">A proper multi-page website. Home, about, services, shop or blog — whatever your business needs. Done properly, from the beginning.</div>
-          <div class="ll-space-price">$199</div>
-          <div class="ll-space-price-note">once-off setup · hosting included year 1</div>
-          <ul class="ll-space-features">
-            <li>Up to 6 pages</li>
-            <li>Your domain connected</li>
-            <li>Shop or booking system</li>
-            <li>Blog or portfolio ready</li>
-            <li>You control everything</li>
-          </ul>
-          <a href="mailto:hello@lizzyland.xyz" class="ll-space-cta">Get Started →</a>
-        </div>
-
-        <div class="ll-space-card">
-          <span class="ll-space-card-badge">Custom</span>
-          <div class="ll-space-card-title">The Bespoke</div>
-          <div class="ll-space-card-desc">You have something specific in mind. A marketplace, a membership, a complex shop, a booking platform. Let's talk about what you actually need.</div>
-          <div class="ll-space-price">Let's talk</div>
-          <div class="ll-space-price-note">custom quote · built around you</div>
-          <ul class="ll-space-features">
-            <li>Anything is possible</li>
-            <li>Scoped to your needs</li>
-            <li>Ongoing support available</li>
-            <li>You own everything</li>
-          </ul>
-          <a href="mailto:hello@lizzyland.xyz" class="ll-space-cta">Have a Chat →</a>
-        </div>
-
       </div>
-    </div>
-  </section>
-
-  <!-- ══ HOW IT WORKS ══ -->
-  <section class="ll-how-it-works">
-    <div class="ll-how-inner">
-      <h2 class="ll-how-title">How it works</h2>
-      <p class="ll-how-sub">Three steps. That's it.</p>
-      <div class="ll-steps-grid">
-        <div class="ll-step-card">
-          <div class="ll-step-number">01</div>
-          <div class="ll-step-title">Tell me what you need</div>
-          <p class="ll-step-desc">We have a conversation — email, voice note, whatever works for you. You don't need to know the technical words. Just tell me what you want your life to look like.</p>
-        </div>
-        <div class="ll-step-card">
-          <div class="ll-step-number">02</div>
-          <div class="ll-step-title">I build and launch it</div>
-          <p class="ll-step-desc">I handle everything. Design, setup, hosting, domain, testing. You'll see it before it goes live and we'll tweak until it's exactly right.</p>
-        </div>
-        <div class="ll-step-card">
-          <div class="ll-step-number">03</div>
-          <div class="ll-step-title">You take the wheel</div>
-          <p class="ll-step-desc">It's yours. I hand it over with a guide that actually makes sense. And I'm here when you need me — without the hourly bill anxiety.</p>
+      <div class="ll-book-card">
+        <div class="ll-book-emoji">💸</div>
+        <div class="ll-book-title">You Are a Badass at Making Money</div>
+        <div class="ll-book-author">Jen Sincero</div>
+        <div class="ll-book-synopsis">
+          Loud. Funny. Zero fluff. What it changed for me: I stopped treating money like something shameful
+          I was supposed to be politely indifferent to. It's energy. You can call it in.
+          Practical and woo in equal measure — somehow it works.
         </div>
       </div>
     </div>
-  </section>
+    <div class="ll-blog-cta-row">
+      <a href="/blog" class="ll-w-cta">Read All Posts on the Blog →</a>
+    </div>
+  </div>
+</section>
 
-  <!-- ══ PERSONAL COACHING ══ -->
-  <section class="ll-coaching">
-    <div class="ll-coaching-inner">
-      <div class="ll-coaching-eyebrow">✦ Not sure a website is the answer? ✦</div>
-      <h2 class="ll-coaching-title">Sometimes the internet isn't the solution.<br>Sometimes it's a conversation.</h2>
-      <p class="ll-coaching-desc">
-        I'm a life coach as much as I am a web builder. If you're stuck — not sure which direction, not sure what you actually want to build, not sure how to get from here to there — let's talk. No agenda. Just clarity.
+<!-- ══ TEMPLATES ══ -->
+<section class="ll-w-section white">
+  <div class="ll-w-section-inner">
+    <div class="ll-w-section-header">
+      <div class="ll-w-section-eyebrow">Templates &amp; Tools</div>
+      <h2 class="ll-w-section-title">Built for brains like ours.</h2>
+      <p class="ll-w-section-tagline">
+        ADHD-friendly. Beautiful. Actually useful. No filler, no fluff.
       </p>
-      <a href="mailto:hello@lizzyland.xyz" class="ll-coaching-cta">Book a Conversation →</a>
     </div>
-  </section>
-
-  <!-- ══ EXPLORE OTHER DOORS ══ -->
-  <section class="ll-back-to-doors">
-    <div class="ll-back-inner">
-      <p class="ll-back-label">Explore the other doors</p>
-      <div class="ll-back-links">
-        <a href="/health" class="ll-back-link">Health</a>
-        <a href="/shop"   class="ll-back-link">Happiness</a>
-        <a href="/"       class="ll-back-link ll-back-home">← Lizzyland</a>
+    <div class="ll-templates-grid">
+      <div class="ll-template-card">
+        <div class="ll-template-icon">🗓️</div>
+        <span class="ll-template-tag">Notion · Free</span>
+        <div class="ll-template-name">The Weekly Reset</div>
+        <div class="ll-template-desc">
+          Sunday planning made gentle. Review what happened, decide what matters, set three real intentions. Fits your brain, not a productivity guru's fantasy.
+        </div>
+        <a href="#" class="ll-template-btn soon">Coming Soon</a>
+      </div>
+      <div class="ll-template-card">
+        <div class="ll-template-icon">💰</div>
+        <span class="ll-template-tag">Notion · Free</span>
+        <div class="ll-template-name">Income Stream Tracker</div>
+        <div class="ll-template-desc">
+          Multiple income streams, different currencies, affiliate commissions, passive vs active — tracked in one clean place. This is the one I use.
+        </div>
+        <a href="#" class="ll-template-btn soon">Coming Soon</a>
+      </div>
+      <div class="ll-template-card">
+        <div class="ll-template-icon">🌱</div>
+        <span class="ll-template-tag">Notion · Free</span>
+        <div class="ll-template-name">The Dream Architecture</div>
+        <div class="ll-template-desc">
+          Your ikigai on a page. What you love, what you're good at, what the world needs, what can sustain you — mapped out, connected, turned into a real plan.
+        </div>
+        <a href="#" class="ll-template-btn soon">Coming Soon</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="ll-divider">✦ · ✦ · ✦</div>
+<!-- ══ PHILOSOPHY ══ -->
+<section class="ll-w-philosophy">
+  <div class="ll-w-philosophy-inner">
+    <div class="ll-w-quote">
+      "La dolce vita is not a reward waiting at the end.<br>
+      It's a way of moving through the world — starting now."
+    </div>
+    <p class="ll-w-byline">— Lizzy</p>
+  </div>
+</section>
+
+<!-- ══ BACK TO DOORS ══ -->
+<section class="ll-back-to-doors">
+  <div class="ll-back-inner">
+    <p class="ll-back-label">Explore the other doors</p>
+    <div class="ll-back-links">
+      <a href="/health" class="ll-back-link">Health</a>
+      <a href="/shop"   class="ll-back-link">Happiness</a>
+      <a href="/"       class="ll-back-link ll-back-home">← Lizzyland</a>
+    </div>
+  </div>
+</section>
+
+<div class="ll-divider">✦ · ✦ · ✦</div>
 
 <%- include('partials/footer') %>
+
+<!-- ══ HIDDEN SECTIONS — uncomment when ready ══
+
+<section class="ll-w-section sand">
+  RELATIONSHIPS / PROPOSING SHOP LINKS
+  Uncomment + build when hidden store is ready
+</section>
+
+<section class="ll-w-section cream">
+  AFFILIATE LINKS (Canva, books, Gumroad etc)
+  Uncomment when affiliate applications approved
+</section>
+
+<section class="ll-w-section white">
+  HIDDEN STORE LINK
+  Uncomment when store is live
+</section>
+
+══ END HIDDEN SECTIONS ══ -->
+
+<script>
+/* ── Ikigai Chatbot ── */
+var chatHistory = [];
+var chatStep = 0;
+
+function sendChat() {
+  var input = document.getElementById('chatInput');
+  var msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  var messages = document.getElementById('chatMessages');
+
+  // Add user bubble
+  var userBubble = document.createElement('div');
+  userBubble.className = 'll-chat-bubble user';
+  userBubble.textContent = msg;
+  messages.appendChild(userBubble);
+
+  // Typing indicator
+  var typing = document.createElement('div');
+  typing.className = 'll-chat-bubble lizzy typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  messages.appendChild(typing);
+  messages.scrollTop = messages.scrollHeight;
+
+  chatHistory.push({ role: 'user', content: msg });
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 300,
+      system: "You are Lizzy — warm, wise, South African, creator of Lizzyland. You're guiding the user through finding their ikigai in a gentle chat conversation. Ask one thoughtful question at a time. Keep responses short (2-4 sentences max). After 5-6 exchanges, summarise their ikigai in a beautiful, poetic sentence. Be warm, specific, encouraging. Never generic. Never use bullet points.",
+      messages: chatHistory
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    typing.remove();
+    var reply = (data.content && data.content[0]) ? data.content[0].text : "I'm thinking... give me a moment. 🌿";
+    var lBubble = document.createElement('div');
+    lBubble.className = 'll-chat-bubble lizzy';
+    lBubble.textContent = reply;
+    messages.appendChild(lBubble);
+    messages.scrollTop = messages.scrollHeight;
+    chatHistory.push({ role: 'assistant', content: reply });
+  })
+  .catch(function() {
+    typing.remove();
+    var lBubble = document.createElement('div');
+    lBubble.className = 'll-chat-bubble lizzy';
+    lBubble.textContent = "Something got lost in the waves 🌊 — try again in a moment.";
+    messages.appendChild(lBubble);
+    messages.scrollTop = messages.scrollHeight;
+  });
+}
+
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') sendChat();
+});
+
+/* ── Numerology ── */
+var numData = {
+  1: { name: 'The Leader', desc: 'Independent, pioneering, original. You came in to forge your own path — not follow someone else\'s map. Your wealth comes from ownership and vision.' },
+  2: { name: 'The Diplomat', desc: 'Intuitive, collaborative, deeply perceptive. You see what others miss. Your wealth comes from connection, harmony and the power of partnership.' },
+  3: { name: 'The Creator', desc: 'Expressive, joyful, magnetic. You are here to create — words, art, ideas, beauty. Your wealth flows when you let yourself be truly seen.' },
+  4: { name: 'The Builder', desc: 'Practical, disciplined, reliable. You build things that last. Your wealth comes through structure, consistency and the beauty of a plan well executed.' },
+  5: { name: 'The Adventurer', desc: 'Freedom-loving, versatile, magnetic. You need variety like oxygen. Your wealth comes through adaptability and the courage to change direction.' },
+  6: { name: 'The Nurturer', desc: 'Caring, responsible, artistic. You create beauty and hold spaces for others. Your wealth comes through service, beauty and community.' },
+  7: { name: 'The Seeker', desc: 'Analytical, spiritual, deeply intelligent. You need truth. Your wealth comes through mastery, depth and the courage to trust your own knowing.' },
+  8: { name: 'The Achiever', desc: 'Powerful, ambitious, magnetic. You are wired for abundance. Your wealth comes when you step fully into your authority without apology.' },
+  9: { name: 'The Humanitarian', desc: 'Compassionate, wise, transformative. You are here for something bigger than yourself. Your wealth comes through giving your gifts fully to the world.' },
+  11: { name: 'The Intuitive', desc: 'A master number. Highly sensitive, visionary, deeply spiritual. You are here to inspire on a large scale. Your wealth comes through trusting your extraordinary intuition.' },
+  22: { name: 'The Master Builder', desc: 'A master number. You have the vision of an 11 and the practicality of a 4. You are capable of building things that change the world. No pressure. 😊' },
+  33: { name: 'The Master Teacher', desc: 'The rarest master number. Pure compassion, wisdom and creative power. You are here to heal, teach and elevate. Your wealth is the love you generate.' }
+};
+
+function calcNumerology() {
+  var d = document.getElementById('numDate').value;
+  if (!d) { alert('Please enter your date of birth.'); return; }
+  var digits = d.replace(/-/g,'').split('').map(Number);
+  var sum = digits.reduce(function(a,b){return a+b;},0);
+  function reduce(n) {
+    if (n === 11 || n === 22 || n === 33) return n;
+    if (n < 10) return n;
+    return reduce(String(n).split('').reduce(function(a,b){return a+Number(b);},0));
+  }
+  var lp = reduce(sum);
+  var data = numData[lp] || numData[9];
+  document.getElementById('numNumber').textContent = lp;
+  document.getElementById('numName').textContent = data.name;
+  document.getElementById('numDesc').textContent = data.desc;
+  var r = document.getElementById('numResult');
+  r.className = 'll-num-result show';
+}
+
+/* ── Moving Calculator ── */
+function calcMove() {
+  var q1 = 6 - parseInt(document.getElementById('moveQ1').value); // invert — happy = don't move
+  var q2 = parseInt(document.getElementById('moveQ2').value);
+  var q3 = parseInt(document.getElementById('moveQ3').value);
+  var q4 = parseInt(document.getElementById('moveQ4').value);
+  var total = q1 + q2 + q3 + q4;
+  var pct = Math.round((total / 20) * 100);
+
+  var verdict, advice, bg;
+  if (pct < 35) {
+    verdict = 'Not yet. Stay and grow.';
+    advice = 'The restlessness you\'re feeling is real, but the timing isn\'t quite there. Use this season to get clear on where you actually want to go — and to build the foundation that makes moving feel like freedom, not escape.';
+    bg = '#e8ddd0';
+  } else if (pct < 60) {
+    verdict = 'You\'re getting warmer.';
+    advice = 'The pull is real and some pieces are in place. What\'s missing? Is it clarity, finances, or just courage? Pick the one thing holding you back and work on that specifically. You\'re closer than you think.';
+    bg = 'rgba(200,149,42,0.15)';
+  } else if (pct < 80) {
+    verdict = 'The signs are saying yes.';
+    advice = 'Your readiness is genuinely high. The reasons are clear, you have a direction, and the practical pieces are mostly there. What would it take to make this real in the next 6 months? Start that list today.';
+    bg = 'rgba(26,138,122,0.12)';
+  } else {
+    verdict = 'What are you waiting for? 🌴';
+    advice = 'Everything is pointing the same direction. You know where you want to go, you have the means to get there, and staying is costing you more than moving. This isn\'t reckless — it\'s ready.';
+    bg = 'rgba(26,138,122,0.2)';
+  }
+
+  var el = document.getElementById('moveResult');
+  el.style.background = bg;
+  document.getElementById('moveScore').textContent = pct + '%';
+  document.getElementById('moveVerdict').textContent = verdict;
+  document.getElementById('moveAdvice').textContent = advice;
+  el.className = 'll-move-score show';
+}
+</script>
