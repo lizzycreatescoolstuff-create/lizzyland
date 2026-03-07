@@ -1,0 +1,834 @@
+<%
+  var pageTitle   = 'Solutions — Lizzyland';
+  var pageDesc    = 'Your beautiful life is closer than you think.';
+  var currentPage = 'solutions';
+%>
+<%- include('partials/header') %>
+
+<style>
+  /* ══ Hero ══ */
+  .ll-sol-hero {
+    position: relative; min-height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0d1a14 0%, #0a2218 50%, #0d1a14 100%);
+  }
+  .ll-sol-hero-overlay {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(200,149,42,0.08) 0%, transparent 70%);
+  }
+  .ll-sol-hero-inner {
+    position: relative; z-index: 2; text-align: center;
+    max-width: 720px; margin: 0 auto; padding: 3rem 2rem;
+  }
+  .ll-sol-hero-eyebrow {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 0.85rem; color: var(--gold-light);
+    letter-spacing: 0.2em; opacity: 0.7; margin-bottom: 0.75rem;
+  }
+  .ll-sol-hero-inner h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    color: var(--white); margin: 0 0 0.75rem;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.6); line-height: 1.2;
+  }
+  .ll-sol-hero-inner p {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.05rem; color: rgba(255,255,255,0.65); margin: 0;
+  }
+
+  /* ══ Shared section styles ══ */
+  .ll-sol-section { padding: 4.5rem 2rem; }
+  .ll-sol-section.cream  { background: var(--cream); }
+  .ll-sol-section.sand   { background: var(--sand-light); }
+  .ll-sol-section.white  { background: var(--white); }
+  .ll-sol-section.dark   { background: linear-gradient(160deg, #0d1a14 0%, #0a2218 100%); }
+  .ll-sol-section.teal   { background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%); }
+  .ll-sol-section.gold-bg { background: linear-gradient(135deg, #2a1f08 0%, #1a1408 100%); }
+
+  .ll-sol-inner { max-width: 1100px; margin: 0 auto; }
+  .ll-sol-narrow { max-width: 820px; margin: 0 auto; }
+
+  .ll-sol-header { margin-bottom: 3rem; }
+  .ll-sol-header.center { text-align: center; }
+
+  .ll-sol-eyebrow {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.25em; color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .ll-sol-eyebrow.light { color: var(--gold-light); opacity: 0.8; }
+
+  .ll-sol-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--warm-dark); font-weight: 600; line-height: 1.15; margin-bottom: 0.5rem;
+  }
+  .ll-sol-title.light { color: var(--white); }
+
+  .ll-sol-tagline {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.05rem; color: var(--text-soft); line-height: 1.6;
+  }
+  .ll-sol-tagline.light { color: rgba(255,255,255,0.65); }
+
+  .ll-sol-desc {
+    font-size: 0.95rem; color: var(--text-soft);
+    line-height: 1.85; margin-bottom: 1.5rem;
+  }
+  .ll-sol-desc.light { color: rgba(255,255,255,0.6); }
+
+  /* ══ Package cards ══ */
+  .ll-pkg-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .ll-pkg-grid.two { grid-template-columns: repeat(2,1fr); max-width: 780px; margin-left: auto; margin-right: auto; }
+
+  .ll-pkg-card {
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 2rem 1.75rem; border: 1px solid var(--sand-deep);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .ll-pkg-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--ocean));
+  }
+  .ll-pkg-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  .ll-pkg-card.dark-card {
+    background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12);
+    box-shadow: none;
+  }
+  .ll-pkg-card.dark-card:hover { background: rgba(255,255,255,0.09); }
+  .ll-pkg-card.dark-card::before { background: linear-gradient(90deg, var(--gold-light), rgba(255,255,255,0.3)); }
+
+  .ll-pkg-icon { font-size: 2rem; margin-bottom: 0.85rem; }
+  .ll-pkg-tag {
+    display: inline-block; padding: 0.18rem 0.65rem;
+    background: rgba(26,138,122,0.1); color: var(--ocean);
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; border-radius: 30px; margin-bottom: 0.75rem;
+  }
+  .ll-pkg-tag.gold-tag { background: rgba(200,149,42,0.12); color: var(--gold); }
+  .ll-pkg-tag.dark-tag { background: rgba(200,149,42,0.2); color: var(--gold-light); }
+
+  .ll-pkg-name {
+    font-family: var(--font-display); font-size: 1.2rem;
+    color: var(--warm-dark); font-weight: 600; margin-bottom: 0.5rem; line-height: 1.2;
+  }
+  .ll-pkg-name.light { color: var(--white); }
+
+  .ll-pkg-desc {
+    font-size: 0.85rem; color: var(--text-soft); line-height: 1.75; margin-bottom: 1.25rem;
+  }
+  .ll-pkg-desc.light { color: rgba(255,255,255,0.55); }
+
+  .ll-pkg-list { list-style: none; margin-bottom: 1.25rem; }
+  .ll-pkg-list li {
+    font-size: 0.82rem; color: var(--text-muted);
+    padding: 0.28rem 0; border-bottom: 1px solid var(--sand-deep);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .ll-pkg-list li::before { content: '✦'; color: var(--gold); font-size: 0.5rem; flex-shrink: 0; }
+  .ll-pkg-list.light li { color: rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.1); }
+  .ll-pkg-list.light li::before { color: var(--gold-light); }
+
+  .ll-pkg-btn {
+    display: inline-block; padding: 0.6rem 1.4rem;
+    background: var(--ocean); color: white !important;
+    border-radius: 30px; font-size: 0.82rem; font-weight: 600;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .ll-pkg-btn:hover { background: var(--gold); }
+  .ll-pkg-btn.gold-btn { background: var(--gold); color: var(--warm-dark) !important; }
+  .ll-pkg-btn.gold-btn:hover { background: var(--gold-light); }
+  .ll-pkg-btn.soon { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.5) !important; cursor: default; }
+  .ll-pkg-btn.soon:hover { background: rgba(255,255,255,0.15); }
+
+  /* ══ Numerology bot ══ */
+  .ll-num-bot {
+    background: var(--white); border-radius: var(--radius-md);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1); overflow: hidden;
+    max-width: 700px; margin: 2.5rem auto 0;
+  }
+  .ll-num-bot-tabs {
+    display: flex; background: var(--sand-light);
+    border-bottom: 1px solid var(--sand-deep);
+  }
+  .ll-num-tab {
+    flex: 1; padding: 0.85rem 1rem; font-size: 0.82rem; font-weight: 600;
+    text-align: center; cursor: pointer; border: none; background: none;
+    color: var(--text-muted); transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  .ll-num-tab.active { color: var(--ocean); border-bottom-color: var(--ocean); background: var(--white); }
+
+  .ll-num-panel { display: none; padding: 2rem; }
+  .ll-num-panel.active { display: block; }
+
+  .ll-num-field { margin-bottom: 1.25rem; }
+  .ll-num-field label {
+    display: block; font-size: 0.83rem; font-weight: 600;
+    color: var(--text-soft); margin-bottom: 0.4rem;
+  }
+  .ll-num-field input, .ll-num-field select {
+    width: 100%; padding: 0.6rem 0.9rem;
+    border: 1.5px solid var(--sand-deep); border-radius: var(--radius-sm);
+    font-size: 0.88rem; background: var(--sand-light); outline: none;
+    font-family: var(--font-body); transition: border-color 0.2s;
+  }
+  .ll-num-field input:focus, .ll-num-field select:focus { border-color: var(--ocean); }
+  .ll-num-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .ll-num-field small {
+    display: block; font-size: 0.73rem; color: var(--text-muted);
+    font-style: italic; margin-top: 0.25rem;
+  }
+
+  .ll-num-run-btn {
+    width: 100%; padding: 0.8rem; background: var(--ocean); color: white;
+    border: none; border-radius: 30px; font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; margin-top: 0.5rem; transition: background 0.2s;
+    font-family: var(--font-body);
+  }
+  .ll-num-run-btn:hover { background: var(--gold); }
+  .ll-num-run-btn:disabled { opacity: 0.6; cursor: wait; }
+
+  .ll-num-output {
+    display: none; margin-top: 1.75rem; padding: 1.5rem;
+    background: linear-gradient(135deg, #0d1a14, #0a2218);
+    border-radius: var(--radius-sm); color: white;
+  }
+  .ll-num-output.show { display: block; }
+  .ll-num-output-title {
+    font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--gold-light); margin-bottom: 1rem;
+  }
+  .ll-num-output-body {
+    font-size: 0.88rem; line-height: 1.85; color: rgba(255,255,255,0.8);
+    white-space: pre-wrap;
+  }
+  .ll-num-output-cities {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 0.75rem; margin-top: 1.25rem;
+  }
+  .ll-num-city {
+    background: rgba(255,255,255,0.08); border-radius: var(--radius-sm);
+    padding: 0.75rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);
+  }
+  .ll-num-city-name { font-weight: 700; font-size: 0.88rem; color: var(--white); margin-bottom: 0.2rem; }
+  .ll-num-city-detail { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+  .ll-num-city-link {
+    display: inline-block; margin-top: 0.5rem; font-size: 0.7rem;
+    color: var(--gold-light); text-decoration: none;
+    border-bottom: 1px solid rgba(200,149,42,0.4);
+  }
+
+  /* ══ Divider ══ */
+  .ll-sol-ornament {
+    text-align: center; padding: 2rem 0; font-size: 0.75rem;
+    letter-spacing: 0.4em; color: var(--text-muted); opacity: 0.5;
+  }
+
+  /* ══ Giving section ══ */
+  .ll-giving-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem;
+  }
+  .ll-giving-card {
+    text-align: center; padding: 2rem 1.5rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md); transition: all 0.25s;
+  }
+  .ll-giving-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+  .ll-giving-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .ll-giving-name {
+    font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .ll-giving-desc { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 1rem; }
+
+  /* ══ Footer CTA ══ */
+  .ll-sol-footer-cta {
+    background: var(--sand-light); padding: 3rem 2rem; text-align: center;
+  }
+  .ll-sol-footer-cta p {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.05rem; color: var(--text-soft); margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 860px) {
+    .ll-pkg-grid, .ll-pkg-grid.two { grid-template-columns: 1fr; }
+    .ll-giving-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .ll-num-output-cities { grid-template-columns: 1fr 1fr; }
+    .ll-num-field-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- ══ HERO ══ -->
+<section class="ll-sol-hero">
+  <div class="ll-sol-hero-overlay"></div>
+  <div class="ll-sol-hero-inner">
+    <div class="ll-sol-hero-eyebrow">✦ Your Prescription ✦</div>
+    <h1>Your beautiful life<br>is closer than you think.</h1>
+    <p>You've done the work of knowing what's missing. Here's how we fix it.</p>
+  </div>
+</section>
+
+<div class="ll-sol-ornament">✦ · ✦ · ✦</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1: RELATIONSHIPS
+══════════════════════════════════════════ -->
+<section class="ll-sol-section cream">
+  <div class="ll-sol-inner">
+    <div class="ll-sol-header center">
+      <div class="ll-sol-eyebrow">✦ When the heart needs attention ✦</div>
+      <h2 class="ll-sol-title">Relationships</h2>
+      <p class="ll-sol-tagline">Fix what's broken. Deepen what's good. Create what's missing.</p>
+    </div>
+
+    <div class="ll-pkg-grid">
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">💌</div>
+        <span class="ll-pkg-tag">Reading + Tools</span>
+        <div class="ll-pkg-name">The Communication Reset</div>
+        <div class="ll-pkg-desc">For when you and someone you love are talking past each other. These books and tools changed how I listen, argue, and love.</div>
+        <ul class="ll-pkg-list">
+          <li>The Five Love Languages — Gary Chapman</li>
+          <li>Hold Me Tight — Dr Sue Johnson</li>
+          <li>Nonviolent Communication — Marshall Rosenberg</li>
+          <li>Notion template: Monthly relationship check-in</li>
+          <li>Journal prompt PDF (free download)</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn soon">Coming Soon</a>
+      </div>
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">💍</div>
+        <span class="ll-pkg-tag gold-tag">Experience</span>
+        <div class="ll-pkg-name">The Grand Gesture</div>
+        <div class="ll-pkg-desc">Proposing, anniversaries, reconciliations. The moments that need to be extraordinary. I've curated the experiences, the jewellery, the locations.</div>
+        <ul class="ll-pkg-list">
+          <li>Monica Vinader — everyday luxury jewellery (affiliate)</li>
+          <li>Brilliant Earth — lab-grown diamonds (affiliate)</li>
+          <li>Villa or yacht charter — private and unforgettable</li>
+          <li>Curated proposal location guide (SA + international)</li>
+          <li>Hidden store: curated gifts for people you love</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn soon">Coming Soon</a>
+      </div>
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">🌹</div>
+        <span class="ll-pkg-tag">Experience + Reading</span>
+        <div class="ll-pkg-name">Reignite the Romance</div>
+        <div class="ll-pkg-desc">Date night shouldn't be Netflix and takeaway. Not forever. Here's how to create moments that remind you both why you chose each other.</div>
+        <ul class="ll-pkg-list">
+          <li>Date night planning template (Notion — free)</li>
+          <li>Yacht day charter links (Boatbookings)</li>
+          <li>Villa weekend links (Plum Guide)</li>
+          <li>Mating in Captivity — Esther Perel</li>
+          <li>The Relationship Cure — John Gottman</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn soon">Coming Soon</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2: YOUR INTERNET SPACE + BUSINESS
+══════════════════════════════════════════ -->
+<section class="ll-sol-section sand">
+  <div class="ll-sol-inner">
+    <div class="ll-sol-header center">
+      <div class="ll-sol-eyebrow">✦ When you're ready to build ✦</div>
+      <h2 class="ll-sol-title">Your Internet Space &amp; Business</h2>
+      <p class="ll-sol-tagline">Done-for-you. Installed. Ready. Yours. Or the tools to build it yourself.</p>
+    </div>
+
+    <div class="ll-pkg-grid">
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">🌐</div>
+        <span class="ll-pkg-tag gold-tag">Done For You</span>
+        <div class="ll-pkg-name">The Calling Card</div>
+        <div class="ll-pkg-desc">A beautiful one-page presence. Your story, your offer, your contact — installed and ready. For when you just need to exist online with dignity.</div>
+        <ul class="ll-pkg-list">
+          <li>Single page — beautifully designed</li>
+          <li>Your domain connected</li>
+          <li>Contact form or booking link</li>
+          <li>Mobile-perfect</li>
+          <li>Hosting included year 1</li>
+        </ul>
+        <div style="font-family:var(--font-display);font-size:2rem;color:var(--ocean);margin:0.75rem 0 0.25rem;">$149</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:1rem;">once-off · hosting included year 1</div>
+        <a href="mailto:hello@lizzyland.xyz?subject=Calling Card Website" class="ll-pkg-btn gold-btn">Get Started →</a>
+      </div>
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">🏠</div>
+        <span class="ll-pkg-tag gold-tag">Most Popular</span>
+        <div class="ll-pkg-name">The Full House</div>
+        <div class="ll-pkg-desc">A proper multi-page website. Home, about, services, shop or blog — whatever your business needs. Done properly, from the beginning.</div>
+        <ul class="ll-pkg-list">
+          <li>Up to 6 pages</li>
+          <li>Your domain connected</li>
+          <li>Shop or booking system</li>
+          <li>Blog or portfolio ready</li>
+          <li>You control everything</li>
+        </ul>
+        <div style="font-family:var(--font-display);font-size:2rem;color:var(--ocean);margin:0.75rem 0 0.25rem;">$299</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:1rem;">once-off · hosting included year 1</div>
+        <a href="mailto:hello@lizzyland.xyz?subject=Full House Website" class="ll-pkg-btn gold-btn">Get Started →</a>
+      </div>
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">✨</div>
+        <span class="ll-pkg-tag">DIY Tools</span>
+        <div class="ll-pkg-name">Build It Yourself</div>
+        <div class="ll-pkg-desc">Not ready for done-for-you? Start with the best tools. These are what I use and recommend — curated, not sponsored.</div>
+        <ul class="ll-pkg-list">
+          <li>Canva Pro — design without a designer (affiliate)</li>
+          <li>Notion — your business brain (affiliate)</li>
+          <li>Income stream tracker template (free)</li>
+          <li>Dream Architecture template (free)</li>
+          <li>Book: $100M Offers — Alex Hormozi (Amazon)</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn">Browse Tools →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3: WHERE SHOULD YOU LIVE — NUMEROLOGY BOT
+══════════════════════════════════════════ -->
+<section class="ll-sol-section dark">
+  <div class="ll-sol-narrow">
+    <div class="ll-sol-header center">
+      <div class="ll-sol-eyebrow light">✦ When somewhere feels wrong ✦</div>
+      <h2 class="ll-sol-title light">Where Should You Live?</h2>
+      <p class="ll-sol-tagline light">
+        Your birth numbers, Chinese zodiac, favourable direction and climate — all matched to real cities and real properties. Not guesswork. Cosmic alignment.
+      </p>
+    </div>
+
+    <div class="ll-num-bot">
+      <div class="ll-num-bot-tabs">
+        <button class="ll-num-tab active" onclick="switchTab('profile')">1. Your Profile</button>
+        <button class="ll-num-tab" onclick="switchTab('prefs')">2. Preferences</button>
+        <button class="ll-num-tab" onclick="switchTab('results')" id="resultsTab">3. Your Places</button>
+      </div>
+
+      <!-- TAB 1: Profile -->
+      <div class="ll-num-panel active" id="panel-profile">
+        <div class="ll-num-field">
+          <label>Date of birth</label>
+          <input type="date" id="nb-dob" oninput="calcLifePath()">
+          <small id="nb-lifepath-preview"></small>
+        </div>
+        <div class="ll-num-field-row">
+          <div class="ll-num-field">
+            <label>Birth year (for Chinese zodiac)</label>
+            <input type="number" id="nb-year" placeholder="e.g. 1983" min="1900" max="2010">
+          </div>
+          <div class="ll-num-field">
+            <label>Current country</label>
+            <select id="nb-country">
+              <option value="">Select...</option>
+              <option value="ZA">South Africa</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="AU">Australia</option>
+              <option value="PT">Portugal</option>
+              <option value="ES">Spain</option>
+              <option value="IT">Italy</option>
+              <option value="NZ">New Zealand</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="ll-num-field">
+          <label>Are you open to moving abroad?</label>
+          <select id="nb-abroad">
+            <option value="local">No — within my country only</option>
+            <option value="open">Yes — open to anything</option>
+            <option value="specific">Yes — specific regions in mind</option>
+          </select>
+        </div>
+        <button class="ll-num-run-btn" onclick="switchTab('prefs')">Next — Climate & Preferences →</button>
+      </div>
+
+      <!-- TAB 2: Preferences -->
+      <div class="ll-num-panel" id="panel-prefs">
+        <div class="ll-num-field-row">
+          <div class="ll-num-field">
+            <label>Preferred climate</label>
+            <select id="nb-climate">
+              <option value="tropical">Tropical / warm year-round</option>
+              <option value="mediterranean">Mediterranean / mild &amp; sunny</option>
+              <option value="coastal">Coastal / sea breeze</option>
+              <option value="temperate">Temperate / four seasons</option>
+              <option value="cool">Cool / mountain or highland</option>
+            </select>
+          </div>
+          <div class="ll-num-field">
+            <label>Environment feel</label>
+            <select id="nb-environ">
+              <option value="beach">Beach / ocean</option>
+              <option value="bush">Bush / nature / wilderness</option>
+              <option value="mountain">Mountain / elevated</option>
+              <option value="city">Cosmopolitan city</option>
+              <option value="rural">Rural / village</option>
+            </select>
+          </div>
+        </div>
+        <div class="ll-num-field-row">
+          <div class="ll-num-field">
+            <label>Budget for property (USD approx)</label>
+            <select id="nb-budget">
+              <option value="under200k">Under $200k</option>
+              <option value="200-500k">$200k–$500k</option>
+              <option value="500k-1m">$500k–$1m</option>
+              <option value="1m+">$1m+</option>
+              <option value="renting">Renting — not buying</option>
+            </select>
+          </div>
+          <div class="ll-num-field">
+            <label>Is this a good year to move? (current year number)</label>
+            <select id="nb-timing">
+              <option value="yes">Yes — I feel the pull</option>
+              <option value="maybe">Maybe — I need a sign</option>
+              <option value="no">No — just researching</option>
+            </select>
+          </div>
+        </div>
+        <div class="ll-num-field">
+          <label>What's most important in your new place?</label>
+          <select id="nb-priority">
+            <option value="community">Community &amp; belonging</option>
+            <option value="nature">Nature &amp; beauty</option>
+            <option value="opportunity">Opportunity &amp; growth</option>
+            <option value="peace">Peace &amp; safety</option>
+            <option value="culture">Culture &amp; lifestyle</option>
+            <option value="cost">Affordability</option>
+          </select>
+        </div>
+        <button class="ll-num-run-btn" id="findPlacesBtn" onclick="findMyPlaces()">Find My Places ✦</button>
+      </div>
+
+      <!-- TAB 3: Results -->
+      <div class="ll-num-panel" id="panel-results">
+        <div class="ll-num-output show" id="nb-output">
+          <div class="ll-num-output-title">✦ Your Cosmic Match Report</div>
+          <div class="ll-num-output-body" id="nb-text">
+            Fill in your profile and preferences to reveal your places.
+          </div>
+          <div class="ll-num-output-cities" id="nb-cities"></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:0.72rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:1rem;">
+      Powered by AI numerology &amp; astrology analysis · Property links open Zillow / Property24 with your filters pre-set
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 4: LIFE OVERHAUL
+══════════════════════════════════════════ -->
+<section class="ll-sol-section white">
+  <div class="ll-sol-inner">
+    <div class="ll-sol-header center">
+      <div class="ll-sol-eyebrow">✦ When everything needs to shift ✦</div>
+      <h2 class="ll-sol-title">The Life Overhaul</h2>
+      <p class="ll-sol-tagline">Your environment, your habits, your home. Start outside and work in.</p>
+    </div>
+
+    <div class="ll-pkg-grid">
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">🌿</div>
+        <span class="ll-pkg-tag">Method + Reading</span>
+        <div class="ll-pkg-name">The Great Edit</div>
+        <div class="ll-pkg-desc">Marie Kondo was right. Your stuff is weighing you down. This is the toolkit to strip back to what sparks joy — and store the rest beautifully.</div>
+        <ul class="ll-pkg-list">
+          <li>The Life-Changing Magic of Tidying — Marie Kondo (Amazon)</li>
+          <li>Joy at Work — Marie Kondo (Amazon)</li>
+          <li>Declutter room-by-room checklist (Notion — free)</li>
+          <li>Curated storage edit: IKEA favourites list</li>
+          <li>The "one in one out" habit tracker template</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn soon">Coming Soon</a>
+      </div>
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">🏡</div>
+        <span class="ll-pkg-tag">Environment</span>
+        <div class="ll-pkg-name">Beautiful Storage</div>
+        <div class="ll-pkg-desc">Clutter doesn't leave — it just needs a beautiful home. The difference between a chaotic house and a calm one is usually just containers.</div>
+        <ul class="ll-pkg-list">
+          <li>Curated storage picks — linen baskets, stackable boxes</li>
+          <li>The capsule linen cupboard guide</li>
+          <li>Kitchen edit — what to keep, what to release</li>
+          <li>The bathroom edit checklist</li>
+          <li>Room-by-room styling guide (PDF — free)</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn soon">Coming Soon</a>
+      </div>
+
+      <div class="ll-pkg-card">
+        <div class="ll-pkg-icon">☀️</div>
+        <span class="ll-pkg-tag">Habits + Health</span>
+        <div class="ll-pkg-name">The Morning Architecture</div>
+        <div class="ll-pkg-desc">Your morning is the foundation of everything. Even 30 minutes of intentional morning changes your whole day — and eventually your whole life.</div>
+        <ul class="ll-pkg-list">
+          <li>The Miracle Morning — Hal Elrod (Amazon)</li>
+          <li>Morning routine builder template (Notion — free)</li>
+          <li>The slow morning guide — Lizzy's version (blog)</li>
+          <li>Leuchtturm1917 journal — the one I use (affiliate)</li>
+          <li>Links to Health door: silk sleepwear, silk pillowcase</li>
+        </ul>
+        <a href="#" class="ll-pkg-btn soon">Coming Soon</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 5: GIVING & CHARITABLE ACTS
+══════════════════════════════════════════ -->
+<section class="ll-sol-section gold-bg">
+  <div class="ll-sol-inner">
+    <div class="ll-sol-header center">
+      <div class="ll-sol-eyebrow light">✦ The most underrated wealth hack ✦</div>
+      <h2 class="ll-sol-title light">Give First.</h2>
+      <p class="ll-sol-tagline light">
+        Every abundance tradition agrees on this: giving opens the channel. Not as a transaction — as a way of being. Here's how to make it easy, beautiful and meaningful.
+      </p>
+    </div>
+
+    <div class="ll-giving-grid">
+
+      <div class="ll-giving-card">
+        <div class="ll-giving-icon">🌱</div>
+        <div class="ll-giving-name">Plant Something</div>
+        <div class="ll-giving-desc">One tree. One garden bed. One pot on someone's stoep. Giving to the earth costs almost nothing and returns everything.</div>
+        <a href="https://onetreeplanted.org" target="_blank" rel="noopener" class="ll-pkg-btn" style="font-size:0.75rem;">One Tree Planted →</a>
+      </div>
+
+      <div class="ll-giving-card">
+        <div class="ll-giving-icon">🍽️</div>
+        <div class="ll-giving-name">Feed Someone</div>
+        <div class="ll-giving-desc">Cook double and take a portion to a neighbour. Pay for the coffee of the person behind you. Small acts, enormous ripple.</div>
+        <a href="https://www.foodbanksa.org.za" target="_blank" rel="noopener" class="ll-pkg-btn" style="font-size:0.75rem;">Food Bank SA →</a>
+      </div>
+
+      <div class="ll-giving-card">
+        <div class="ll-giving-icon">📚</div>
+        <div class="ll-giving-name">Give Knowledge</div>
+        <div class="ll-giving-desc">Teach what you know. Share what's working. The gift of a skill or a book changes a life — sometimes permanently.</div>
+        <a href="#" class="ll-pkg-btn soon" style="font-size:0.75rem;">Book Donation List →</a>
+      </div>
+
+      <div class="ll-giving-card">
+        <div class="ll-giving-icon">💛</div>
+        <div class="ll-giving-name">Give Your Time</div>
+        <div class="ll-giving-desc">One morning a month. One phone call to someone lonely. Presence is the rarest and most valuable thing you can offer.</div>
+        <a href="https://www.volunteersa.com" target="_blank" rel="noopener" class="ll-pkg-btn" style="font-size:0.75rem;">Find Opportunities →</a>
+      </div>
+
+      <div class="ll-giving-card">
+        <div class="ll-giving-icon">🛍️</div>
+        <div class="ll-giving-name">Buy with Purpose</div>
+        <div class="ll-giving-desc">Every purchase is a vote. Choose makers over corporations. Local over imported. Ethical over convenient. It adds up.</div>
+        <a href="#" class="ll-pkg-btn soon" style="font-size:0.75rem;">Ethical Picks →</a>
+      </div>
+
+      <div class="ll-giving-card">
+        <div class="ll-giving-icon">🙏</div>
+        <div class="ll-giving-name">Give Gratitude</div>
+        <div class="ll-giving-desc">Tell someone what they mean to you. Write the message. Send it. Most people never know the difference they make.</div>
+        <a href="#" class="ll-pkg-btn soon" style="font-size:0.75rem;">Gratitude Template →</a>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <p style="font-family:var(--font-accent);font-style:italic;font-size:1rem;color:rgba(255,255,255,0.5);max-width:520px;margin:0 auto 1.5rem;">
+        "Your life is a blessing. Be a blessing."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER CTA ══ -->
+<section class="ll-sol-footer-cta">
+  <div style="max-width:520px;margin:0 auto;">
+    <p>Not sure which package is right for you? Come back and talk to me.</p>
+    <a href="/space#ikigai" class="ll-pkg-btn gold-btn">Back to the Ikigai Finder →</a>
+  </div>
+</section>
+
+<div class="ll-divider">✦ · ✦ · ✦</div>
+
+<%- include('partials/footer') %>
+
+<script>
+/* ══ Tab switcher ══ */
+function switchTab(name) {
+  document.querySelectorAll('.ll-num-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.ll-num-panel').forEach(function(p) { p.classList.remove('active'); });
+  var tabs = document.querySelectorAll('.ll-num-tab');
+  var map = { 'profile': 0, 'prefs': 1, 'results': 2 };
+  tabs[map[name]].classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+/* ══ Life path preview ══ */
+function calcLifePath() {
+  var d = document.getElementById('nb-dob').value;
+  if (!d) return;
+  var digits = d.replace(/-/g,'').split('').map(Number);
+  var sum = digits.reduce(function(a,b){return a+b;},0);
+  function reduce(n) {
+    if (n === 11 || n === 22 || n === 33) return n;
+    if (n < 10) return n;
+    return reduce(String(n).split('').reduce(function(a,b){return a+Number(b);},0));
+  }
+  var lp = reduce(sum);
+  var names = {1:'The Leader',2:'The Diplomat',3:'The Creator',4:'The Builder',5:'The Adventurer',6:'The Nurturer',7:'The Seeker',8:'The Achiever',9:'The Humanitarian',11:'The Intuitive',22:'The Master Builder',33:'The Master Teacher'};
+  document.getElementById('nb-lifepath-preview').textContent = 'Life Path ' + lp + ' — ' + (names[lp] || '');
+}
+
+/* ══ Chinese zodiac ══ */
+function getZodiac(year) {
+  var animals = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+  return animals[(year - 4) % 12];
+}
+
+function getFriendZodiacs(animal) {
+  var friends = {
+    'Rat': ['Dragon','Monkey'],
+    'Ox': ['Snake','Rooster'],
+    'Tiger': ['Horse','Dog'],
+    'Rabbit': ['Goat','Pig'],
+    'Dragon': ['Rat','Monkey'],
+    'Snake': ['Ox','Rooster'],
+    'Horse': ['Tiger','Dog'],
+    'Goat': ['Rabbit','Pig'],
+    'Monkey': ['Rat','Dragon'],
+    'Rooster': ['Ox','Snake'],
+    'Dog': ['Tiger','Horse'],
+    'Pig': ['Rabbit','Goat']
+  };
+  return friends[animal] || [];
+}
+
+function getFavDirection(lifePath) {
+  var dirs = {1:'North',2:'Southwest',3:'East',4:'Southeast',5:'Center',6:'Northwest',7:'West',8:'Northeast',9:'South',11:'North',22:'Northeast',33:'South'};
+  return dirs[lifePath] || 'East';
+}
+
+/* ══ Main finder ══ */
+function findMyPlaces() {
+  var dob     = document.getElementById('nb-dob').value;
+  var year    = parseInt(document.getElementById('nb-year').value);
+  var climate = document.getElementById('nb-climate').value;
+  var environ = document.getElementById('nb-environ').value;
+  var budget  = document.getElementById('nb-budget').value;
+  var timing  = document.getElementById('nb-timing').value;
+  var priority= document.getElementById('nb-priority').value;
+  var abroad  = document.getElementById('nb-abroad').value;
+  var country = document.getElementById('nb-country').value;
+
+  if (!dob || !year) {
+    alert('Please fill in your date of birth and birth year on Step 1 first.');
+    switchTab('profile'); return;
+  }
+
+  var btn = document.getElementById('findPlacesBtn');
+  btn.disabled = true; btn.textContent = 'Reading the stars... ✦';
+
+  var digits = dob.replace(/-/g,'').split('').map(Number);
+  var sum = digits.reduce(function(a,b){return a+b;},0);
+  function reduce(n) {
+    if (n === 11 || n === 22 || n === 33) return n;
+    if (n < 10) return n;
+    return reduce(String(n).split('').reduce(function(a,b){return a+Number(b);},0));
+  }
+  var lifePath   = reduce(sum);
+  var zodiac     = getZodiac(year);
+  var friends    = getFriendZodiacs(zodiac);
+  var direction  = getFavDirection(lifePath);
+  var currentYear = new Date().getFullYear();
+  var personalYear = reduce(reduce(parseInt(dob.split('-')[2]) + parseInt(dob.split('-')[1]) + currentYear));
+
+  var prompt = "You are a warm, knowledgeable numerology and Chinese astrology consultant helping someone find their ideal place to live. Be specific, warm and practical — not vague.\n\nThe person's details:\n- Life Path Number: " + lifePath + "\n- Chinese Zodiac: " + zodiac + " (friend signs: " + friends.join(', ') + ")\n- Favourable direction: " + direction + "\n- Personal Year Number (current): " + personalYear + "\n- Climate preference: " + climate + "\n- Environment: " + environ + "\n- Budget: " + budget + "\n- Open to moving abroad: " + abroad + "\n- Current country: " + country + "\n- Priority in new home: " + priority + "\n- Timing feeling: " + timing + "\n\nProvide:\n1. A brief (3-4 sentence) reading of their numerology + zodiac for relocation — warm and specific\n2. Whether " + currentYear + " (Personal Year " + personalYear + ") is a favourable year to move for them\n3. Their ideal address number (based on life path)\n4. Then list exactly 3 specific REAL cities or towns that match their profile. For each give: city name, country, why numerologically/astrologically aligned, one sentence on climate/lifestyle match. Format each city as: CITY NAME | COUNTRY | Numerology reason | Lifestyle note\n\nBe warm and specific. No generic advice. Make them feel seen.";
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    btn.disabled = false; btn.textContent = 'Find My Places ✦';
+    var reply = (data.content && data.content[0]) ? data.content[0].text : 'Something got lost in translation — try again.';
+
+    // Parse city blocks out
+    var lines = reply.split('\n');
+    var cityLines = lines.filter(function(l) { return l.includes('|') && l.split('|').length >= 3; });
+    var narrative = reply;
+
+    // Remove city lines from narrative for cleaner display
+    cityLines.forEach(function(cl) { narrative = narrative.replace(cl, ''); });
+    narrative = narrative.replace(/\n{3,}/g, '\n\n').trim();
+
+    document.getElementById('nb-text').textContent = narrative;
+
+    var citiesEl = document.getElementById('nb-cities');
+    citiesEl.innerHTML = '';
+    cityLines.forEach(function(cl) {
+      var parts = cl.split('|').map(function(s) { return s.trim(); });
+      var cityName    = parts[0] || '';
+      var cityCountry = parts[1] || '';
+      var numReason   = parts[2] || '';
+      var lifeNote    = parts[3] || '';
+
+      // Build Zillow / Property24 search URL
+      var searchQuery = encodeURIComponent(cityName + ', ' + cityCountry);
+      var propLink = (country === 'ZA')
+        ? 'https://www.property24.com/property-for-sale/' + cityName.toLowerCase().replace(/\s+/g,'-')
+        : 'https://www.zillow.com/homes/' + searchQuery + '_rb/';
+
+      var card = document.createElement('div');
+      card.className = 'll-num-city';
+      card.innerHTML = '<div class="ll-num-city-name">' + cityName + '</div>' +
+        '<div class="ll-num-city-detail">' + cityCountry + '</div>' +
+        '<div class="ll-num-city-detail" style="margin-top:0.35rem;">' + numReason + '</div>' +
+        '<div class="ll-num-city-detail" style="margin-top:0.25rem;font-style:italic;">' + lifeNote + '</div>' +
+        '<a href="' + propLink + '" target="_blank" rel="noopener" class="ll-num-city-link">Browse Properties →</a>';
+      citiesEl.appendChild(card);
+    });
+
+    switchTab('results');
+  })
+  .catch(function() {
+    btn.disabled = false; btn.textContent = 'Find My Places ✦';
+    document.getElementById('nb-text').textContent = 'Something got lost in the stars — check your connection and try again.';
+    switchTab('results');
+  });
+}
+</script>
