@@ -151,6 +151,10 @@ app.get('/about', function(req, res) {
   res.render('about', { user: req.session && req.session.user ? req.session.user : null });
 });
 
+app.get('/solutions', function(req, res) {
+  res.render('solutions', { user: req.session && req.session.user ? req.session.user : null });
+});
+
 app.get('/shop', function(req, res) {
   var brand = req.query.brand || 'all';
   var query = brand === 'all'
