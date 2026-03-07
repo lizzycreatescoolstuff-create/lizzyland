@@ -8,9 +8,9 @@
 <style>
   /* ── Hero ── */
   .ll-w-hero {
-    position: relative; min-height: 300px;
-    display: flex; align-items: flex-end; overflow: hidden;
-    background: var(--warm-dark);
+    position: relative; min-height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: var(--warm-dark);
   }
   .ll-w-hero-img {
     position: absolute; inset: 0; width: 100%; height: 100%;
@@ -18,11 +18,11 @@
   }
   .ll-w-hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(45,27,14,0.88) 0%, rgba(92,61,30,0.4) 55%, rgba(200,149,42,0.06) 100%);
+    background: linear-gradient(to top, rgba(45,27,14,0.82) 0%, rgba(92,61,30,0.35) 55%, rgba(200,149,42,0.06) 100%);
   }
   .ll-w-hero-inner {
     position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;
-    width: 100%; padding: 2.5rem 2rem; color: var(--white);
+    width: 100%; padding: 2.5rem 2rem; color: var(--white); text-align: center;
   }
   .ll-w-hero-eyebrow {
     font-family: var(--font-accent); font-style: italic;
@@ -32,11 +32,11 @@
   .ll-w-hero-inner h1 {
     font-family: var(--font-display); font-size: clamp(2rem,5vw,3.2rem);
     color: var(--white); margin: 0 0 0.4rem;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
   }
   .ll-w-hero-inner p {
     font-family: var(--font-accent); font-style: italic;
-    font-size: 1.05rem; color: rgba(255,255,255,0.72); margin: 0;
+    font-size: 1.05rem; color: rgba(255,255,255,0.75); margin: 0;
   }
 
   /* ── Intro ── */
@@ -309,7 +309,7 @@
 
 <!-- ══ HERO ══ -->
 <section class="ll-w-hero">
-  <img src="/images/wealth-banner.jpg" alt="Wealth — Your Abundant Life" class="ll-w-hero-img" onerror="this.style.display='none'">
+  <img src="/images/space-banner.jpg" alt="Wealth — Your Abundant Life" class="ll-w-hero-img" onerror="this.style.display='none'">
   <div class="ll-w-hero-overlay"></div>
   <div class="ll-w-hero-inner">
     <div class="ll-w-hero-eyebrow">✦ Door Two · Wealth ✦</div>
