@@ -1,6 +1,6 @@
 # 🌴 Lizzyland
 
-**Where Pipe-dreams Come True.**
+La Dolce Vita
 
 ## Setup
 
