@@ -1,0 +1,544 @@
+<%
+  var pageTitle   = 'The Nest — Lizzyland';
+  var pageDesc    = 'Your space is always speaking. Make it say something beautiful.';
+  var currentPage = 'nest';
+%>
+<%- include('partials/header') %>
+
+<style>
+  /* ── Hero ── */
+  .ll-nest-hero {
+    position: relative; min-height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: var(--ocean);
+  }
+  .ll-nest-hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 40%;
+  }
+  .ll-nest-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(45,27,14,0.82) 0%, rgba(26,138,122,0.3) 55%, rgba(200,149,42,0.08) 100%);
+  }
+  .ll-nest-hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    width: 100%; padding: 2.5rem 2rem; color: var(--white);
+    text-align: center;
+  }
+  .ll-nest-hero-eyebrow {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 0.9rem; color: var(--gold-light);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0.8; margin-bottom: 0.4rem;
+  }
+  .ll-nest-hero-inner h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--white); margin: 0 0 0.4rem;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+  .ll-nest-hero-inner p {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.1rem; color: rgba(255,255,255,0.85) !important; margin: 0;
+  }
+
+  /* ── Intro ── */
+  .ll-nest-intro {
+    padding: 4rem 2rem 3rem;
+    background: var(--sand-light); text-align: center;
+  }
+  .ll-nest-intro-inner { max-width: 720px; margin: 0 auto; }
+  .ll-nest-intro h2 {
+    font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--warm-dark); margin-bottom: 1.25rem; font-weight: 600;
+  }
+  .ll-nest-lead {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.15rem; color: var(--text-soft); line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+  .ll-nest-lead-body {
+    font-size: 0.97rem; color: var(--text-soft);
+    line-height: 2; max-width: 580px; margin: 0 auto;
+  }
+
+  /* ── Magazine sections ── */
+  .ll-nest-section { padding: 2.8rem 2rem; }
+  .ll-nest-section:nth-child(odd)  { background: var(--cream); }
+  .ll-nest-section:nth-child(even) { background: var(--sand-light); }
+
+  .ll-nest-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .ll-nest-inner.reverse { direction: rtl; }
+  .ll-nest-inner.reverse > * { direction: ltr; }
+
+  .ll-nest-img-block { display: flex; flex-direction: column; }
+  .ll-nest-img {
+    width: 100%; border-radius: var(--radius-md);
+    object-fit: cover; aspect-ratio: 4/5;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+    display: block;
+  }
+  .ll-nest-caption {
+    margin-top: 0.85rem;
+    padding: 0.75rem 1rem;
+    background: rgba(26,138,122,0.06);
+    border-left: 2px solid var(--ocean);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.76rem; font-style: italic;
+    color: var(--text-muted); line-height: 1.65;
+  }
+
+  .ll-nest-eyebrow {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--gold); margin-bottom: 0.75rem;
+  }
+  .ll-nest-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--warm-dark); font-weight: 600;
+    line-height: 1.15; margin-bottom: 0.6rem;
+  }
+  .ll-nest-tagline {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1.1rem; color: var(--ocean);
+    margin-bottom: 1.5rem; line-height: 1.5;
+  }
+  .ll-nest-body {
+    font-size: 0.97rem; color: var(--text-soft);
+    line-height: 2; margin-bottom: 1.75rem;
+  }
+  .ll-nest-body p { margin: 0 0 0.85rem; }
+  .ll-nest-body p:last-child { margin-bottom: 0; }
+
+  .ll-nest-benefits {
+    list-style: none; margin-bottom: 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 1.5rem;
+  }
+  .ll-nest-benefits li {
+    font-size: 0.85rem; color: var(--text-soft);
+    padding: 0.3rem 0; border-bottom: 1px solid var(--sand-deep);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .ll-nest-benefits li::before { content: '✦'; color: var(--gold); font-size: 0.55rem; flex-shrink: 0; }
+
+  .ll-nest-cta {
+    display: inline-block; background: var(--ocean);
+    color: var(--white) !important; padding: 0.8rem 2.2rem;
+    border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.04em; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .ll-nest-cta:hover { background: var(--gold); transform: translateY(-2px); }
+
+  /* ── Free solves strip ── */
+  .ll-nest-freesolves {
+    padding: 3.5rem 2rem;
+    background: linear-gradient(135deg, var(--ocean) 0%, #0d6b5e 100%);
+  }
+  .ll-nest-freesolves-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .ll-nest-freesolves-eyebrow {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--gold-light); margin-bottom: 1rem;
+  }
+  .ll-nest-freesolves h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--white); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .ll-nest-freesolves-intro {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1rem; color: rgba(255,255,255,0.8);
+    max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.85;
+  }
+  .ll-nest-tips-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem; text-align: left;
+  }
+  .ll-nest-tip-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.25rem;
+  }
+  .ll-nest-tip-number {
+    font-family: var(--font-display);
+    font-size: 1.6rem; color: var(--gold-light);
+    opacity: 0.5; font-weight: 700;
+    display: block; margin-bottom: 0.4rem; line-height: 1;
+  }
+  .ll-nest-tip-title {
+    font-family: var(--font-display);
+    font-size: 1rem; color: var(--white);
+    font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .ll-nest-tip-body {
+    font-size: 0.84rem; color: rgba(255,255,255,0.72);
+    line-height: 1.75;
+  }
+
+  /* ── Philosophy strip ── */
+  .ll-nest-philosophy {
+    padding: 3rem 2rem;
+    background: var(--sand-light);
+    text-align: center;
+  }
+  .ll-nest-philosophy-inner { max-width: 620px; margin: 0 auto; }
+  .ll-philosophy-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+    color: var(--warm-dark); line-height: 1.9; margin-bottom: 0.75rem;
+  }
+  .ll-philosophy-byline {
+    font-family: var(--font-display); font-size: 1rem;
+    color: var(--gold); font-style: italic;
+  }
+
+  /* ── Door bridges ── */
+  .ll-door-bridges {
+    padding: 3rem 2rem;
+    background: var(--cream);
+    text-align: center;
+  }
+  .ll-door-bridges-intro {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 1rem; color: var(--text-soft);
+    margin-bottom: 2rem;
+  }
+  .ll-door-bridge-grid {
+    max-width: 700px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .ll-door-bridge-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 1.5rem;
+    text-decoration: none;
+    border: 1px solid var(--sand-deep);
+    transition: all 0.25s;
+    display: block;
+  }
+  .ll-door-bridge-card:hover {
+    border-color: var(--ocean);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(26,138,122,0.12);
+  }
+  .ll-door-bridge-arrow {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .ll-door-bridge-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem; color: var(--warm-dark);
+    font-weight: 600; margin-bottom: 0.4rem;
+  }
+  .ll-door-bridge-desc {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 0.85rem; color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── Affiliate disclosure ── */
+  .ll-affiliate-disclosure {
+    padding: 1.25rem 2rem;
+    background: var(--cream);
+    text-align: center;
+  }
+  .ll-affiliate-disclosure p {
+    font-size: 0.72rem; color: var(--text-muted);
+    font-style: italic; max-width: 600px;
+    margin: 0 auto; line-height: 1.6;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .ll-nest-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .ll-nest-inner.reverse { direction: ltr; }
+    .ll-nest-benefits { grid-template-columns: 1fr; }
+    .ll-nest-img { aspect-ratio: 16/9; }
+    .ll-nest-tips-grid { grid-template-columns: 1fr; }
+    .ll-door-bridge-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- ══ HERO ══ -->
+<section class="ll-nest-hero">
+  <img src="/images/nest-banner.jpg" alt="The Nest — Make Your Space Beautiful" class="ll-nest-hero-img" onerror="this.style.display='none'">
+  <div class="ll-nest-hero-overlay"></div>
+  <div class="ll-nest-hero-inner">
+    <div class="ll-nest-hero-eyebrow">✦ Happiness · Your Environment ✦</div>
+    <h1>The Nest.</h1>
+    <p>Your space is always speaking. Make it say something beautiful.</p>
+  </div>
+</section>
+
+<!-- ══ INTRO ══ -->
+<section class="ll-nest-intro">
+  <div class="ll-nest-intro-inner">
+    <h2>Your home is not a backdrop.<br>It is a mood you live inside of.</h2>
+    <p class="ll-nest-lead">
+      In feng shui, your environment is considered a third skin —<br>
+      after your body and your clothing, the space around you<br>
+      is always in conversation with your energy.
+    </p>
+    <p class="ll-nest-lead-body">
+      This is not about expensive renovations or starting over.<br><br>
+      It is about noticing what your home is already saying — and gently, intentionally, 
+      beginning to let it say something better.<br><br>
+      Light. Texture. Flow. A surface cleared. A window dressed.<br>
+      The small acts of curation that tell your nervous system: <em>this is a beautiful life.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ══ 1: LINEN CURTAINS ══ -->
+<section class="ll-nest-section">
+  <div class="ll-nest-inner">
+    <div class="ll-nest-img-block">
+      <img src="/images/joydeco-linen-curtains.webp" alt="JoyDeco Linen Light-Filtering Curtains" class="ll-nest-img" loading="lazy">
+      <p class="ll-nest-caption">In feng shui, windows are the eyes of the home. How you dress them determines how energy — and light — enters your life. Linen is considered the ideal window fabric: it softens without blocking, filters without hiding, and breathes with the room rather than against it.</p>
+    </div>
+    <div class="ll-nest-content">
+      <div class="ll-nest-eyebrow">Light</div>
+      <h2 class="ll-nest-title">Linen Curtains</h2>
+      <p class="ll-nest-tagline">The light that enters your home is the first thing that sets the mood.</p>
+      <div class="ll-nest-body">
+        <p>You wake up and the room is already telling you something.</p>
+        <p>Harsh, unfiltered morning light — and something in you braces before the day has even started. But soft, golden, diffused light through linen — and the room holds you a little longer.</p>
+        <p>This is not a small thing. This is your nervous system, reading its environment before you've had a single thought.</p>
+        <p>Natural linen softens without hiding. It lets the warmth in, quietly, on your terms. Floor-to-ceiling fabric elongates a room, creates volume, says <em>there is space here.</em></p>
+        <p>Hang them high. Let them pool slightly. This is the easiest luxury you will ever buy.</p>
+      </div>
+      <ul class="ll-nest-benefits">
+        <li>Natural linen — breathes with the room</li>
+        <li>Diffuses light without blocking it</li>
+        <li>Elongates walls — instant height</li>
+        <li>Custom sizing — made to your window</li>
+        <li>Coastal &amp; minimalist styles available</li>
+        <li>Opens the feng shui energy of windows</li>
+      </ul>
+      <!-- JOYDECO AFFILIATE LINK — replace YOUR_REF with AWIN tracking ref once live -->
+      <a href="https://joydeco.com/collections/linen-curtains?ref=YOUR_REF" class="ll-nest-cta" target="_blank" rel="noopener">Shop Linen Curtains →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2: BLACKOUT BEDROOM CURTAINS ══ -->
+<section class="ll-nest-section">
+  <div class="ll-nest-inner reverse">
+    <div class="ll-nest-img-block">
+      <img src="/images/joydeco-blackout-curtains.webp" alt="JoyDeco Blackout Bedroom Curtains" class="ll-nest-img" loading="lazy">
+      <p class="ll-nest-caption">Complete darkness during sleep suppresses cortisol and allows full melatonin production. Studies show even small amounts of ambient light — a street lamp through thin curtains — reduce deep sleep quality by up to 50%. The bedroom is a sanctuary. Treat it like one.</p>
+    </div>
+    <div class="ll-nest-content">
+      <div class="ll-nest-eyebrow">Rest</div>
+      <h2 class="ll-nest-title">Blackout Curtains</h2>
+      <p class="ll-nest-tagline">The bedroom does one job. Make sure your curtains know that.</p>
+      <div class="ll-nest-body">
+        <p>The sleep sanctuary begins before you get into bed.</p>
+        <p>In feng shui, the bedroom is the most energetically protected room in the home — a space that belongs only to rest, restoration, and intimacy. Nothing chaotic enters here.</p>
+        <p>Light is chaotic. The street lamp. The neighbour's porch. The blue dawn at 5am when your body isn't ready.</p>
+        <p>True blackout is one of the highest-value upgrades you can make to your sleep — and it happens to be one of the most beautiful ones too. Velvet and thermal blackout in deep, rich tones. The room that means business.</p>
+        <p>Close them. The world will still be there in the morning.</p>
+      </div>
+      <ul class="ll-nest-benefits">
+        <li>Full blackout — no light bleed at edges</li>
+        <li>Thermal insulation — cooler in summer, warmer in winter</li>
+        <li>Sound dampening for lighter sleepers</li>
+        <li>Velvet &amp; rich fabric options</li>
+        <li>Custom sized to your bedroom window</li>
+        <li>Deepens sleep quality measurably</li>
+      </ul>
+      <!-- JOYDECO AFFILIATE LINK — replace YOUR_REF with AWIN tracking ref once live -->
+      <a href="https://joydeco.com/collections/blackout-curtains?ref=YOUR_REF" class="ll-nest-cta" target="_blank" rel="noopener">Shop Blackout Curtains →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3: ROMAN SHADES ══ -->
+<section class="ll-nest-section">
+  <div class="ll-nest-inner">
+    <div class="ll-nest-img-block">
+      <img src="/images/joydeco-roman-shades.webp" alt="JoyDeco Custom Roman Shades" class="ll-nest-img" loading="lazy">
+      <p class="ll-nest-caption">Roman shades are one of the oldest window treatments in recorded history — used in ancient Rome to filter dust from the Colosseum. Their clean horizontal fold creates visual order and calm, which feng shui associates with mental clarity and reduced decision fatigue.</p>
+    </div>
+    <div class="ll-nest-content">
+      <div class="ll-nest-eyebrow">Order</div>
+      <h2 class="ll-nest-title">Roman Shades</h2>
+      <p class="ll-nest-tagline">Clean lines. A room that thinks straight.</p>
+      <div class="ll-nest-body">
+        <p>There is a reason a beautifully styled room feels easier to be in.</p>
+        <p>Visual noise — the tangle of mismatched fabrics, the cheap horizontal blind, the curtain rail that's been wrong since you moved in — registers as stress. Not consciously. Just quietly, constantly, underneath everything else.</p>
+        <p>Roman shades are the editing of a room. They fold flat, sit neat, control light precisely. They are the clean line that lets the rest of the space breathe.</p>
+        <p>In a kitchen, a study, a reading corner — where curtains feel like too much and a bare window feels like too little — the Roman shade is always the answer.</p>
+        <p>Order your space. Order your mind.</p>
+      </div>
+      <ul class="ll-nest-benefits">
+        <li>Clean architectural fold — visual calm</li>
+        <li>Light filtering &amp; blackout options</li>
+        <li>Cordless &amp; motorised available</li>
+        <li>Perfect for kitchens, studies &amp; small spaces</li>
+        <li>Custom sized — no gaps, no guessing</li>
+        <li>Linen, cotton &amp; blended fabrics</li>
+      </ul>
+      <!-- JOYDECO AFFILIATE LINK — replace YOUR_REF with AWIN tracking ref once live -->
+      <a href="https://joydeco.com/collections/roman-shades-1?ref=YOUR_REF" class="ll-nest-cta" target="_blank" rel="noopener">Shop Roman Shades →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FREE SOLVES STRIP ══ -->
+<section class="ll-nest-freesolves">
+  <div class="ll-nest-freesolves-inner">
+    <div class="ll-nest-freesolves-eyebrow">✦ Free Solves · Feng Shui Your Space ✦</div>
+    <h2>Six things you can do today.<br>For free. Right now.</h2>
+    <p class="ll-nest-freesolves-intro">
+      You don't need to redecorate. You need to edit.<br>
+      Feng shui is not mystical — it is the art of intentional arrangement.<br>
+      Here is where to start.
+    </p>
+    <div class="ll-nest-tips-grid">
+      <div class="ll-nest-tip-card">
+        <span class="ll-nest-tip-number">01</span>
+        <div class="ll-nest-tip-title">Clear the entry</div>
+        <p class="ll-nest-tip-body">In feng shui, the entrance is where all energy enters. One cleared, welcoming surface changes the feeling of your whole home. Remove what doesn't belong there. It takes six minutes.</p>
+      </div>
+      <div class="ll-nest-tip-card">
+        <span class="ll-nest-tip-number">02</span>
+        <div class="ll-nest-tip-title">Dress your windows</div>
+        <p class="ll-nest-tip-body">Bare windows are an unfinished sentence. Even a simple sheer — the softening of the light — changes the energy of a room from transient to intentional. You are staying. You are making it yours.</p>
+      </div>
+      <div class="ll-nest-tip-card">
+        <span class="ll-nest-tip-number">03</span>
+        <div class="ll-nest-tip-title">One beautiful thing</div>
+        <p class="ll-nest-tip-body">Charity shops. Markets. Your own forgotten shelf. Find one beautiful object and give it a place of honour. Your home should contain things that make you feel something when you see them.</p>
+      </div>
+      <div class="ll-nest-tip-card">
+        <span class="ll-nest-tip-number">04</span>
+        <div class="ll-nest-tip-title">Ground the room with a rug</div>
+        <p class="ll-nest-tip-body">In feng shui, a rug anchors the energy of a space and defines intention. A floating sofa with nothing underneath it says the room hasn't decided what it is. A rug says: this is a place where we land.</p>
+      </div>
+      <div class="ll-nest-tip-card">
+        <span class="ll-nest-tip-number">05</span>
+        <div class="ll-nest-tip-title">Add one living thing</div>
+        <p class="ll-nest-tip-body">A plant. Even a small one. Living energy in a space — something breathing, growing — shifts the entire atmosphere. A pothos. A palm. A single stem of eucalyptus in a glass of water. That is enough.</p>
+      </div>
+      <div class="ll-nest-tip-card">
+        <span class="ll-nest-tip-number">06</span>
+        <div class="ll-nest-tip-title">Light something</div>
+        <p class="ll-nest-tip-body">A candle in the evening is one of the oldest signals humans have used to mark the shift from day to rest. It tells your nervous system: this part of the day is different. It costs almost nothing. It changes everything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4: RUGS ══ -->
+<section class="ll-nest-section">
+  <div class="ll-nest-inner reverse">
+    <div class="ll-nest-img-block">
+      <img src="/images/joydeco-rug.webp" alt="JoyDeco Area Rug" class="ll-nest-img" loading="lazy">
+      <p class="ll-nest-caption">In classical feng shui, a rug represents Earth energy — the element of stability, nourishment and groundedness. A room without a rug is energetically unanchored. Place it so all furniture legs touch the edge, or at minimum the front legs: this connects each piece to the room's foundation.</p>
+    </div>
+    <div class="ll-nest-content">
+      <div class="ll-nest-eyebrow">Ground</div>
+      <h2 class="ll-nest-title">Area Rugs</h2>
+      <p class="ll-nest-tagline">A room without a rug is a room that hasn't committed.</p>
+      <div class="ll-nest-body">
+        <p>There is a reason a well-rugged room feels so much more like a home.</p>
+        <p>It is not just warmth, though there is warmth. It is not just softness underfoot, though that matters too. It is that a rug makes a decision. It says: this is the room. This is where we gather. This is where we land.</p>
+        <p>Floating furniture — a sofa with nothing underneath, a table hovering — registers as unsettled. As temporary. As not quite arrived.</p>
+        <p>A rug grounds your space. It absorbs sound, defines zones, adds the layer of texture that a room needs to feel finished. Not decorated. Finished.</p>
+        <p>This is the foundation. Everything else sits on top of it.</p>
+      </div>
+      <ul class="ll-nest-benefits">
+        <li>Anchors furniture &amp; defines zones</li>
+        <li>Absorbs sound — quieter, calmer rooms</li>
+        <li>Adds warmth underfoot &amp; visually</li>
+        <li>Natural &amp; blended fibre options</li>
+        <li>Multiple sizes — from accent to room-sized</li>
+        <li>Earths the feng shui energy of any space</li>
+      </ul>
+      <!-- JOYDECO AFFILIATE LINK — replace YOUR_REF with AWIN tracking ref once live -->
+      <a href="https://joydeco.com/collections/rugs-1?ref=YOUR_REF" class="ll-nest-cta" target="_blank" rel="noopener">Shop Area Rugs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5: THROWS ══ -->
+<section class="ll-nest-section">
+  <div class="ll-nest-inner">
+    <div class="ll-nest-img-block">
+      <img src="/images/joydeco-throw.webp" alt="JoyDeco Throw Blanket" class="ll-nest-img" loading="lazy">
+      <p class="ll-nest-caption">Texture is the most underestimated element of interior design. The human eye reads textural contrast as depth and warmth — a monochromatic room with varied textures reads as more sophisticated than a colourful room with flat, uniform surfaces. A throw does more visual work than most people realise.</p>
+    </div>
+    <div class="ll-nest-content">
+      <div class="ll-nest-eyebrow">Layer</div>
+      <h2 class="ll-nest-title">Throws &amp; Blankets</h2>
+      <p class="ll-nest-tagline">The finishing touch that makes a room say: stay a while.</p>
+      <div class="ll-nest-body">
+        <p>A sofa without a throw is a sofa waiting to be used.</p>
+        <p>A sofa with a throw — folded just so, or draped loosely, or pooled at one end — is an invitation. Come. Sit. Stay a while. There is warmth here, and softness, and no reason to be anywhere else.</p>
+        <p>A throw is the last five percent of a room. The thing that takes it from furnished to felt. From styled to lived in.</p>
+        <p>It is also the easiest seasonal refresh you own. Summer: linen, cream, light. Winter: chunky weave, warm tone, weight. One piece. Entire mood shift.</p>
+        <p>Drape it. The room will thank you.</p>
+      </div>
+      <ul class="ll-nest-benefits">
+        <li>Adds texture — the most underrated design move</li>
+        <li>Transforms a sofa from functional to inviting</li>
+        <li>Easy seasonal refresh — light or heavy</li>
+        <li>Natural cotton &amp; woven options</li>
+        <li>Coordinates with rugs &amp; curtain ranges</li>
+        <li>The finishing touch every room needs</li>
+      </ul>
+      <!-- JOYDECO AFFILIATE LINK — replace YOUR_REF with AWIN tracking ref once live -->
+      <a href="https://joydeco.com/collections/blanket-1?ref=YOUR_REF" class="ll-nest-cta" target="_blank" rel="noopener">Shop Throws &amp; Blankets →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHILOSOPHY STRIP ══ -->
+<section class="ll-nest-philosophy">
+  <div class="ll-nest-philosophy-inner">
+    <div class="ll-philosophy-quote">
+      You don't need more things.<br>
+      You need the right things, in the right places,<br>
+      telling you the right story.
+    </div>
+    <p class="ll-philosophy-byline">— Lizzy</p>
+  </div>
+</section>
+
+<!-- ══ DOOR BRIDGES ══ -->
+<section class="ll-door-bridges">
+  <p class="ll-door-bridges-intro">The space is beautiful. Now — what's next?</p>
+  <div class="ll-door-bridge-grid">
+    <a href="/shop" class="ll-door-bridge-card">
+      <div class="ll-door-bridge-arrow">← Back to Happiness</div>
+      <div class="ll-door-bridge-title">Adorn Yourself</div>
+      <p class="ll-door-bridge-desc">Clothing, yachts, villas. The rest of the joyful life.</p>
+    </a>
+    <a href="/solutions" class="ll-door-bridge-card">
+      <div class="ll-door-bridge-arrow">→ The Solutions Room</div>
+      <div class="ll-door-bridge-title">The Full Overhaul</div>
+      <p class="ll-door-bridge-desc">If this page resonated, I think I know what you need next.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ══ AFFILIATE DISCLOSURE ══ -->
+<section class="ll-affiliate-disclosure">
+  <p>Some links on this page are affiliate links. If something calls to you, I may earn a small commission — at no cost to you, ever.</p>
+</section>
+
+<div class="ll-divider">✦ · ✦ · ✦</div>
+
+<%- include('partials/footer') %>
