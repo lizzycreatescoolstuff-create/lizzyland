@@ -306,16 +306,16 @@ p { color: var(--text-soft); line-height: 1.8; }
 }
 
 .path-space .ll-path-cta {
-  background: var(--ocean);
+  background: var(--warm-dark);
   color: var(--white);
 }
-.path-space .ll-path-cta:hover { background: var(--ocean-light); color: var(--warm-dark); }
+.path-space .ll-path-cta:hover { background: var(--gold); color: var(--white); }
 
 .path-shop .ll-path-cta {
-  background: var(--coral);
+  background: var(--gold);
   color: var(--white);
 }
-.path-shop .ll-path-cta:hover { background: var(--gold); color: var(--warm-dark); }
+.path-shop .ll-path-cta:hover { background: var(--warm-dark); color: var(--white); }
 
 /* ─── About Lizzy ───────────────────────────────── */
 
@@ -666,7 +666,7 @@ p { color: var(--text-soft); line-height: 1.8; }
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--ocean);
+  background: var(--warm-dark);
   color: var(--white);
   border: none;
   font-size: 1.3rem;
@@ -678,7 +678,7 @@ p { color: var(--text-soft); line-height: 1.8; }
   font-weight: 300;
 }
 
-.ll-add-btn:hover { background: var(--coral); transform: scale(1.1); }
+.ll-add-btn:hover { background: var(--gold); transform: scale(1.1); }
 
 /* Loading state */
 .ll-loading {
@@ -1318,17 +1318,17 @@ p { color: var(--text-soft); line-height: 1.8; }
 }
 
 .ll-door-cta-health {
-  background: #e8f5f2;
-  color: var(--ocean);
-  border: 2px solid var(--ocean);
+  background: var(--sand-light);
+  color: var(--warm-dark);
+  border: 2px solid var(--warm-dark);
 }
 .ll-door-card.ll-door-health:hover .ll-door-cta-health {
-  background: var(--ocean);
+  background: var(--warm-dark);
   color: var(--white);
 }
 
 .ll-door-cta-wealth {
-  background: #fdf3e3;
+  background: var(--sand-light);
   color: var(--gold);
   border: 2px solid var(--gold);
 }
@@ -1338,12 +1338,12 @@ p { color: var(--text-soft); line-height: 1.8; }
 }
 
 .ll-door-cta-happy {
-  background: #e8f5f2;
-  color: var(--ocean);
-  border: 2px solid var(--ocean);
+  background: var(--sand-light);
+  color: var(--warm-dark);
+  border: 2px solid var(--warm-dark);
 }
 .ll-door-card.ll-door-happy:hover .ll-door-cta-happy {
-  background: var(--ocean);
+  background: var(--warm-dark);
   color: var(--white);
 }
 
@@ -1502,7 +1502,7 @@ p { color: var(--text-soft); line-height: 1.8; }
 
 .ll-health-cta {
   display: inline-block;
-  background: var(--ocean);
+  background: var(--warm-dark);
   color: var(--white) !important;
   padding: 0.7rem 1.8rem;
   border-radius: 50px;
@@ -1613,12 +1613,12 @@ p { color: var(--text-soft); line-height: 1.8; }
 }
 
 .ll-back-home {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--warm-dark);
+  color: var(--warm-dark);
 }
 
 .ll-back-home:hover {
-  background: var(--gold);
+  background: var(--warm-dark);
   color: var(--white);
 }
 
