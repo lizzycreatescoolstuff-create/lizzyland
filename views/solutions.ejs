@@ -13,9 +13,14 @@
     overflow: hidden;
     background: linear-gradient(160deg, #0d1a14 0%, #0a2218 50%, #0d1a14 100%);
   }
+  .ll-sol-hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 45%;
+  }
   .ll-sol-hero-overlay {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, rgba(200,149,42,0.08) 0%, transparent 70%);
+    background: linear-gradient(to top, rgba(10,20,16,0.88) 0%, rgba(10,20,16,0.5) 55%, rgba(0,0,0,0.25) 100%);
   }
   .ll-sol-hero-inner {
     position: relative; z-index: 2; text-align: center;
@@ -267,6 +272,7 @@
 
 <!-- ══ HERO ══ -->
 <section class="ll-sol-hero">
+  <img src="/images/beach-banner-alt.webp" alt="Solutions — Lizzyland" class="ll-sol-hero-img" onerror="this.style.display='none'">
   <div class="ll-sol-hero-overlay"></div>
   <div class="ll-sol-hero-inner">
     <div class="ll-sol-hero-eyebrow">✦ Your Prescription ✦</div>
@@ -599,6 +605,20 @@
       </div>
 
     </div>
+
+    <!-- ✦ THE NEST — Featured callout ✦ -->
+    <div style="margin-top:2.5rem;padding:2.5rem;background:linear-gradient(135deg,rgba(200,149,42,0.08),rgba(26,138,122,0.06));border:1px solid var(--sand-deep);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:240px;">
+        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;color:var(--gold);margin-bottom:0.5rem;">✦ Environment · JoyDeco via AWIN ✦</div>
+        <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--warm-dark);font-weight:600;margin-bottom:0.4rem;">Make Your Space Beautiful</div>
+        <p style="font-family:var(--font-accent);font-style:italic;font-size:0.95rem;color:var(--text-soft);line-height:1.75;margin:0;">
+          Linen curtains. Custom shades. Rugs that ground a room. Feng shui free tips.
+          Your environment is always speaking — The Nest is where you teach it what to say.
+        </p>
+      </div>
+      <a href="/nest" style="display:inline-block;background:var(--ocean);color:var(--white);padding:0.8rem 2rem;border-radius:50px;font-weight:600;font-size:0.88rem;text-decoration:none;white-space:nowrap;flex-shrink:0;">Go to The Nest →</a>
+    </div>
+
   </div>
 </section>
 
